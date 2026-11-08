@@ -21,6 +21,7 @@ previews/<app>/       a sample file, a render.sh and the screenshots
 ## Steps
 
 1. **Write the module** `themes/<app>.py`, with `export(pals, dist)` and `GUIDE`. Copy the nearest existing port: `themes/wezterm.py` (a config module) or `themes/vim.py` (a colorscheme). `themes/_hl.py` has highlight groups shared by Vim and Neovim.
+   `themes/_textmate.py` maps syntax scopes once for bat and delta; delta adds native Git-config features. Delta's native custom-syntax installation needs bat to build the shared cache, but not at runtime. Both ports ship the same generated syntax files, so installing either set suffices.
 2. **Map the tokens** using the table below.
 3. **Build and test it in the real app**, dark and light. Write down the version you tested in `GUIDE["tested"]`.
 4. **Add a preview**: `previews/<app>/` with a short sample file, a `render.sh` (copy `previews/vim/render.sh`) and the screenshots.
