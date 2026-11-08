@@ -4,6 +4,7 @@
 # eza shots need eza 0.23.5+ (or EZA=/path/to/eza) on Linux.
 # bat/delta shots need compatible bat and delta (or BAT=... and DELTA=...).
 # lazygit shots also need lazygit 0.66.3 and tmux (or LAZYGIT=...).
+# fzf shots need fzf 0.75.0, bat and tmux (or FZF=... and BAT=...).
 # Run one app only:  ./previews/vim/render.sh
 set -eu
 cd "$(dirname "$0")/.."
