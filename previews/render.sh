@@ -3,6 +3,7 @@
 # Needs python3 and brave-browser (headless). Neovim shots also need NVIM=/path/to/nvim;
 # eza shots need eza 0.23.5+ (or EZA=/path/to/eza) on Linux.
 # bat/delta shots need compatible bat and delta (or BAT=... and DELTA=...).
+# lazygit shots also need lazygit 0.66.3 and tmux (or LAZYGIT=...).
 # Run one app only:  ./previews/vim/render.sh
 set -eu
 cd "$(dirname "$0")/.."

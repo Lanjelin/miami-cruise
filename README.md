@@ -61,6 +61,7 @@ Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. E
 | Web / CSS | [`dist/web`](dist/web) | Stable. The project's own website is built on it |
 | bat | [`dist/bat`](dist/bat) | Beta. Tested with bat 0.26.1 on Linux; macOS and Windows not tested |
 | delta | [`dist/delta`](dist/delta) | Beta. Tested with delta 0.20.1 and bat 0.26.1 on Linux; macOS and Windows not tested |
+| lazygit | [`dist/lazygit`](dist/lazygit) | Beta. Tested with lazygit 0.66.3 on Linux; macOS and Windows not tested |
 | Design tokens | [`dist/tokens`](dist/tokens) | Design tokens as JSON |
 <!-- apps:end -->
 
