@@ -1,0 +1,10 @@
+# Normalise line endings so generated files are byte-identical on every platform
+# (CI compares a fresh build against the committed dist/).
+* text=auto eol=lf
+
+# Generated output: collapsed in pull-request diffs and excluded from language stats
+dist/** linguist-generated=true
+
+# Binary assets
+*.png binary
+*.zip binary

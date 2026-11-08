@@ -1,0 +1,21 @@
+/* Miami Cruise glow layer - OPTIONAL. Decoration only; nothing here carries meaning.
+   Every glow sits on something that already has a solid state (stripe, outline, fill).
+   Import after miami-cruise.css; skip it where shadows/blur are unsupported. */
+:root, [data-theme] {
+  --mc-glow-strength: 45%;
+  --mc-glow-soft: 22%;
+}
+@supports (color: color-mix(in oklab, red, blue)) {
+  :root, [data-theme] {
+    --mc-glow-hero:  0 0 14px color-mix(in oklab, var(--mc-accent) var(--mc-glow-strength), transparent);
+    --mc-glow-focus: 0 0 0 3px color-mix(in oklab, var(--mc-accent) var(--mc-glow-soft), transparent),
+                     0 0 12px color-mix(in oklab, var(--mc-accent) calc(var(--mc-glow-strength) - 10%), transparent);
+    --mc-glow-text:  0 0 8px color-mix(in oklab, var(--mc-accent) 50%, transparent);
+    --mc-select-bg:  color-mix(in oklab, var(--mc-accent) 18%, transparent);
+    --mc-vignette:   radial-gradient(120% 90% at 50% 0, color-mix(in oklab, var(--mc-accent) 8%, var(--mc-bg)), var(--mc-bg) 55%);
+  }
+  .mc-primary  { box-shadow: var(--mc-glow-hero); }
+  .mc-focus:focus-visible { box-shadow: var(--mc-glow-focus); }
+  .mc-selected { background: var(--mc-select-bg); text-shadow: var(--mc-glow-text); }
+  .mc-surface  { background: var(--mc-vignette); }
+}

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Miami Cruise">
+  <defs>
+    <linearGradient id="mc-l-sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ecd065"/>
+      <stop offset=".24" stop-color="#fb9d59"/>
+      <stop offset=".5" stop-color="#ff7fc0"/>
+      <stop offset="1" stop-color="#ff7fc0"/>
+    </linearGradient>
+    <clipPath id="mc-l-sky"><rect width="64" height="35"/></clipPath>
+    <clipPath id="mc-l-sun-c"><circle cx="32" cy="35" r="17"/></clipPath>
+    <clipPath id="mc-l-tile"><rect width="64" height="64" rx="14"/></clipPath>
+    <filter id="mc-car-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.1"/></filter>
+    <filter id="mc-l-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="1.6"/></filter>
+  </defs>
+  <g clip-path="url(#mc-l-tile)">
+    <rect width="64" height="64" fill="#0d1d22"/>
+    <g clip-path="url(#mc-l-sky)">
+      <circle cx="32" cy="35" r="22" fill="#ff7fc0" opacity=".16" filter="url(#mc-l-glow)"/>
+      <circle cx="32" cy="35" r="17" fill="url(#mc-l-sun)"/>
+      <g fill="#0d1d22" clip-path="url(#mc-l-sun-c)">
+        <rect x="14" y="26" width="36" height="1.3"/>
+        <rect x="14" y="29.4" width="36" height="2"/>
+        <rect x="14" y="33" width="36" height="2.8"/>
+      </g>
+    </g>
+    <rect y="35" width="64" height="29" fill="#04161a"/>
+    <path d="M28.5,35 H35.5 L62,64 H2 Z" fill="#0d1d22"/>
+    <path d="M28.5,35 L2,64 M35.5,35 L62,64" stroke="#d7a0e3" stroke-width="1" opacity=".6"/>
+    <line x1="0" y1="35" x2="64" y2="35" stroke="#ff7fc0" stroke-width=".8" opacity=".9"/>
+    <path d="M32,39 V42 M32,45.5 V50" stroke="#deebec" stroke-width="1" stroke-linecap="round" opacity=".55"/>
+    <g>
+  <ellipse cx="32" cy="57.6" rx="20" ry="2.2" fill="#fd717c" opacity=".26" filter="url(#mc-car-glow)"/>
+  <rect x="14.4" y="51" width="7" height="6.6" rx="2" fill="#02090a"/>
+  <rect x="42.6" y="51" width="7" height="6.6" rx="2" fill="#02090a"/>
+  <rect x="21.4" y="45.4" width="2.6" height="1.3" rx=".5" fill="#15292e" stroke="#d7a0e3" stroke-width=".3" stroke-opacity=".6"/>
+  <rect x="40" y="45.4" width="2.6" height="1.3" rx=".5" fill="#15292e" stroke="#d7a0e3" stroke-width=".3" stroke-opacity=".6"/>
+  <path d="M23.2,47.5 L26.4,42.3 H37.6 L40.8,47.5 Z" fill="#15292e"/>
+  <path d="M24.8,47 L27.2,43.3 H36.8 L39.2,47 Z" fill="#02090a"/>
+  <path d="M26.2,44.7 H37.8 M25.5,45.8 H38.5" stroke="#253c42" stroke-width=".45"/>
+  <path d="M23.4,47.2 L26.5,42.35 H37.5 L40.6,47.2" fill="none" stroke="#d7a0e3" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+  <path d="M15.6,50.8 Q15.4,48.6 18.2,47.8 L22.4,46.6 H41.6 L45.8,47.8 Q48.6,48.6 48.4,50.8 V54.2 Q48.4,55.6 47,55.6 H17 Q15.6,55.6 15.6,54.2 Z" fill="#253c42"/>
+  <path d="M15.7,50.5 Q15.5,48.7 18.2,47.9 L22.4,46.7 H41.6 L45.8,47.9 Q48.5,48.7 48.3,50.5" fill="none" stroke="#d7a0e3" stroke-width=".55" stroke-linecap="round" opacity=".9"/>
+  <rect x="17.8" y="48.6" width="28.4" height="4.4" rx="1" fill="#02090a"/>
+  <rect x="18.4" y="49.3" width="27.2" height="1.5" rx=".7" fill="#fd717c"/>
+  <rect x="18.4" y="49.3" width="27.2" height="1.5" rx=".7" fill="#fd717c" filter="url(#mc-car-glow)"/>
+  <rect x="30.5" y="49.1" width="3" height="1.9" fill="#02090a"/>
+  <path d="M19,51.6 H29.2 M34.8,51.6 H45 M19,52.4 H29.2 M34.8,52.4 H45" stroke="#253c42" stroke-width=".4" opacity=".9"/>
+  <rect x="18.6" y="53.2" width="26.8" height="2.4" rx=".8" fill="#15292e"/>
+  <rect x="28.6" y="53.5" width="6.8" height="1.7" rx=".4" fill="#deebec" opacity=".85"/>
+  <circle cx="22.6" cy="54.4" r=".95" fill="#02090a" stroke="#d7a0e3" stroke-width=".3" stroke-opacity=".7"/>
+  <circle cx="41.4" cy="54.4" r=".95" fill="#02090a" stroke="#d7a0e3" stroke-width=".3" stroke-opacity=".7"/>
+</g>
+
+  </g>
+</svg>

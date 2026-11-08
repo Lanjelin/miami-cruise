@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+
+# The website is rebuilt from source by .github/workflows/pages.yml on every push,
+# so the generated site is not committed. `dist/` (the installable theme files) IS committed.
+website/dist/
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

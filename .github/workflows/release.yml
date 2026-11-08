@@ -1,0 +1,34 @@
+# Pushing a tag such as v0.2.0 builds the project and publishes a GitHub release with the theme files attached.
+# The tag must match VERSION in palette.py.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tag must match VERSION
+        run: |
+          version=$(python3 -I -c "import sys; sys.path.insert(0, '.'); from palette import VERSION; print(VERSION)")
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match VERSION v$version in palette.py"
+            exit 1
+          fi
+
+      - name: Build
+        run: python3 -I build.py
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" website/dist/downloads/miami-cruise-all.zip \
+            --title "Miami Cruise $GITHUB_REF_NAME" --generate-notes

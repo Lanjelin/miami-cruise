@@ -1,0 +1,30 @@
+name: Port request
+description: Ask for Miami Cruise in another app.
+labels: [port]
+body:
+  - type: input
+    id: app
+    attributes:
+      label: App
+      description: Name and a link to the project.
+    validations:
+      required: true
+  - type: textarea
+    id: format
+    attributes:
+      label: How does the app load themes?
+      description: A link to its theme documentation, or an existing theme file we can look at. This is the fastest way to a port.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this app?
+      description: Optional. How you use it, and anything that matters for dark or light variants.
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you help?
+      options:
+        - label: I can test a port in this app.
+        - label: I'd like to write the port myself (see docs/PORTING.md).

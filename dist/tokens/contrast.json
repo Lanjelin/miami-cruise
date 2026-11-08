@@ -1,0 +1,28 @@
+{
+  "dark": {
+    "text": 14.15,
+    "muted": 8.43,
+    "disabled": 4.81,
+    "accent": 7.44,
+    "success": 9.78,
+    "warning": 11.33,
+    "danger": 6.44,
+    "info": 10.22,
+    "orange": 8.28,
+    "orchid": 8.25,
+    "on-accent": 7.97
+  },
+  "light": {
+    "text": 13.92,
+    "muted": 7.83,
+    "disabled": 5.04,
+    "accent": 5.73,
+    "success": 4.52,
+    "warning": 4.55,
+    "danger": 4.53,
+    "info": 4.55,
+    "orange": 4.55,
+    "orchid": 4.6,
+    "on-accent": 5.73
+  }
+}
