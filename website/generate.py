@@ -163,7 +163,10 @@ def download_step(app, downloads):
     )
     if needs_terminal:
         text += f" Then open a terminal in the folder where {'it was' if len(downloads) == 1 else 'they were'} saved (usually <code>Downloads</code>)."
-    return ("Download", [("p", text)])
+    blocks = [("p", text)]
+    if app.get("file_note"):
+        blocks.append(("note", app["file_note"]))
+    return ("Download", blocks)
 
 
 def app_page(app, downloads):

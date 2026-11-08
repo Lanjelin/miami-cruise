@@ -11,6 +11,9 @@ All notable changes to this project are documented here. The format follows [Kee
 - Original Neovim, Vim and WezTerm icons on website cards and app pages, with uniform tiles, text fallbacks and a generated credits/licences page.
 - Generated eza themes in dark and light, with shared install guides and a preview captured from real eza output.
 
+### Fixed
+- Clarify delta's native Git-config theme versus its supporting TextMate syntax palettes; put delta setup first in its README and website guide.
+
 ## [0.1.0]
 
 First release.

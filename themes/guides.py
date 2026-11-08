@@ -34,7 +34,8 @@ def render_readme(app_id, g):
     where = "this folder" if folders == ["."] else "the [`" + folders[0] + "/`](" + folders[0] + ") folder"
     out += [
         "## Install", "",
-        "The theme files:", "", files, "",
+        g.get("files_heading", "The theme files:"), "", files, "",
+        *([_md(g["file_note"]), ""] if g.get("file_note") else []),
         f"Run the commands below from {where}, or from wherever you saved the file.", "",
     ]
     for n, (title, blocks) in enumerate(g["steps"], 1):

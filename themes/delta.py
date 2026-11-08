@@ -53,20 +53,22 @@ GUIDE = dict(
     tags=["Git", "Diff", "CLI"], aliases="delta git diff pager syntax highlighting",
     status="Beta. Tested with delta 0.20.1 and bat 0.26.1 on Linux; macOS and Windows not tested",
     tagline="A Miami Cruise diff: clear additions, removals and inline changes.",
-    files=[("delta/miami-cruise.gitconfig", "miami-cruise.gitconfig", "Delta themes (both variants)")] +
-          [(f"delta/miami-cruise-{v}.tmTheme", f"miami-cruise-{v}.tmTheme", f"{v.title()} syntax theme") for v in ("dark", "light")],
+    files_heading="Delta configuration and supporting syntax files:",
+    file_note="<code>miami-cruise.gitconfig</code> is the native delta theme: it defines the dark/light features and diff styles. The <code>.tmTheme</code> files supply custom code-syntax colours to delta's bat-based highlighter; they are not replacements for the Git-config file. All three files are intentional parts of this delta port.",
+    files=[("delta/miami-cruise.gitconfig", "miami-cruise.gitconfig", "Native delta theme (both variants)")] +
+          [(f"delta/miami-cruise-{v}.tmTheme", f"miami-cruise-{v}.tmTheme", f"Supporting {v} syntax palette (TextMate)") for v in ("dark", "light")],
     shots=[("delta/palette.png", "Real delta output in dark and light, including inline changes")],
     tested="delta 0.20.1 with bat 0.26.1 on Linux: both features, syntax cache, unified and side-by-side diffs, additions, removals and inline changes; macOS and Windows not tested",
     covers="Syntax, diff lines, inline emphasis, file/hunk/commit headers and line numbers",
     glow="No: terminal output uses the flat palette",
-    steps=[install_steps(), ("Include the delta theme file", [
+    steps=[("Configure delta's native theme", [
         ("p", "Install delta. Save <code>miami-cruise.gitconfig</code> somewhere permanent. Add the following to your Git config (usually <code>~/.gitconfig</code>), using the actual absolute path. On Windows, forward slashes work in the path, for example <code>C:/Users/you/.config/delta/miami-cruise.gitconfig</code>."),
         ("code", [(None, "gitconfig", '[include]\n    path = /absolute/path/to/miami-cruise.gitconfig\n\n[delta]\n    features = miami-cruise-dark')]),
         ("note", "Merge these sections with your existing config. Keep other feature names you want, but select only one Miami Cruise variant. Explicit colour settings in your main delta config can override the feature. The theme does not force side-by-side view, paging or line-number preferences."),
-        ("p", "Choose <code>miami-cruise-light</code> instead for light mode. Custom syntax requires bat's cache setup above; delta and bat should use compatible versions and the same cache directory. Verify discovery with <code>delta --list-syntax-themes</code>. The two syntax files are identical to the bat port; no separate copy is needed if already installed."),
+        ("p", "Choose <code>miami-cruise-light</code> instead for light mode. The next step installs the supporting code-syntax palettes. Use a true-colour terminal with the matching Miami Cruise background."),
         ("note", "bat is needed to build the custom syntax cache, not to run delta afterwards. delta reads that cache directly."),
         ("warn", "delta 0.20.1 does not honour <code>BAT_CACHE_PATH</code>. If you use that override, rebuild bat's cache in the default location for delta, or set the same absolute <code>XDG_CACHE_HOME</code> for both tools on macOS/Linux (cache: <code>$XDG_CACHE_HOME/bat</code>). Use compatible bat versions; these themes were verified with bat 0.26.1."),
-    ]), ("Try it, then optionally make it your Git pager", [
+    ]), install_steps(for_delta=True), ("Try it, then optionally make it your Git pager", [
         ("code", [(None, "bash", 'git diff --no-ext-diff --no-color | delta --features=miami-cruise-dark --paging=never')]),
         ("p", "If you want delta as your pager, merge the following settings into Git config. Skip this if your pager is already configured."),
         ("code", [(None, "gitconfig", '[core]\n    pager = delta\n\n[interactive]\n    diffFilter = delta --color-only')]),
