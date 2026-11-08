@@ -5,6 +5,7 @@
 # bat/delta shots need compatible bat and delta (or BAT=... and DELTA=...).
 # lazygit shots also need lazygit 0.66.3 and tmux (or LAZYGIT=...).
 # fzf shots need fzf 0.75.0, bat and tmux (or FZF=... and BAT=...).
+# btop shots need btop 1.4.8 and tmux on Linux (or BTOP=...).
 # Run one app only:  ./previews/vim/render.sh
 set -eu
 cd "$(dirname "$0")/.."

@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Native btop dark/light themes with a shared-palette dashboard, install guide and live-app previews.
 - Native fzf dark/light colour option files, preserving existing picker behaviour, with shell instructions and real interactive previews.
 - Native lazygit GUI themes with automatic/fixed dark and light variants, layered install instructions and real UI/delta previews.
 - Dark/light bat syntax themes and delta diff themes, sharing one TextMate mapping, with install guides and previews captured from real app output.
