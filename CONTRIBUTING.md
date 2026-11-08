@@ -26,7 +26,7 @@ python3 -I build.py -v         # also print the token table and contrast ratios
 
 - `dist/`, `docs/SPEC.md` and the apps table in the README are generated and committed. **Run the build and commit the result**, or CI fails saying they are out of date. Don't edit them by hand.
 - `website/dist/` is generated and not committed.
-- Screenshots live in `previews/<app>/` and `website/previews/`. `previews/render.sh` re-renders them all, or run one app's `previews/<app>/render.sh`; they need a headless Brave and, for Neovim, a Neovim binary. Re-rendering is optional for most changes.
+- Screenshots live in `previews/<app>/` and `website/previews/`. `previews/render.sh` re-renders them all, or run one app's `previews/<app>/render.sh`; they need a headless Brave and, for Neovim, a Neovim binary. The eza preview needs eza 0.23.5+ on Linux (`EZA=/path/to/eza` to override). Re-rendering is optional for most changes.
 - Test a change in the real app, in both dark and light, and say in your pull request what you tested.
 
 ## Pull requests

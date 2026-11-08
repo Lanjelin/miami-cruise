@@ -1,6 +1,7 @@
 #!/bin/sh
 # Re-render every theme screenshot from dist/. Each app owns previews/<app>/render.sh; this runs them all.
-# Needs python3 and brave-browser (headless). Neovim shots also need NVIM=/path/to/nvim.
+# Needs python3 and brave-browser (headless). Neovim shots also need NVIM=/path/to/nvim;
+# eza shots need eza 0.23.5+ (or EZA=/path/to/eza) on Linux.
 # Run one app only:  ./previews/vim/render.sh
 set -eu
 cd "$(dirname "$0")/.."

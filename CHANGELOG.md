@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- Generated eza themes in dark and light, with shared install guides and a preview captured from real eza output.
+
 ## [0.1.0]
 
 First release.
