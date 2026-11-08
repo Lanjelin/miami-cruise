@@ -23,12 +23,25 @@ ROOT = Path(__file__).resolve().parent.parent  # project root
 WEB = Path(__file__).resolve().parent  # website/
 
 from .content import APPS, REPO_URL, SITE_URL, TAGLINE, TOKEN_USE
+from .icons import ASSETS as ICON_ASSETS, ICONS
 
 # --------------------------------------------------------------------- helpers
 
 
 def esc(s):
     return html.escape(s, quote=True)
+
+
+def app_icon(app, up=""):
+    if not 1 <= len(app["mono"]) <= 4:
+        raise ValueError(f'{app["id"]}: mono badge label must be 1–4 characters')
+    tone = app.get("badge_tone", "accent")
+    if tone not in ("accent", "info", "orchid"):
+        raise ValueError(f'{app["id"]}: badge_tone must be accent, info or orchid')
+    fallback = f'<span class="icon-fallback">{esc(app["mono"])}</span>'
+    image = (f'<img src="{up}assets/apps/{esc(app["id"])}.svg" alt="" width="40" height="40">'
+             if app["id"] in ICONS else "")
+    return f'<div class="app-icon badge-{tone} badge-length-{len(app["mono"])}" aria-hidden="true">{fallback}{image}</div>'
 
 
 def sha256(path):
@@ -107,7 +120,7 @@ def page(title, desc, body, up="", current=""):
 </main>
 <footer><div class="wrap">
   <span>Miami Cruise v{VERSION} · MIT licence</span>
-  <span>Free to use and adapt. {('<a href="' + esc(REPO_URL) + '">Source</a>') if REPO_URL else ''}</span>
+  <span><a href="{up}credits.html">App icon credits &amp; licences</a> · {('<a href="' + esc(REPO_URL) + '">Source</a>') if REPO_URL else ''}</span>
 </div></footer>
 <script src="{up}assets/app.js" defer></script>
 </body>
@@ -170,7 +183,7 @@ def app_page(app, downloads):
         ("Variants", "Dark and light"), ("Covers", app["covers"]), ("Glow", app["glow"]), ("Tested", app["tested"])))
     body = f"""<div class="wrap">
 <p class="crumbs"><a href="../index.html">Miami Cruise</a> / <a href="../index.html#apps">Apps</a> / {esc(app['name'])}</p>
-<div class="apphead"><div class="mono" aria-hidden="true">{esc(app['mono'])}</div>
+<div class="apphead">{app_icon(app, '../')}
   <div><h1>{esc(app['name'])}</h1><p>{esc(app['tagline'])}</p></div></div>
 {shots}
 <div class="layout">
@@ -192,7 +205,7 @@ def swatch(token, hexv):
 def index_page(scene, pals, zip_info):
     cards = "".join(
         f'<li data-card data-cat="{esc(a["category"])}" data-search="{esc((a["name"] + " " + a["aliases"] + " " + " ".join(a["tags"]) + " " + a["category"] + " " + a["tagline"]).lower())}">'
-        f'<a class="card" href="apps/{a["id"]}.html"><div class="mono" aria-hidden="true">{esc(a["mono"])}</div>'
+        f'<a class="card" href="apps/{a["id"]}.html">{app_icon(a)}'
         f'<strong>{esc(a["name"])}</strong><p>{esc(a["tagline"])}</p>'
         f'<ul class="tags">{"".join(f"<li class=tag>{esc(t)}</li>" for t in a["tags"])}</ul></a></li>'
         for a in APPS
@@ -238,6 +251,30 @@ def index_page(scene, pals, zip_info):
     return page("Miami Cruise: a night-drive colour scheme",
                 "Miami Cruise is a dark and light colour scheme with teal-ink neutrals and one magenta hero accent. Themes for Neovim, Vim, WezTerm and the web.",
                 body, current="")
+
+
+def credits_page():
+    items = []
+    for app_id, meta in ICONS.items():
+        notice = (f' · <a href="assets/apps/{esc(meta["license_file"])}">Full licence notice</a>'
+                  if meta.get("license_file") else "")
+        items.append(
+            f'<section class="box"><h2>{esc(meta["name"])}</h2>'
+            f'<p>Artwork: {esc(meta["creator"])}. '
+            f'<a href="{esc(meta["license_url"])}">{esc(meta["license"])}</a>{notice}.</p>'
+            f'<p><a href="{esc(meta["source"])}">Original SVG source</a> · '
+            f'<a href="{esc(meta["evidence"])}">Licence reference</a> · '
+            f'<a href="assets/apps/{esc(app_id)}.svg">Local SVG</a></p>'
+            f'<p>Changes: {esc(meta["changes"])} Checked {esc(meta["checked"])}.</p></section>'
+        )
+    body = ('<div class="wrap section"><h1>App icon credits</h1>'
+            '<p class="lead">Original app artwork identifies the applications supported by Miami Cruise. '
+            'The logos retain their original colours and proportions.</p>'
+            '<p>Third-party logos are covered by their own licences, not the Miami Cruise MIT licence. '
+            'Names and trademarks belong to their respective owners; no endorsement is implied. '
+            'Apps without a suitable logo use a text fallback.</p>'
+            '<div class="credits">' + ''.join(items) + '</div></div>')
+    return page('App icon credits · Miami Cruise', 'Sources, creators and licences for app artwork.', body)
 
 
 def palette_page(pals):
@@ -319,6 +356,7 @@ def export(pals, dist: Path):
     auto = f"\n@media (prefers-color-scheme: light) {{\n  :root:not([data-theme]) {{\n    color-scheme: light;\n{light_vars}\n  }}\n}}\n\n"
     (out / "assets/style.css").write_text(css_vars + auto + (WEB / "assets/style.css").read_text())
     shutil.copy(WEB / "assets/app.js", out / "assets/app.js")
+    shutil.copytree(ICON_ASSETS, out / "assets/apps")
 
     # previews used by the pages
     for app in APPS:
@@ -353,6 +391,7 @@ def export(pals, dist: Path):
     # pages
     (out / "index.html").write_text(index_page(scene, pals, zip_info))
     (out / "palette.html").write_text(palette_page(pals))
+    (out / "credits.html").write_text(credits_page())
     (out / "404.html").write_text(not_found())
     for app in APPS:
         (out / "apps" / f"{app['id']}.html").write_text(app_page(app, per_app[app["id"]]))

@@ -85,8 +85,26 @@ h3 { font-size: 1.1rem; margin: 22px 0 6px; }
 .card { display: flex; flex-direction: column; gap: 10px; height: 100%; padding: 20px; color: var(--mc-text); text-decoration: none;
   background: var(--mc-panel); border: 1px solid var(--mc-border); border-radius: 14px; transition: border-color .15s, transform .15s; }
 .card:hover { text-decoration: none; border-color: var(--mc-accent); transform: translateY(-2px); }
-.card .mono { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; font-weight: 800; font-size: 1.1rem;
-  color: var(--mc-accent); background: color-mix(in oklab, var(--mc-accent) 14%, var(--mc-bg)); border: 1px solid color-mix(in oklab, var(--mc-accent) 40%, var(--mc-border)); }
+.app-icon { width: 56px; height: 56px; flex-shrink: 0; position: relative; display: grid; place-items: center;
+  border-radius: 14px; font-weight: 800; font-size: 1.1rem; overflow: hidden;
+  color: var(--mc-accent); background: var(--mc-bg); border: 1px solid var(--mc-border); }
+.app-icon img { position: absolute; inset: 0; margin: auto; width: 100%; height: 100%; padding: 10px;
+  object-fit: contain; background: var(--mc-bg); }
+.app-icon img[hidden] { display: none; }
+.icon-fallback { position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 20px; font-weight: 700;
+  letter-spacing: -.7px; box-shadow: inset 0 1px 0 color-mix(in srgb, var(--mc-text) 6%, transparent); }
+.icon-fallback::after { content: ""; position: absolute; bottom: 0; left: 15px; right: 15px; height: 2px;
+  background: currentColor; opacity: .8; }
+.badge-info { color: var(--mc-info); }
+.badge-orchid { color: var(--mc-orchid); }
+.badge-length-4 .icon-fallback { font-size: 16px; letter-spacing: -.6px; }
+.apphead .icon-fallback { font-size: 26px; }
+.apphead .badge-length-4 .icon-fallback { font-size: 21px; }
+.apphead .icon-fallback::after { left: 20px; right: 20px; }
+.card:hover .app-icon { border-color: var(--mc-accent); }
+.credits { display: grid; gap: 18px; margin-top: 28px; }
+.credits p { overflow-wrap: anywhere; }
 .card strong { font-size: 1.1rem; }
 .card p { margin: 0; color: var(--mc-muted); font-size: .95rem; flex: 1; }
 .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; }
@@ -115,8 +133,8 @@ td .dot { display: inline-block; width: 14px; height: 14px; border-radius: 4px; 
 .crumbs { color: var(--mc-muted); font-size: .9rem; padding: 26px 0 0; }
 .crumbs a { color: var(--mc-muted); }
 .apphead { display: flex; gap: 18px; align-items: center; padding: 14px 0 6px; flex-wrap: wrap; }
-.apphead .mono { width: 64px; height: 64px; font-size: 1.6rem; border-radius: 16px; display: grid; place-items: center; font-weight: 800; color: var(--mc-accent);
-  background: color-mix(in oklab, var(--mc-accent) 14%, var(--mc-bg)); border: 1px solid color-mix(in oklab, var(--mc-accent) 40%, var(--mc-border)); }
+.apphead .app-icon { width: 72px; height: 72px; font-size: 1.6rem; border-radius: 18px; }
+.apphead .app-icon img { padding: 13px; }
 .apphead h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.4rem); }
 .apphead p { margin: 0; color: var(--mc-muted); }
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px; align-items: start; padding-bottom: 40px; }

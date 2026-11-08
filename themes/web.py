@@ -30,7 +30,7 @@ GLOW = """/* Miami Cruise glow layer - OPTIONAL. Decoration only; nothing here c
 # Install guide: rendered to dist/web/README.md and used by the website and the README table.
 # Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
 GUIDE = dict(
-    category='Web', order=40, mono='W3',
+    category='Web', order=40, mono='CSS', badge_tone='info',
     tags=['Web', 'CSS'],
     aliases='web css website html variables custom properties glow theme',
     status="Stable. The project's own website is built on it",

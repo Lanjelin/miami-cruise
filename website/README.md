@@ -7,6 +7,8 @@ A static, dependency-free website: search by app, an install page for each app w
 | `content.py` | Site-wide text (tagline, token descriptions) and the app list, which is built from the theme modules. |
 | `generate.py` | Page templates, packaging and checks. |
 | `assets/` | The site's CSS and JavaScript. |
+| `assets/apps/` | Original app logos, pinned source/attribution records and licence notices. |
+| `icons.py` | Discovers optional logos and validates their attribution records. |
 | `previews/` | Screenshots of the site, used by the project README. |
 | `render.sh` | Re-renders those screenshots. |
 | `dist/` | The generated site. Not committed; this is what gets published. |
@@ -29,3 +31,13 @@ One repository is enough. In GitHub, set **Settings, Pages, Source** to **GitHub
 ## Add an app
 
 Add a module to `../themes/` with its `GUIDE` (see `../docs/PORTING.md`) and rebuild. The site, the `dist/<app>/README.md` and the README apps table all pick it up; this folder needs no edit. The build fails on a broken link or a text-contrast pair below 4.5:1. With more than one category the index shows filter chips next to the search.
+
+### Optional original app icon
+
+Every app works without a logo: a short type badge is shown in the same tile. `GUIDE.mono` can specify a recognizable label of 1–4 characters (prefer 2–3). Without it, single-word names of up to four characters are kept; longer names use up to three initials, so Windows Terminal becomes `WT`. Long names are never squeezed into the tile. Four-character labels use a slightly smaller, fixed font size. Optional `badge_tone` is `accent` (default), `info` or `orchid`, using the matching dark/light palette. The build rejects oversized labels and unknown tones.
+
+Adding an app never requires artwork. Web/CSS uses `CSS`, design tokens use `{}`, and eza uses `eza` because no standalone logo with clear reuse terms was identified. Original artwork always takes priority; the styled badge also appears if its image fails to load.
+
+For a logo, first check the artwork's own reuse terms, not just the application's code licence. Add the unmodified original SVG as `assets/apps/<app_id>.svg`, and an accompanying `<app_id>.json` recording `name`, `creator`, `license`, `license_url`, commit-pinned `source`, licensing `evidence`, `changes` and the `checked` date. Include required licence notices locally and reference them with `license_file`. See the existing entries. No central registry or theme-module edit is needed.
+
+The build validates these records, copies the assets without fetching anything and generates `credits.html`, linked from every footer. Logos retain their original colours and proportions, inside a shared Miami Cruise tile. Adjacent app names provide accessible labels; logos are decorative. Failed image loads reveal the text fallback when JavaScript is available. No icon fonts, CDNs or hotlinks are used.

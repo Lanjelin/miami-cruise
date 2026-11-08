@@ -62,7 +62,7 @@ def render(p, variant):
 
 
 GUIDE = dict(
-    category="Terminal", order=40, mono="E", tags=["Terminal", "CLI", "YAML"],
+    category="Terminal", order=40, mono="eza", tags=["Terminal", "CLI", "YAML"],
     aliases="eza exa ls files directory listing shell yaml", name="eza",
     status="Beta. Tested with eza 0.23.5 on Linux; macOS and Windows not yet tested",
     tagline="A true-colour file listing, from directories and permissions to Git status.",

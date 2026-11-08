@@ -1,0 +1,10 @@
+{
+  "name": "Neovim",
+  "creator": "Jason Long",
+  "license": "CC BY 3.0",
+  "license_url": "https://creativecommons.org/licenses/by/3.0/",
+  "source": "https://github.com/neovim/neovim.github.io/blob/6568b9011ddb2965dc5118d28f17d5b7ce7dd8da/static/logos/neovim-mark.svg",
+  "evidence": "https://store.neovim.io/products/neovim-sticker-logo-only",
+  "changes": "None; displayed at a smaller size.",
+  "checked": "2026-11-08"
+}

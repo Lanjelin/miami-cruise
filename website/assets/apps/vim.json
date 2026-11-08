@@ -1,0 +1,11 @@
+{
+  "name": "Vim",
+  "creator": "Shay Hill; classic Vim logo",
+  "license": "Vim licence",
+  "license_url": "https://github.com/vim/vim/blob/master/LICENSE",
+  "source": "https://github.com/vim/vim/blob/88d96a15f99851faca0cacbbbdcede3f8c25149b/runtime/vimlogo.svg",
+  "evidence": "https://github.com/vim/vim/blob/master/READMEdir/README_vimlogo.txt",
+  "changes": "None; displayed at a smaller size.",
+  "checked": "2026-11-08",
+  "license_file": "vim-LICENSE.txt"
+}

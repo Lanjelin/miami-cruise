@@ -1,0 +1,11 @@
+{
+  "name": "WezTerm",
+  "creator": "Wez Furlong and contributors",
+  "license": "MIT",
+  "license_url": "https://github.com/wezterm/wezterm/blob/main/LICENSE.md",
+  "source": "https://github.com/wezterm/wezterm/blob/458a100c1bf4134d36cb5c42dd90e4c8266d9e1a/assets/icon/wezterm-icon.svg",
+  "evidence": "https://github.com/wezterm/wezterm/blob/main/LICENSE.md",
+  "changes": "None; displayed at a smaller size.",
+  "checked": "2026-11-08",
+  "license_file": "wezterm-LICENSE.txt"
+}

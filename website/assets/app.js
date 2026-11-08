@@ -3,6 +3,12 @@
   "use strict";
   var root = document.documentElement;
 
+  // A failed logo reveals the same text fallback used for apps without artwork.
+  document.querySelectorAll(".app-icon img").forEach(function (img) {
+    img.addEventListener("error", function () { img.hidden = true; });
+    if (img.complete && img.naturalWidth === 0) img.hidden = true;
+  });
+
   function store(key, value) {
     try {
       if (value === null) localStorage.removeItem(key);
