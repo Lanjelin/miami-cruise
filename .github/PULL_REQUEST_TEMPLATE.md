@@ -8,7 +8,7 @@
 
 ## Checklist
 
-- [ ] `python3 -I build.py` passes and the changes in `dist/` are committed
+- [ ] `python3 -I build.py` passes and the generated files it changed (`dist/`, `docs/SPEC.md`, the README apps table) are committed
 - [ ] Tested in the app, dark and light
 - [ ] Screenshot added or updated, if the look changed
 - [ ] `CHANGELOG.md` updated under `[Unreleased]`

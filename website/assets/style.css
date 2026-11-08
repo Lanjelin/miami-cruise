@@ -75,6 +75,10 @@ h3 { font-size: 1.1rem; margin: 22px 0 6px; }
 .search input { flex: 1; font: inherit; color: var(--mc-text); background: none; border: 0; outline: 0; padding: 10px 0; min-width: 0; }
 .search input::placeholder { color: var(--mc-disabled); }
 .search kbd { font-size: .75rem; color: var(--mc-muted); border: 1px solid var(--mc-border); border-radius: 6px; padding: 1px 7px; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 4px; }
+.chips button { font: inherit; font-size: .85rem; color: var(--mc-muted); background: var(--mc-panel); border: 1px solid var(--mc-border); border-radius: 999px; padding: 4px 14px; cursor: pointer; }
+.chips button:hover { color: var(--mc-text); border-color: var(--mc-accent); }
+.chips button[aria-pressed="true"] { background: var(--mc-accent); border-color: var(--mc-accent); color: var(--mc-on-accent); font-weight: 700; }
 .count { color: var(--mc-muted); font-size: .9rem; min-height: 1.5em; margin: 0 0 14px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; padding: 0; margin: 0; list-style: none; }
 .grid[hidden], [data-card][hidden] { display: none; }

@@ -123,7 +123,7 @@ def code_block(os_label, lang, text):
 
 def render_steps(app, downloads):
     items = []
-    for n, (title, blocks) in enumerate(app["steps"]):
+    for n, (title, blocks) in enumerate([download_step(app, downloads)] + list(app["steps"])):
         parts = []
         for kind, content in blocks:
             if kind == "p":
@@ -139,6 +139,18 @@ def render_steps(app, downloads):
             parts.append("<p>Or from a terminal:</p>" + code_block(*cmds[0]))
         items.append(f"<li><h3>{esc(title)}</h3>{''.join(parts)}</li>")
     return '<ol class="steps">' + "".join(items) + "</ol>"
+
+
+def download_step(app, downloads):
+    names = " and ".join(f"<code>{esc(d['name'])}</code>" for d in downloads)
+    text = f"Download {names} using the box on this page."
+    needs_terminal = any(
+        kind == "code" and any(label for label, _, _ in content)
+        for _, blocks in app["steps"] for kind, content in blocks
+    )
+    if needs_terminal:
+        text += f" Then open a terminal in the folder where {'it was' if len(downloads) == 1 else 'they were'} saved (usually <code>Downloads</code>)."
+    return ("Download", [("p", text)])
 
 
 def app_page(app, downloads):
@@ -179,12 +191,18 @@ def swatch(token, hexv):
 
 def index_page(scene, pals, zip_info):
     cards = "".join(
-        f'<li data-card data-search="{esc((a["name"] + " " + a["aliases"] + " " + " ".join(a["tags"]) + " " + a["tagline"]).lower())}">'
+        f'<li data-card data-cat="{esc(a["category"])}" data-search="{esc((a["name"] + " " + a["aliases"] + " " + " ".join(a["tags"]) + " " + a["category"] + " " + a["tagline"]).lower())}">'
         f'<a class="card" href="apps/{a["id"]}.html"><div class="mono" aria-hidden="true">{esc(a["mono"])}</div>'
         f'<strong>{esc(a["name"])}</strong><p>{esc(a["tagline"])}</p>'
         f'<ul class="tags">{"".join(f"<li class=tag>{esc(t)}</li>" for t in a["tags"])}</ul></a></li>'
         for a in APPS
     )
+    cats = sorted({a["category"] for a in APPS})
+    chips = ""
+    if len(cats) > 1:
+        buttons = '<button type="button" data-cat-set="" aria-pressed="true">All</button>' + "".join(
+            f'<button type="button" data-cat-set="{esc(c)}" aria-pressed="false">{esc(c)}</button>' for c in cats)
+        chips = f'<div class="chips" role="group" aria-label="Filter by type">{buttons}</div>'
     dark = pals["dark"][0]
     strip = "".join(swatch(k, dark[k]) for k in ("bg", "panel", "border", "text", "accent", "success", "warning", "danger", "info", "orange", "orchid"))
     zip_btn = (f'<a class="btn ghost" href="{zip_info["href"]}" download>Download everything <small>{zip_info["size"]}</small></a>')
@@ -205,6 +223,7 @@ def index_page(scene, pals, zip_info):
   <label class="search" for="q"><span class="sr">Search apps</span>
     <input id="q" type="search" placeholder="Search apps: nvim, vim, wezterm, css…" autocomplete="off" spellcheck="false">
     <kbd aria-hidden="true">/</kbd></label>
+  {chips}
   <p class="count" id="count" aria-live="polite"></p>
   <ul class="grid" id="apps">{cards}</ul>
   <p class="empty" id="empty" hidden>No app matches that yet. The <a href="apps/tokens.html">design tokens</a> work for anything.</p>
@@ -288,7 +307,6 @@ def export(pals, dist: Path):
         shutil.rmtree(out)
     for sub in ("assets", "apps", "downloads", "previews"):
         (out / sub).mkdir(parents=True)
-    (out / ".nojekyll").write_text("")
 
     # brand + assets
     dark = pals["dark"][0]

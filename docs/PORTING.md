@@ -6,25 +6,26 @@ Before you start, read [SPEC.md](SPEC.md) for the tokens and the principles. Ope
 
 ## What a port is
 
+A port is one Python module in `themes/`. It turns the shared palette into the app's format and carries the app's install guide, so adding an app means adding one file; nothing needs registering.
+
 ```
-themes/<app>.py       the exporter: export(pals, dist) writes files to dist/<app>/
-dist/<app>/...        the generated theme, committed
-previews/<app>/       a sample file and screenshots (optional but expected)
-website/content.py    the install page for the app (optional until the port is released)
+themes/<app>.py       export(pals, dist) writes the theme to dist/<app>/, and GUIDE describes the app
+dist/<app>/...        the generated theme and its README (from GUIDE), committed
+previews/<app>/       a sample file, a render.sh and the screenshots
 ```
 
 `pals` maps `"dark"` and `"light"` to `(tokens, meta)`. `tokens` is a dict from token name (`bg`, `accent`, `danger`, ...) to a `#rrggbb` string. Use only these values; never hard-code a colour in a port.
 
+`GUIDE` holds the app's name, tagline, files, screenshots, install steps (for macOS, Linux and Windows), what you tested, and its `category`, `tags`, `aliases` and `status`. The build renders it into `dist/<app>/README.md`, the website page and the README apps table. See `themes/wezterm.py` for a full example.
+
 ## Steps
 
-1. **Write the exporter** in `themes/<app>.py` with an `export(pals, dist)` function. Look at `themes/wezterm.py` (a config module) or `themes/vim.py` (a colorscheme) for a model. `themes/_hl.py` holds highlight groups shared by Vim and Neovim.
-2. **Register it** in `EXPORTERS` in `build.py`, before `website`.
-3. **Map the tokens** using the table below.
-4. **Build and test** it in the real app, in both dark and light. Write down which version you tested.
-5. **Add a preview**: a short sample file and a screenshot under `previews/<app>/`, then add the render step to `previews/render.sh`.
-6. **Run `python3 -I build.py`** and commit the changes in `dist/`. CI fails if `dist/` is out of date.
-7. **Add the site page** (optional now, needed for release): add an entry to `APPS` in `website/content.py` with the files, install steps for macOS, Linux and Windows, and the screenshots.
-8. **Update the README** supported-apps table and `CHANGELOG.md`.
+1. **Write the module** `themes/<app>.py`, with `export(pals, dist)` and `GUIDE`. Copy the nearest existing port: `themes/wezterm.py` (a config module) or `themes/vim.py` (a colorscheme). `themes/_hl.py` has highlight groups shared by Vim and Neovim.
+2. **Map the tokens** using the table below.
+3. **Build and test it in the real app**, dark and light. Write down the version you tested in `GUIDE["tested"]`.
+4. **Add a preview**: `previews/<app>/` with a short sample file, a `render.sh` (copy `previews/vim/render.sh`) and the screenshots.
+5. **Run `python3 -I build.py`** and commit what it generated: `dist/`, `docs/SPEC.md` and the README apps table. CI fails if they are out of date.
+6. **Update `CHANGELOG.md`** under `[Unreleased]`.
 
 ## Token roles
 
@@ -62,8 +63,19 @@ For terminals map ANSI red, green, yellow, blue, magenta and cyan to `danger`, `
 
 ## Checklist for a pull request
 
-- [ ] `python3 -I build.py` passes and `dist/` is committed
+- [ ] `python3 -I build.py` passes and the generated files are committed
 - [ ] Tested in the app, dark and light (version noted)
+- [ ] `GUIDE` written, with install steps for macOS, Linux and Windows
 - [ ] Preview screenshot added
-- [ ] README table and `CHANGELOG.md` updated
+- [ ] `CHANGELOG.md` updated
 - [ ] No hard-coded colours outside the palette
+
+## Hand-written ports
+
+You don't have to use the generator. If an app is better served by a theme written in its own idiom, or you'd rather keep it in your own repository, that's welcome too:
+
+1. Build the theme from `dist/tokens/tokens.json` (see [Token roles](#token-roles)) in your own repo, with the same dark and light variants.
+2. Keep the colours in step with the palette. Don't pick new ones.
+3. Open a [port request](../../../issues/new?template=port_request.yml) with a link to your repository.
+
+Accepted ports are listed in the README under a "Community ports" heading with a link to the repository. We won't copy them into `dist/`, since that folder is generated. If a hand-written port turns out to be popular, it can be moved into a generated exporter later.

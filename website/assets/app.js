@@ -59,28 +59,39 @@
     });
   }
 
-  // ---- Search apps (index page)
+  // ---- Search and category filter (index page)
   var q = document.getElementById("q");
   if (q) {
     var cards = document.querySelectorAll("[data-card]");
     var grid = document.getElementById("apps");
     var count = document.getElementById("count");
     var empty = document.getElementById("empty");
+    var chips = document.querySelectorAll("[data-cat-set]");
+    var category = "";
     var apply = function () {
       var terms = q.value.toLowerCase().split(/\s+/).filter(Boolean), shown = 0;
       for (var k = 0; k < cards.length; k++) {
         var hay = cards[k].getAttribute("data-search");
-        var ok = terms.every(function (t) { return hay.indexOf(t) !== -1; });
+        var ok = terms.every(function (t) { return hay.indexOf(t) !== -1; }) &&
+          (category === "" || cards[k].getAttribute("data-cat") === category);
         cards[k].hidden = !ok;
         if (ok) shown++;
       }
       grid.hidden = shown === 0;
       empty.hidden = shown !== 0;
-      count.textContent = terms.length ? shown + (shown === 1 ? " app matches" : " apps match") : "";
+      count.textContent = (terms.length || category) ? shown + (shown === 1 ? " app matches" : " apps match") : "";
     };
+    var setCategory = function (value) {
+      category = value;
+      for (var c = 0; c < chips.length; c++) chips[c].setAttribute("aria-pressed", String(chips[c].getAttribute("data-cat-set") === value));
+      apply();
+    };
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].addEventListener("click", function () { setCategory(this.getAttribute("data-cat-set")); });
+    }
     q.addEventListener("input", apply);
     q.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") { q.value = ""; apply(); }
+      if (e.key === "Escape") { q.value = ""; setCategory(""); }
       if (e.key === "Enter") {
         for (var k = 0; k < cards.length; k++) if (!cards[k].hidden) { cards[k].querySelector("a").click(); break; }
       }
@@ -89,8 +100,9 @@
       var t = e.target && e.target.tagName;
       if (e.key === "/" && t !== "INPUT" && t !== "TEXTAREA" && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); q.focus(); }
     });
-    var pre = new URLSearchParams(location.search).get("q");
-    if (pre) { q.value = pre; apply(); }
+    var params = new URLSearchParams(location.search);
+    if (params.get("q")) q.value = params.get("q");
+    if (params.get("cat")) { setCategory(params.get("cat")); } else { apply(); }
   }
 
   // ---- Respect reduced motion: pause the animated hero scene

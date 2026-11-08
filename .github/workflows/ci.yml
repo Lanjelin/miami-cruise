@@ -15,21 +15,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Build themes, brand assets and the website
+      - name: Build themes, docs and the website
         run: python3 -I build.py
 
-      - name: dist/ must match a fresh build
+      - name: Generated files must match a fresh build
         run: |
-          if [ -n "$(git status --porcelain -- dist)" ]; then
-            echo "::error::dist/ is out of date. Run 'python3 -I build.py' and commit the result."
-            git status --short -- dist
-            exit 1
-          fi
-
-      - name: docs/SPEC.md must match the palette
-        run: |
-          python3 -I docs/gen_spec.py
-          if ! git diff --quiet -- docs/SPEC.md; then
-            echo "::error::docs/SPEC.md is out of date. Run 'python3 -I docs/gen_spec.py' and commit the result."
+          # dist/ (new or changed files), docs/SPEC.md and the README apps table are all written by the build
+          if [ -n "$(git status --porcelain -- dist docs/SPEC.md README.md)" ]; then
+            echo "::error::Generated files are out of date. Run 'python3 -I build.py' and commit the result."
+            git status --short -- dist docs/SPEC.md README.md
+            git diff --stat -- docs/SPEC.md README.md
             exit 1
           fi

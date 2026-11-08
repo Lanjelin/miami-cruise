@@ -2,11 +2,11 @@ name: Bug report
 description: A colour looks wrong, a highlight group is missing, or a theme fails to load.
 labels: [bug]
 body:
-  - type: dropdown
+  - type: input
     id: app
     attributes:
       label: App
-      options: [Neovim, Vim, WezTerm, Web / CSS, Design tokens, Website, Other]
+      description: Which theme is affected (for example Neovim, WezTerm, Web / CSS, or the website).
     validations:
       required: true
   - type: input

@@ -8,7 +8,7 @@ Thanks for helping. This project is small on purpose: one palette, one tiny modu
 - **Request a port.** Use the port request form to ask for support in another app.
 - **Write a port.** Follow the [porting guide](docs/PORTING.md). A port is usually a single file of about a hundred lines.
 - **Fix or improve a port.** Contrast, a missing highlight group, a platform quirk: all welcome.
-- **Improve the docs or the website.**
+- **Improve the install guides, the docs or the website.** An app's install guide lives in its module, `themes/<app>.py`; the site's shared text in `website/content.py`.
 
 ## Changing the palette
 
@@ -16,24 +16,24 @@ The palette in `palette.py` feeds every port, so a change there changes all of t
 
 ## Development
 
-You need Python 3 and nothing else; there are no dependencies.
+You need Python 3 (tested on 3.12) and nothing else; there are no dependencies.
 
 ```sh
-python3 -I build.py            # build every theme, the logo and the website
+python3 -I build.py            # build every theme, the docs and the website
 python3 -I build.py nvim vim   # build only some targets
-python3 -I docs/gen_spec.py    # regenerate docs/SPEC.md
+python3 -I build.py -v         # also print the token table and contrast ratios
 ```
 
-- `dist/` holds generated, committed files. **Run the build and commit the result**, or CI will fail with a message that `dist/` is out of date. Don't edit files in `dist/` by hand.
+- `dist/`, `docs/SPEC.md` and the apps table in the README are generated and committed. **Run the build and commit the result**, or CI fails saying they are out of date. Don't edit them by hand.
 - `website/dist/` is generated and not committed.
-- Screenshots live in `previews/` and `website/previews/`. `previews/render.sh` and `website/render.sh` re-render them (they need a headless Brave and, for Neovim, a Neovim binary). Re-rendering is optional for most changes.
+- Screenshots live in `previews/<app>/` and `website/previews/`. `previews/render.sh` re-renders them all, or run one app's `previews/<app>/render.sh`; they need a headless Brave and, for Neovim, a Neovim binary. Re-rendering is optional for most changes.
 - Test a change in the real app, in both dark and light, and say in your pull request what you tested.
 
 ## Pull requests
 
 1. Fork, then branch from `main`.
 2. Make a focused change. One port or one fix per pull request.
-3. Run `python3 -I build.py` and commit `dist/`.
+3. Run `python3 -I build.py` and commit what it generated.
 4. Update `CHANGELOG.md` under `[Unreleased]`.
 5. Fill in the pull request template.
 

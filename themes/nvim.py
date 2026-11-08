@@ -181,6 +181,41 @@ def _core_lua(pals):
     return ",\n".join(blocks) + ","
 
 
+# Install guide: rendered to dist/nvim/README.md and used by the website and the README table.
+# Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
+GUIDE = dict(
+    category='Editor', order=10, mono='N',
+    tags=['Editor', 'Lua'],
+    aliases='neovim nvim lua treesitter lsp editor vim',
+    status='Stable. Tested on Neovim 0.12 with Treesitter',
+    name="Neovim",
+    tagline="A Neovim colorscheme with Treesitter, LSP, diagnostics, diff, gitsigns and Telescope.",
+    files=[("nvim/colors/miami-cruise.lua", "miami-cruise.lua", "Neovim colorscheme")],
+    shots=[("nvim/dark.png", "Neovim with the dark theme"), ("nvim/light.png", "Neovim with the light theme")],
+    tested="Neovim 0.12 with Treesitter",
+    covers="Editor UI, Treesitter, LSP, diagnostics, diff, gitsigns, Telescope, :terminal colours",
+    glow="No: a flat palette",
+    steps=[
+        ("Put it where Neovim looks for colorschemes", [
+            ("code", [
+                ("macOS / Linux", "bash", "mkdir -p ~/.config/nvim/colors\ncp miami-cruise.lua ~/.config/nvim/colors/"),
+                ("Windows (PowerShell)", "powershell",
+                 'New-Item -ItemType Directory -Force "$env:LOCALAPPDATA\\nvim\\colors" | Out-Null\nCopy-Item miami-cruise.lua "$env:LOCALAPPDATA\\nvim\\colors\\"'),
+            ]),
+            ("note", "If you set <code>$XDG_CONFIG_HOME</code>, use <code>$XDG_CONFIG_HOME/nvim/colors/</code> instead."),
+        ]),
+        ("Turn it on", [
+            ("p", "Add this to your <code>init.lua</code>. To try it first, run <code>:colorscheme miami-cruise</code> inside Neovim."),
+            ("code", [(None, "lua", 'vim.o.background = "dark" -- or "light"\nvim.cmd.colorscheme("miami-cruise")')]),
+        ]),
+        ("Switch between dark and light", [
+            ("p", "The theme follows <code>'background'</code>. Change it at any time and the colours update: <code>:set background=light</code>."),
+            ("note", "It turns on <code>termguicolors</code> for you, so a true-colour terminal is needed."),
+        ]),
+    ],
+)
+
+
 def export(pals, dist: Path):
     out = dist / "nvim" / "colors"
     out.mkdir(parents=True, exist_ok=True)

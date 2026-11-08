@@ -110,6 +110,50 @@ def _lua_list(name, colors):
     return f"  {name} = {{ " + ", ".join(f'"{c}"' for c in colors) + " }"
 
 
+# Install guide: rendered to dist/wezterm/README.md and used by the website and the README table.
+# Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
+GUIDE = dict(
+    category='Terminal', order=30, mono='W',
+    tags=['Terminal', 'Lua'],
+    aliases='wezterm wez terminal lua tabs windows macos linux',
+    status='Beta. Logic and colour fields checked; not yet run in the app on every platform',
+    name="WezTerm",
+    tagline="Colour schemes and tab bar that follow your system's dark or light setting.",
+    files=[("wezterm/miami-cruise.lua", "miami-cruise.lua", "WezTerm module")],
+    shots=[("wezterm/palette.png", "WezTerm window in the dark and light variants (mock-up)")],
+    tested="Logic tested against a stand-in for WezTerm's Lua API; colour fields checked against WezTerm's docs and source",
+    covers="Foreground, background, cursor, selection, 16 ANSI colours, tab bar, copy mode, quick select",
+    glow="No: a flat palette",
+    steps=[
+        ("Put it next to your wezterm.lua", [
+            ("code", [
+                ("macOS / Linux", "bash", "mkdir -p ~/.config/wezterm\ncp miami-cruise.lua ~/.config/wezterm/"),
+                ("Windows (PowerShell)", "powershell",
+                 'New-Item -ItemType Directory -Force "$HOME\\.config\\wezterm" | Out-Null\nCopy-Item miami-cruise.lua "$HOME\\.config\\wezterm\\"'),
+            ]),
+            ("note", "It must sit in the same folder as your config file. If you use a single <code>~/.wezterm.lua</code>, put it in your home folder."),
+        ]),
+        ("Load it in your config", [
+            ("code", [(None, "lua",
+                       'local wezterm = require("wezterm")\nlocal config = wezterm.config_builder()\n\n'
+                       'package.path = wezterm.config_dir .. "/?.lua;" .. package.path\nrequire("miami-cruise").apply(config)\n\nreturn config')]),
+            ("p", "That is all. The theme follows the system dark/light setting, and WezTerm reloads your config when the system switches."),
+        ]),
+        ("Force dark or light (optional)", [
+            ("p", "Set <code>MIAMI_CRUISE</code> to <code>dark</code>, <code>light</code> or <code>auto</code> (the default) in the environment WezTerm starts from:"),
+            ("code", [
+                ("macOS / Linux", "bash", "MIAMI_CRUISE=light wezterm"),
+                ("Windows (PowerShell)", "powershell", '$env:MIAMI_CRUISE = "light"; wezterm'),
+            ]),
+            ("p", "Or pin it in the config file. The environment variable still wins over this:"),
+            ("code", [(None, "lua", 'require("miami-cruise").apply(config, { mode = "light" })')]),
+            ("warn", "<b>Launched from the Dock or Start menu?</b> Those don't see variables you set in a shell, so pin it in the config with <code>mode</code>."),
+            ("note", "The schemes are registered as <code>Miami Cruise</code> and <code>Miami Cruise Day</code>, so <code>config.color_scheme = \"Miami Cruise Day\"</code> also works."),
+        ]),
+    ],
+)
+
+
 def export(pals, dist: Path):
     out = dist / "wezterm"
     out.mkdir(parents=True, exist_ok=True)

@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://lanjelin.github.io/miami-cruise"><b>Website</b></a> &nbsp;·&nbsp;
-  <a href="#install">Install</a> &nbsp;·&nbsp;
+  <a href="#supported-apps">Install</a> &nbsp;·&nbsp;
   <a href="docs/PORTING.md">Port to your app</a> &nbsp;·&nbsp;
   <a href="CONTRIBUTING.md">Contribute</a>
 </p>
@@ -49,91 +49,33 @@ The light and dark palettes, with the full specification and contrast ratios, ar
 
 ## Supported apps
 
-| App | Files | Status |
+Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. Each app has its own folder with a README that explains how to install it, and the [website](https://lanjelin.github.io/miami-cruise) has the same guides with downloads for macOS, Linux and Windows.
+
+<!-- apps:start -->
+| App | Install guide | Status |
 |---|---|---|
-| [Neovim](#neovim) | [`dist/nvim/colors/miami-cruise.lua`](dist/nvim/colors/miami-cruise.lua) | Stable. Tested on Neovim 0.12 with Treesitter |
-| [Vim](#vim) | [`dist/vim/colors/miami-cruise.vim`](dist/vim/colors/miami-cruise.vim) | Stable. Tested on Vim 9.1 |
-| [WezTerm](#wezterm) | [`dist/wezterm/miami-cruise.lua`](dist/wezterm/miami-cruise.lua) | Beta. Logic and colour fields checked; not yet run in the app on every platform |
-| [Web / CSS](#web--css) | [`dist/web/`](dist/web) | Stable. This project's own website is built on it |
-| [Any other app](#design-tokens) | [`dist/tokens/tokens.json`](dist/tokens/tokens.json) | Design tokens as JSON |
+| Neovim | [`dist/nvim`](dist/nvim) | Stable. Tested on Neovim 0.12 with Treesitter |
+| Vim | [`dist/vim`](dist/vim) | Stable. Tested on Vim 9.1 |
+| WezTerm | [`dist/wezterm`](dist/wezterm) | Beta. Logic and colour fields checked; not yet run in the app on every platform |
+| Web / CSS | [`dist/web`](dist/web) | Stable. The project's own website is built on it |
+| Design tokens | [`dist/tokens`](dist/tokens) | Design tokens as JSON |
+<!-- apps:end -->
 
 Your app isn't listed? [Request a port](../../issues/new/choose) or [write one](docs/PORTING.md); a port is a single small file.
-
-## Install
-
-Every theme is a ready-to-use file in [`dist/`](dist). Copy it into place; there is nothing to build. The [website](https://lanjelin.github.io/miami-cruise) offers the same files with step-by-step guides for macOS, Linux and Windows, and the source of the site is in [`website/`](website).
-
-### Neovim
-
-```sh
-mkdir -p ~/.config/nvim/colors
-cp dist/nvim/colors/miami-cruise.lua ~/.config/nvim/colors/
-```
-
-```lua
-vim.o.background = "dark" -- or "light"
-vim.cmd.colorscheme("miami-cruise")
-```
-
-The theme follows `'background'`: `:set background=light` switches it live. On Windows the folder is `%LOCALAPPDATA%\nvim\colors`.
-
-### Vim
-
-```sh
-mkdir -p ~/.vim/colors
-cp dist/vim/colors/miami-cruise.vim ~/.vim/colors/
-```
-
-```vim
-syntax on
-set background=dark   " or light
-colorscheme miami-cruise
-```
-
-True colour is used when `$COLORTERM` is `truecolor` or `24bit`; otherwise Vim falls back to the nearest of the 256 colours. On Windows the folder is `~\vimfiles\colors`.
-
-### WezTerm
-
-Copy `dist/wezterm/miami-cruise.lua` next to your `wezterm.lua` (`~/.config/wezterm/`), then add:
-
-```lua
-package.path = wezterm.config_dir .. "/?.lua;" .. package.path
-require("miami-cruise").apply(config)
-```
-
-It follows the system dark/light setting, and WezTerm reloads the config when that changes. To force a variant, set `MIAMI_CRUISE=dark` or `light` (`auto` returns to the system) in the environment WezTerm starts from, for example `MIAMI_CRUISE=light wezterm`, or pin it in the config with `apply(config, { mode = "light" })`. Apps launched from the Dock or Start menu don't see shell variables, so pin the mode in the config there.
-
-### Web / CSS
-
-```html
-<link rel="stylesheet" href="miami-cruise.css">
-<link rel="stylesheet" href="glow.css"> <!-- optional -->
-```
-
-```css
-body { background: var(--mc-bg); color: var(--mc-text); }
-a    { color: var(--mc-accent); }
-```
-
-Dark is the default; set `data-theme="light"` on `<html>` for the light variant.
-
-### Design tokens
-
-`dist/tokens/tokens.json` has a `dark` and a `light` object mapping each token to a hex colour; `contrast.json` lists the contrast ratios. Use it to port the palette to anything else. The role of each token is described in the [porting guide](docs/PORTING.md#token-roles).
 
 ## Repository
 
 ```
-dist/          the themes, generated from the palette and committed
-themes/        one small module per app
+dist/          the themes and their install guides, generated from the palette and committed
+themes/        one module per app: the theme and its install guide
 palette.py     the palette: OKLCH values and contrast rules
 website/       the source of the project website, built separately
 brand/         logo, banner and social-preview sources
-docs/          specification and porting guide
+docs/          specification, porting guide, distribution plan
 previews/      screenshots and the samples they come from
 ```
 
-To rebuild after changing the palette or a port: `python3 -I build.py` (Python 3, no dependencies). The files in `dist/` are generated, so CI fails if they are out of date.
+To rebuild after changing the palette or a port: `python3 -I build.py` (Python 3, no dependencies). `dist/`, `docs/SPEC.md` and the apps table above are generated, so CI fails if they are out of date.
 
 ## Contributing
 

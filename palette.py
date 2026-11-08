@@ -3,7 +3,6 @@
 This is the single source of truth. Modules in themes/ and website/ only read the result.
 Palettes are defined in OKLCH (lightness, chroma, hue) in PALETTES below.
 """
-import json
 import math
 
 VERSION = "0.1.0"

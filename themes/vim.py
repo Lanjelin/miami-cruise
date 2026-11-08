@@ -79,6 +79,41 @@ def _block(p):
     return "\n".join(lines)
 
 
+# Install guide: rendered to dist/vim/README.md and used by the website and the README table.
+# Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
+GUIDE = dict(
+    category='Editor', order=20, mono='V',
+    tags=['Editor', 'Vimscript'],
+    aliases='vim vi vimscript editor gvim',
+    status='Stable. Tested on Vim 9.1',
+    name="Vim",
+    tagline="A Vim colorscheme with true colour and a 256-colour fallback.",
+    files=[("vim/colors/miami-cruise.vim", "miami-cruise.vim", "Vim colorscheme")],
+    shots=[("vim/dark.png", "Vim with the dark theme"), ("vim/light.png", "Vim with the light theme")],
+    tested="Vim 9.1",
+    covers="Editor UI, syntax groups, diff, spell, popup menu, tab line, terminal colours",
+    glow="No: a flat palette",
+    steps=[
+        ("Put it where Vim looks for colorschemes", [
+            ("code", [
+                ("macOS / Linux", "bash", "mkdir -p ~/.vim/colors\ncp miami-cruise.vim ~/.vim/colors/"),
+                ("Windows (PowerShell)", "powershell",
+                 'New-Item -ItemType Directory -Force "$HOME\\vimfiles\\colors" | Out-Null\nCopy-Item miami-cruise.vim "$HOME\\vimfiles\\colors\\"'),
+            ]),
+        ]),
+        ("Turn it on", [
+            ("p", "Add this to your <code>vimrc</code>. To try it first, run <code>:colorscheme miami-cruise</code>."),
+            ("code", [(None, "vim", 'syntax on\nset background=dark   " or light\ncolorscheme miami-cruise')]),
+        ]),
+        ("Colours in the terminal", [
+            ("p", "In a true-colour terminal (<code>$COLORTERM</code> is <code>truecolor</code> or <code>24bit</code>) the theme uses its exact colours. "
+                  "Elsewhere it falls back to the nearest of the 256 xterm colours, so it still looks right."),
+            ("note", "Changing <code>background</code> later reloads the theme by itself."),
+        ]),
+    ],
+)
+
+
 def export(pals, dist: Path):
     out = dist / "vim" / "colors"
     out.mkdir(parents=True, exist_ok=True)

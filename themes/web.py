@@ -27,6 +27,37 @@ GLOW = """/* Miami Cruise glow layer - OPTIONAL. Decoration only; nothing here c
 """
 
 
+# Install guide: rendered to dist/web/README.md and used by the website and the README table.
+# Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
+GUIDE = dict(
+    category='Web', order=40, mono='W3',
+    tags=['Web', 'CSS'],
+    aliases='web css website html variables custom properties glow theme',
+    status="Stable. The project's own website is built on it",
+    name="Web / CSS",
+    tagline="CSS variables for the palette, plus an optional glow layer.",
+    files=[("web/miami-cruise.css", "miami-cruise.css", "CSS variables"), ("web/glow.css", "glow.css", "Optional glow layer")],
+    shots=[("web/palette.png", "A sample interface in the dark theme, the light theme, and the dark theme without glow")],
+    tested="The project's own website is built on exactly these files",
+    covers="All 17 palette tokens as --mc-* variables, dark and light, and four optional glow classes",
+    glow="Optional: glow.css",
+    steps=[
+        ("Link the stylesheets", [
+            ("code", [(None, "html", '<link rel="stylesheet" href="miami-cruise.css">\n<!-- optional -->\n<link rel="stylesheet" href="glow.css">')]),
+        ]),
+        ("Use the variables", [
+            ("code", [(None, "css", "body { background: var(--mc-bg); color: var(--mc-text); }\na { color: var(--mc-accent); }\n.card { background: var(--mc-panel); border: 1px solid var(--mc-border); }\n.btn { background: var(--mc-accent); color: var(--mc-on-accent); }")]),
+            ("p", "With <code>glow.css</code> you can add <code>mc-primary</code> (glowing button), <code>mc-focus</code> (glowing focus ring), <code>mc-selected</code> and <code>mc-surface</code> (soft top-lit background)."),
+            ("note", "The glow only decorates states that already work without it, and browsers without <code>color-mix</code> simply skip it."),
+        ]),
+        ("Dark, light, or follow the system", [
+            ("p", "Dark is the default. Set <code>data-theme=\"light\"</code> on <code>&lt;html&gt;</code> for the light variant. To follow the system:"),
+            ("code", [(None, "html", '<script>\n  var m = matchMedia("(prefers-color-scheme: light)");\n  function sync() { document.documentElement.dataset.theme = m.matches ? "light" : "dark"; }\n  m.addEventListener("change", sync); sync();\n</script>')]),
+        ]),
+    ],
+)
+
+
 def export(pals, dist: Path):
     out = dist / "web"
     out.mkdir(parents=True, exist_ok=True)
