@@ -103,11 +103,13 @@ GUIDE = dict(
         ]),
         ("Turn it on", [
             ("p", "Add this to your <code>vimrc</code>. To try it first, run <code>:colorscheme miami-cruise</code>."),
-            ("code", [(None, "vim", 'syntax on\nset background=dark   " or light\ncolorscheme miami-cruise')]),
+            ("code", [(None, "vim", 'syntax on\nset termguicolors       " if your terminal supports true colour\nset background=dark   " or light\ncolorscheme miami-cruise')]),
         ]),
         ("Colours in the terminal", [
-            ("p", "In a true-colour terminal (<code>$COLORTERM</code> is <code>truecolor</code> or <code>24bit</code>) the theme uses its exact colours. "
-                  "Elsewhere it falls back to the nearest of the 256 xterm colours, so it still looks right."),
+            ("p", "Use <code>set termguicolors</code> for the exact Miami Cruise background and colours in a true-colour terminal. "
+                  "The theme also enables it automatically when <code>$COLORTERM</code> is <code>truecolor</code> or <code>24bit</code>, "
+                  "but some true-colour terminals do not set that variable. Without true colour, Vim uses approximate xterm-256 colours; "
+                  "the dark background becomes neutral grey instead of teal-black."),
             ("note", "Changing <code>background</code> later reloads the theme by itself."),
         ]),
     ],

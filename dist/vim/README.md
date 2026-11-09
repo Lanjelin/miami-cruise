@@ -35,13 +35,14 @@ Add this to your `vimrc`. To try it first, run `:colorscheme miami-cruise`.
 
 ```vim
 syntax on
+set termguicolors       " if your terminal supports true colour
 set background=dark   " or light
 colorscheme miami-cruise
 ```
 
 ### 3. Colours in the terminal
 
-In a true-colour terminal (`$COLORTERM` is `truecolor` or `24bit`) the theme uses its exact colours. Elsewhere it falls back to the nearest of the 256 xterm colours, so it still looks right.
+Use `set termguicolors` for the exact Miami Cruise background and colours in a true-colour terminal. The theme also enables it automatically when `$COLORTERM` is `truecolor` or `24bit`, but some true-colour terminals do not set that variable. Without true colour, Vim uses approximate xterm-256 colours; the dark background becomes neutral grey instead of teal-black.
 
 > [!NOTE]
 > Changing `background` later reloads the theme by itself.
