@@ -11,7 +11,7 @@ def style(p):
     # Keep familiar Markdown typography and markers. These structural choices
     # are explicit because a custom Glamour stylesheet is not a colour overlay.
     result = dict(
-        document=colour('text', background_color=p['bg'], block_prefix='\n', block_suffix='\n', margin=2),
+        document=colour('text', block_prefix='\n', block_suffix='\n', margin=2),
         block_quote=colour('muted', indent=1, indent_token='│ '),
         paragraph={}, list=dict(level_indent=2),
         heading=colour('accent', bold=True, block_suffix='\n'),
@@ -26,7 +26,7 @@ def style(p):
         link=colour('info', underline=True), link_text=colour('info', bold=True),
         image=colour('info', underline=True), image_text=colour('muted', format='Image: {{.text}} →'),
         code=colour('text', background_color=p['panel'], prefix='\u00a0', suffix='\u00a0'),
-        code_block=colour('text', background_color=p['bg'], margin=2),
+        code_block=colour('text', margin=2),
         table=colour('text'), definition_list={}, definition_term=colour('info', bold=True),
         definition_description=dict(block_prefix='\n→ '), html_block={}, html_span={},
     )
@@ -46,7 +46,6 @@ def style(p):
     chroma['generic_strong']['bold'] = True
     chroma['generic_subheading']['bold'] = True
     chroma['error']['underline'] = True
-    chroma['background'] = dict(background_color=p['bg'])
     result['code_block']['chroma'] = chroma
 
     def check(node, inherited_fg=p['text'], inherited_bg=p['bg']):
@@ -76,7 +75,7 @@ GUIDE = dict(
         ('p', 'Install Glow and use a true-colour terminal with a matching dark or light background. Keep these JSON files in a permanent folder. Back up same-named customized files before copying. There is no bat dependency, syntax-cache build or patched Glow binary.'),
         ('code', [('Linux / macOS', 'bash', 'mkdir -p ~/.config/glow/styles\ncp miami-cruise-dark.json miami-cruise-light.json ~/.config/glow/styles/\nglow -s "$HOME/.config/glow/styles/miami-cruise-dark.json" README.md'),
                   ('Windows (PowerShell)', 'powershell', '$styles = Join-Path $env:APPDATA "glow/styles"\nNew-Item -ItemType Directory -Force $styles | Out-Null\nCopy-Item miami-cruise-dark.json, miami-cruise-light.json $styles\nglow -s (Join-Path $styles "miami-cruise-dark.json") README.md')]),
-        ('p', 'Use miami-cruise-light.json for light mode. Each file is one explicit palette; Glow\'s built-in auto selection does not switch between these two custom files. Rendered content has a matching background, but the style cannot recolour the entire terminal window.'),
+        ('p', 'Use miami-cruise-light.json for light mode. Each file is one explicit palette; Glow\'s built-in auto selection does not switch between these two custom files. The Markdown body and fenced-code blocks leave the background unset, so your terminal background shows through. Inline-code chips and first-level headings retain accent fills. Choose the variant that contrasts with your terminal background.'),
         ('note', 'Markdown body colours (headings, links, quotes, tables) render true-colour. Fenced-code syntax highlighting goes through Chroma\'s terminal256 formatter, so those colours are quantized to the nearest of 256 terminal colours and can look very slightly off from the exact palette hex.'),
     ]), ('Keep your current Glow settings', [
         ('p', 'For persistence, edit only the style key in your existing glow.yml, preserving pager, width, mouse and other settings. Run glow --help to find your platform\'s config path, or glow config to open it. Use the actual absolute JSON path; the example below must be adapted to your machine.'),

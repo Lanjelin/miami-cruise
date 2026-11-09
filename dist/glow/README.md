@@ -36,7 +36,7 @@ Copy-Item miami-cruise-dark.json, miami-cruise-light.json $styles
 glow -s (Join-Path $styles "miami-cruise-dark.json") README.md
 ```
 
-Use miami-cruise-light.json for light mode. Each file is one explicit palette; Glow's built-in auto selection does not switch between these two custom files. Rendered content has a matching background, but the style cannot recolour the entire terminal window.
+Use miami-cruise-light.json for light mode. Each file is one explicit palette; Glow's built-in auto selection does not switch between these two custom files. The Markdown body and fenced-code blocks leave the background unset, so your terminal background shows through. Inline-code chips and first-level headings retain accent fills. Choose the variant that contrasts with your terminal background.
 
 > [!NOTE]
 > Markdown body colours (headings, links, quotes, tables) render true-colour. Fenced-code syntax highlighting goes through Chroma's terminal256 formatter, so those colours are quantized to the nearest of 256 terminal colours and can look very slightly off from the exact palette hex.

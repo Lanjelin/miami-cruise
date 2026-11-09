@@ -153,8 +153,9 @@ Unknown language stays readable too.
             colours(shot, p, ('text', 'accent', 'info', 'muted'))
             syntax_colours(shot, p, ('disabled', 'accent', 'orange', 'success', 'danger'))
             assert '48;2;' + rgb(p['accent']) in shot
-            assert '48;2;' + rgb(p['bg']) in shot
             assert '48;2;' + rgb(p['panel']) in shot
+            fills = set(re.findall(r'48;(?:2;\d+;\d+;\d+|5;\d+)', shot))
+            assert fills == {'48;2;' + rgb(p['accent']), '48;2;' + rgb(p['panel'])}, fills
             text = plain(shot)
             for expected in ('Miami Cruise', 'Ready to sail', '│', '[✓]', '[ ]', 'Element', 'Purpose',
                              'def', 'cruise', '42', 'return', 'theme =', '--------'):
