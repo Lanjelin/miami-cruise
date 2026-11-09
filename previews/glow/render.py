@@ -156,6 +156,15 @@ Unknown language stays readable too.
             assert '48;2;' + rgb(p['panel']) in shot
             fills = set(re.findall(r'48;(?:2;\d+;\d+;\d+|5;\d+)', shot))
             assert fills == {'48;2;' + rgb(p['accent']), '48;2;' + rgb(p['panel'])}, fills
+            opaque_theme = ROOT / f'dist/glow/miami-cruise-{variant}-opaque.json'
+            opaque_shot = render('-s', str(opaque_theme), '-w', '56', str(fixture))
+            assert opaque_shot == render('-s', str(opaque_theme), '-w', '56', '-', stdin=sample)
+            assert plain(opaque_shot) == plain(shot)
+            opaque_fills = set(re.findall(r'48;(?:2;\d+;\d+;\d+|5;\d+)', opaque_shot))
+            assert opaque_fills == fills | {'48;2;' + rgb(p['bg'])}, opaque_fills
+            conf.write_text('style: ' + json.dumps(str(opaque_theme)) + '\nwidth: 56\npager: false\nmouse: true\n')
+            colours(terminal_render(str(fixture)), p, ('accent', 'text'))
+            conf.write_bytes(config_before)
             text = plain(shot)
             for expected in ('Miami Cruise', 'Ready to sail', '│', '[✓]', '[ ]', 'Element', 'Purpose',
                              'def', 'cruise', '42', 'return', 'theme =', '--------'):
@@ -184,7 +193,7 @@ header{font:600 15px system-ui;margin-bottom:12px}
 pre{font:15px/18px 'DejaVu Sans Mono',monospace;margin:0;white-space:pre;font-variant-ligatures:none}
 .terminal-cell{display:inline-block;width:9px;height:18px;vertical-align:top;text-align:center}'''
         output.write_text('<!doctype html><meta charset="utf-8"><style>' + css + '</style>' + ''.join(sections))
-    print('Verified Glow 3.0.0: RGB Markdown and 256-colour code, Markdown structures, Python/JSON/diff/plain syntax, file/stdin equivalence, config preservation, CLI style precedence and width control.', file=sys.stderr)
+    print('Verified Glow 3.0.0: four background/palette styles, RGB Markdown and 256-colour code, Markdown structures, Python/JSON/diff/plain syntax, file/stdin equivalence, config preservation, CLI style precedence and width control.', file=sys.stderr)
 
 
 if __name__ == '__main__':

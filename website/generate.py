@@ -183,7 +183,7 @@ def app_page(app, downloads):
         )
         shots = f'<div class="shots">{figs}</div>'
     facts = "".join(f"<li><b>{k}</b><br>{esc(v)}</li>" for k, v in (
-        ("Variants", "Dark and light"), ("Covers", app["covers"]), ("Glow", app["glow"]), ("Tested", app["tested"])))
+        ("Variants", app.get("variants", "Dark and light")), ("Covers", app["covers"]), ("Glow", app["glow"]), ("Tested", app["tested"])))
     body = f"""<div class="wrap">
 <p class="crumbs"><a href="../index.html">Miami Cruise</a> / <a href="../index.html#apps">Apps</a> / {esc(app['name'])}</p>
 <div class="apphead">{app_icon(app, '../')}

@@ -53,7 +53,7 @@ def render_readme(app_id, g):
                     out += [f"```{lang}", text, "```", ""]
     out += [
         "## Details", "",
-        "- **Variants:** dark and light",
+        f"- **Variants:** {g.get('variants', 'dark and light')}",
         f"- **Covers:** {g['covers']}",
         f"- **Glow:** {g['glow']}",
         f"- **Tested:** {g['tested']}",
