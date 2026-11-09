@@ -40,7 +40,7 @@ def app_icon(app, up=""):
         raise ValueError(f'{app["id"]}: badge_tone must be accent, info or orchid')
     fallback = f'<span class="icon-fallback">{esc(app["mono"])}</span>'
     image = (f'<img src="{up}assets/apps/{esc(app["id"])}.svg" alt="" width="40" height="40">'
-             if app["id"] in ICONS else "")
+             if app["id"] in ICONS and not app.get("text_badge") else "")
     return f'<div class="app-icon badge-{tone} badge-length-{len(app["mono"])}" aria-hidden="true">{fallback}{image}</div>'
 
 
@@ -271,8 +271,8 @@ def credits_page():
             f'<p>Changes: {esc(meta["changes"])} Checked {esc(meta["checked"])}.</p></section>'
         )
     body = ('<div class="wrap section"><h1>App icon credits</h1>'
-            '<p class="lead">Original app artwork identifies the applications supported by Miami Cruise. '
-            'The logos retain their original colours and proportions.</p>'
+            '<p class="lead">App cards use text badges. Original artwork is retained here with its attribution '
+            'for reference; the SVGs retain their original colours and proportions.</p>'
             '<p>Third-party logos are covered by their own licences, not the Miami Cruise MIT licence. '
             'Names and trademarks belong to their respective owners; no endorsement is implied. '
             'Apps without a suitable logo use a text fallback.</p>'

@@ -7,8 +7,9 @@ notices are included here. Neovim's logo is by Jason Long, CC BY 3.0:
 https://creativecommons.org/licenses/by/3.0/
 
 The build copies this directory and publishes the records as `credits.html`.
-Names and trademarks belong to their respective owners. Their inclusion identifies
-supported applications and does not imply endorsement.
+Current app cards use text badges, but the original artwork is retained with its
+attribution for reference. Names and trademarks belong to their respective
+owners; inclusion does not imply endorsement.
 
 When no suitable original artwork with documented reuse terms is available, use
 the existing GUIDE text fallback. Do not substitute an unofficial logo or infer

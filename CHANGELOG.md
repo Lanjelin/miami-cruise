@@ -12,7 +12,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Native lazygit GUI themes with automatic/fixed dark and light variants, layered install instructions and real UI/delta previews.
 - Dark/light bat syntax themes and delta diff themes, sharing one TextMate mapping, with install guides and previews captured from real app output.
 - Clear type-badge fallbacks (`eza`, `CSS`, `{}`), with palette-aware accents and short initial-based defaults for long app names.
-- Original Neovim, Vim and WezTerm icons on website cards and app pages, with uniform tiles, text fallbacks and a generated credits/licences page.
+- Text badges for Neovim (`nvim`), Vim (`vim`), WezTerm (`wez`) and lazygit (`lzg`), with original artwork retained in the credits/licences page.
 - Generated eza themes in dark and light, with shared install guides and a preview captured from real eza output.
 
 ### Fixed
