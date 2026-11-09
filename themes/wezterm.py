@@ -56,6 +56,7 @@ local function scheme(p, a)
     quick_select_match_fg = { Color = p.text },
     tab_bar = {
       background = p.panel,
+      inactive_tab_edge = p.border,
       active_tab = { bg_color = p.bg, fg_color = p.accent, intensity = "Bold" },
       inactive_tab = { bg_color = p.panel, fg_color = p.muted },
       inactive_tab_hover = { bg_color = p.hover, fg_color = p.text },
@@ -92,7 +93,30 @@ function M.apply(config, opts)
   for name, s in pairs(M.schemes) do
     config.color_schemes[name] = s
   end
-  config.color_scheme = M.variant(opts.mode) == "light" and "Miami Cruise Day" or "Miami Cruise"
+  local variant = M.variant(opts.mode)
+  local p = palettes[variant]
+  config.color_scheme = variant == "light" and "Miami Cruise Day" or "Miami Cruise"
+  -- GUI tab rendering reads config.colors.tab_bar directly on stable WezTerm.
+  local colors = config.colors or {}
+  colors.tab_bar = M.schemes[config.color_scheme].tab_bar
+  config.colors = colors
+  -- The fancy tab bar takes its background from window_frame, not tab_bar.
+  -- Merge colours only; retain the user's font, size and border settings.
+  config.window_frame = config.window_frame or {}
+  for key, value in pairs({
+    active_titlebar_bg = p.panel,
+    inactive_titlebar_bg = p.panel,
+    active_titlebar_fg = p.text,
+    inactive_titlebar_fg = p.muted,
+    active_titlebar_border_bottom = p.border,
+    inactive_titlebar_border_bottom = p.border,
+    button_bg = p.panel,
+    button_fg = p.muted,
+    button_hover_bg = p.hover,
+    button_hover_fg = p.accent,
+  }) do
+    config.window_frame[key] = value
+  end
   return config
 end
 
@@ -116,13 +140,14 @@ GUIDE = dict(
     category='Terminal', order=30, mono='W',
     tags=['Terminal', 'Lua'],
     aliases='wezterm wez terminal lua tabs windows macos linux',
-    status='Beta. Logic and colour fields checked; not yet run in the app on every platform',
+    status='Verified on Linux/X11; macOS, Windows and system appearance transitions not yet tested',
     name="WezTerm",
     tagline="Colour schemes and tab bar that follow your system's dark or light setting.",
     files=[("wezterm/miami-cruise.lua", "miami-cruise.lua", "WezTerm module")],
-    shots=[("wezterm/palette.png", "WezTerm window in the dark and light variants (mock-up)")],
-    tested="Logic tested against a stand-in for WezTerm's Lua API; colour fields checked against WezTerm's docs and source",
-    covers="Foreground, background, cursor, selection, 16 ANSI colours, tab bar, copy mode, quick select",
+    shots=[("wezterm/dark.png", "Miami Cruise in WezTerm on Linux: tabs, splits, ANSI colours and selection"),
+           ("wezterm/light.png", "Miami Cruise Day in the same running WezTerm session")],
+    tested="WezTerm 20240203-110809-5046fc22 on Arch Linux/X11: dark/light reloads, resolved palettes, fancy and retro tabs, splits, selection, search, copy mode and quick select. macOS/Windows and real system appearance transitions not tested; this XFCE session lacks the appearance portal",
+    covers="Foreground, background, cursor, selection, 16 ANSI colours, fancy/retro tab bars, window-frame colours, copy mode, quick select",
     glow="No: a flat palette",
     steps=[
         ("Put it next to your wezterm.lua", [
@@ -134,10 +159,12 @@ GUIDE = dict(
             ("note", "It must sit in the same folder as your config file. If you use a single <code>~/.wezterm.lua</code>, put it in your home folder."),
         ]),
         ("Load it in your config", [
+            ("note", "Already have a config? Keep it and add the <code>package.path</code> and <code>apply(config)</code> lines near the end, before <code>return config</code>. Back it up first. Remove conflicting old <code>config.colors</code> overrides (for example selection colours), which otherwise override the selected scheme. The module merges window-frame colours without changing fonts, bindings, layout or tab-bar style; it replaces the tab-bar colour table."),
             ("code", [(None, "lua",
                        'local wezterm = require("wezterm")\nlocal config = wezterm.config_builder()\n\n'
                        'package.path = wezterm.config_dir .. "/?.lua;" .. package.path\nrequire("miami-cruise").apply(config)\n\nreturn config')]),
             ("p", "That is all. The theme follows the system dark/light setting, and WezTerm reloads your config when the system switches."),
+            ("note", "Linux automatic appearance requires desktop support through <code>org.freedesktop.portal.Settings</code>. If WezTerm cannot read the desktop appearance, use a fixed <code>mode</code> below. A successful fixed dark/light reload does not verify system switching."),
         ]),
         ("Force dark or light (optional)", [
             ("p", "Set <code>MIAMI_CRUISE</code> to <code>dark</code>, <code>light</code> or <code>auto</code> (the default) in the environment WezTerm starts from:"),
@@ -148,7 +175,7 @@ GUIDE = dict(
             ("p", "Or pin it in the config file. The environment variable still wins over this:"),
             ("code", [(None, "lua", 'require("miami-cruise").apply(config, { mode = "light" })')]),
             ("warn", "<b>Launched from the Dock or Start menu?</b> Those don't see variables you set in a shell, so pin it in the config with <code>mode</code>."),
-            ("note", "The schemes are registered as <code>Miami Cruise</code> and <code>Miami Cruise Day</code>, so <code>config.color_scheme = \"Miami Cruise Day\"</code> also works."),
+            ("note", "The schemes are registered as <code>Miami Cruise</code> and <code>Miami Cruise Day</code>. Select the variant through <code>apply(config, { mode = \"light\" })</code> so terminal, tab-bar and window-frame colours stay in sync."),
         ]),
     ],
 )

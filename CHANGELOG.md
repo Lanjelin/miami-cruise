@@ -14,6 +14,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Generated eza themes in dark and light, with shared install guides and a preview captured from real eza output.
 
 ### Fixed
+- Verify WezTerm on Linux/X11, fix fancy/retro tab colours and window-frame colours, replace mock previews with live captures, and document existing-config overrides and Linux appearance-portal requirements.
 - Clarify delta's native Git-config theme versus its supporting TextMate syntax palettes; put delta setup first in its README and website guide.
 
 ## [0.1.0]

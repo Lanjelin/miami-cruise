@@ -56,7 +56,7 @@ Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. E
 |---|---|---|
 | Neovim | [`dist/nvim`](dist/nvim) | Stable. Tested on Neovim 0.12 with Treesitter |
 | Vim | [`dist/vim`](dist/vim) | Stable. Tested on Vim 9.1 |
-| WezTerm | [`dist/wezterm`](dist/wezterm) | Beta. Logic and colour fields checked; not yet run in the app on every platform |
+| WezTerm | [`dist/wezterm`](dist/wezterm) | Verified on Linux/X11; macOS, Windows and system appearance transitions not yet tested |
 | eza | [`dist/eza`](dist/eza) | Beta. Tested with eza 0.23.5 on Linux; macOS and Windows not yet tested |
 | Web / CSS | [`dist/web`](dist/web) | Stable. The project's own website is built on it |
 | bat | [`dist/bat`](dist/bat) | Beta. Tested with bat 0.26.1 on Linux; macOS and Windows not tested |

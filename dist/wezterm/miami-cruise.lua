@@ -73,6 +73,7 @@ local function scheme(p, a)
     quick_select_match_fg = { Color = p.text },
     tab_bar = {
       background = p.panel,
+      inactive_tab_edge = p.border,
       active_tab = { bg_color = p.bg, fg_color = p.accent, intensity = "Bold" },
       inactive_tab = { bg_color = p.panel, fg_color = p.muted },
       inactive_tab_hover = { bg_color = p.hover, fg_color = p.text },
@@ -109,7 +110,30 @@ function M.apply(config, opts)
   for name, s in pairs(M.schemes) do
     config.color_schemes[name] = s
   end
-  config.color_scheme = M.variant(opts.mode) == "light" and "Miami Cruise Day" or "Miami Cruise"
+  local variant = M.variant(opts.mode)
+  local p = palettes[variant]
+  config.color_scheme = variant == "light" and "Miami Cruise Day" or "Miami Cruise"
+  -- GUI tab rendering reads config.colors.tab_bar directly on stable WezTerm.
+  local colors = config.colors or {}
+  colors.tab_bar = M.schemes[config.color_scheme].tab_bar
+  config.colors = colors
+  -- The fancy tab bar takes its background from window_frame, not tab_bar.
+  -- Merge colours only; retain the user's font, size and border settings.
+  config.window_frame = config.window_frame or {}
+  for key, value in pairs({
+    active_titlebar_bg = p.panel,
+    inactive_titlebar_bg = p.panel,
+    active_titlebar_fg = p.text,
+    inactive_titlebar_fg = p.muted,
+    active_titlebar_border_bottom = p.border,
+    inactive_titlebar_border_bottom = p.border,
+    button_bg = p.panel,
+    button_fg = p.muted,
+    button_hover_bg = p.hover,
+    button_hover_fg = p.accent,
+  }) do
+    config.window_frame[key] = value
+  end
   return config
 end
 

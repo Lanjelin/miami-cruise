@@ -2,7 +2,8 @@
 
 Colour schemes and tab bar that follow your system's dark or light setting.
 
-![WezTerm window in the dark and light variants (mock-up)](../../previews/wezterm/palette.png)
+![Miami Cruise in WezTerm on Linux: tabs, splits, ANSI colours and selection](../../previews/wezterm/dark.png)
+![Miami Cruise Day in the same running WezTerm session](../../previews/wezterm/light.png)
 
 ## Install
 
@@ -33,6 +34,9 @@ Copy-Item miami-cruise.lua "$HOME\.config\wezterm\"
 
 ### 2. Load it in your config
 
+> [!NOTE]
+> Already have a config? Keep it and add the `package.path` and `apply(config)` lines near the end, before `return config`. Back it up first. Remove conflicting old `config.colors` overrides (for example selection colours), which otherwise override the selected scheme. The module merges window-frame colours without changing fonts, bindings, layout or tab-bar style; it replaces the tab-bar colour table.
+
 ```lua
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -44,6 +48,9 @@ return config
 ```
 
 That is all. The theme follows the system dark/light setting, and WezTerm reloads your config when the system switches.
+
+> [!NOTE]
+> Linux automatic appearance requires desktop support through `org.freedesktop.portal.Settings`. If WezTerm cannot read the desktop appearance, use a fixed `mode` below. A successful fixed dark/light reload does not verify system switching.
 
 ### 3. Force dark or light (optional)
 
@@ -71,14 +78,14 @@ require("miami-cruise").apply(config, { mode = "light" })
 > **Launched from the Dock or Start menu?** Those don't see variables you set in a shell, so pin it in the config with `mode`.
 
 > [!NOTE]
-> The schemes are registered as `Miami Cruise` and `Miami Cruise Day`, so `config.color_scheme = "Miami Cruise Day"` also works.
+> The schemes are registered as `Miami Cruise` and `Miami Cruise Day`. Select the variant through `apply(config, { mode = "light" })` so terminal, tab-bar and window-frame colours stay in sync.
 
 ## Details
 
 - **Variants:** dark and light
-- **Covers:** Foreground, background, cursor, selection, 16 ANSI colours, tab bar, copy mode, quick select
+- **Covers:** Foreground, background, cursor, selection, 16 ANSI colours, fancy/retro tab bars, window-frame colours, copy mode, quick select
 - **Glow:** No: a flat palette
-- **Tested:** Logic tested against a stand-in for WezTerm's Lua API; colour fields checked against WezTerm's docs and source
+- **Tested:** WezTerm 20240203-110809-5046fc22 on Arch Linux/X11: dark/light reloads, resolved palettes, fancy and retro tabs, splits, selection, search, copy mode and quick select. macOS/Windows and real system appearance transitions not tested; this XFCE session lacks the appearance portal
 
 ## More
 
