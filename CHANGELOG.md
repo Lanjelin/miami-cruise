@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Colour-only native tmux dark/light files, preserving existing status/powerline formats, bindings and layout, with layered install instructions and isolated real-client previews.
 - Native btop dark/light themes with a shared-palette dashboard, install guide and live-app previews.
 - Native fzf dark/light colour option files, preserving existing picker behaviour, with shell instructions and real interactive previews.
 - Native lazygit GUI themes with automatic/fixed dark and light variants, layered install instructions and real UI/delta previews.

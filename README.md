@@ -64,6 +64,7 @@ Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. E
 | lazygit | [`dist/lazygit`](dist/lazygit) | Beta. Tested with lazygit 0.66.3 on Linux; macOS and Windows not tested |
 | fzf | [`dist/fzf`](dist/fzf) | Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested |
 | btop | [`dist/btop`](dist/btop) | Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested |
+| tmux | [`dist/tmux`](dist/tmux) | Tested with tmux 3.4 on Linux; existing powerline layouts preserved, not replaced |
 | Design tokens | [`dist/tokens`](dist/tokens) | Design tokens as JSON |
 <!-- apps:end -->
 

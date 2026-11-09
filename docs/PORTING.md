@@ -26,6 +26,7 @@ previews/<app>/       a sample file, a render.sh and the screenshots
 3. **Build and test it in the real app**, dark and light. Write down the version you tested in `GUIDE["tested"]`.
 4. **Add a preview**: `previews/<app>/` with a short sample file, a `render.sh` (copy `previews/vim/render.sh`) and the screenshots.
    For a TUI, `previews/lazygit/render.py` demonstrates a disposable repository and an isolated tmux server: exercise actual UI states, capture rendered screens with ANSI styles, and convert those screens to HTML. Remove inherited `NO_COLOR`, isolate app state/config/cache, preserve styling on the final text segment and wait for redraws to settle. Keep preview-only layout/network settings out of the shipped theme.
+   For tmux itself, `previews/tmux/render.py` attaches an inner scratch server inside an outer capture server: an inner `capture-pane` alone misses status bars, pane borders and overlays. Its demonstration formats are preview-only. The tmux port merges only colour properties into native styles; verify that inline powerline formats, attributes, local overrides, bindings and unrelated options remain intact.
 5. **Run `python3 -I build.py`** and commit what it generated: `dist/`, `docs/SPEC.md` and the README apps table. CI fails if they are out of date.
 6. **Update `CHANGELOG.md`** under `[Unreleased]`.
 
