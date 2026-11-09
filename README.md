@@ -65,6 +65,7 @@ Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. E
 | fzf | [`dist/fzf`](dist/fzf) | Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested |
 | btop | [`dist/btop`](dist/btop) | Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested |
 | tmux | [`dist/tmux`](dist/tmux) | Tested with tmux 3.4 on Linux; existing powerline layouts preserved, not replaced |
+| Glow | [`dist/glow`](dist/glow) | Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed |
 | Design tokens | [`dist/tokens`](dist/tokens) | Design tokens as JSON |
 <!-- apps:end -->
 
