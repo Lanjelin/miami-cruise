@@ -105,7 +105,7 @@ def capture(output):
                 shot = screen()
                 sections.append(f'<section style="background:{p["bg"]};color:{p["text"]}">'
                                 f'<header style="color:{p["accent"]}">Miami Cruise · btop · {variant} · live metrics / demo process</header>'
-                                f'<pre>{ansi_html(shot, p)}</pre></section>')
+                                f'<pre>{ansi_html(shot, p, fixed_cells=True)}</pre></section>')
                 key('u')
                 wait(lambda s: '48;2;' + rgb(p['warning']) in s, 'paused-list banner')
                 key('u')
@@ -142,10 +142,13 @@ def capture(output):
                 assert '38;5;' in low and '38;2;' not in low, '256-colour conversion missing'
                 key('q')
                 tmux('kill-session', '-t', 'preview')
+            # Integer cell geometry keeps box drawing straight across SGR runs
+            # and proportional-font fallback for Braille graph characters.
             css = '''body{margin:0;padding:14px;display:grid;gap:14px;background:transparent}
 section{border-radius:8px;overflow:hidden;padding:16px 20px}
 header{font:600 15px system-ui;margin-bottom:12px}
-pre{font:15px/1.25 'DejaVu Sans Mono',monospace;margin:0;white-space:pre}'''
+pre{font:15px/18px 'DejaVu Sans Mono',monospace;margin:0;white-space:pre;font-variant-ligatures:none}
+.terminal-cell{display:inline-block;width:9px;height:18px;vertical-align:top;text-align:center}'''
             output.write_text('<!doctype html><meta charset="utf-8"><style>' + css + '</style>' + ''.join(sections))
         finally:
             tmux('kill-server', check=False)

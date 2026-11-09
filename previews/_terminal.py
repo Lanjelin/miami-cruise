@@ -4,7 +4,7 @@ import re
 from themes._hl import ansi
 
 
-def ansi_html(screen, p):
+def ansi_html(screen, p, *, fixed_cells=False):
     """Convert a tmux-rendered screen, not a mock UI or a raw terminal stream."""
     colours = ansi(p)
     out, style, start = [], {}, 0
@@ -23,8 +23,13 @@ def ansi_html(screen, p):
         if current.pop('reverse', False):
             fg, bg = current.get('color', p['text']), current.get('background', p['bg'])
             current.update(color=bg, background=fg)
+        # Browser fallback glyphs (notably Braille) need not have the mono
+        # font's advance. A terminal still gives each of these one cell.
+        content = (''.join('\n' if c == '\n' else
+                           '<span class="terminal-cell">' + html.escape(c) + '</span>'
+                           for c in chunk) if fixed_cells else html.escape(chunk))
         return ('<span style="' + ';'.join(f'{k}:{v}' for k, v in current.items()) + '">' +
-                html.escape(chunk) + '</span>')
+                content + '</span>')
 
     for match in re.finditer(r'\x1b\[([0-9;]*)m', screen):
         out.append(span(screen[start:match.start()]))
@@ -67,4 +72,3 @@ def ansi_html(screen, p):
     if '\x1b' in result:
         raise ValueError('Unconverted screen escape')
     return result
-
