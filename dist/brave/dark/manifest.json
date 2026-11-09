@@ -1,0 +1,75 @@
+{
+  "manifest_version": 3,
+  "name": "Miami Cruise Dark for Brave",
+  "version": "0.1.0",
+  "description": "Miami Cruise dark colours for Brave tabs, toolbar and address bar.",
+  "theme": {
+    "colors": {
+      "frame": [
+        4,
+        22,
+        26
+      ],
+      "frame_inactive": [
+        4,
+        22,
+        26
+      ],
+      "background_tab": [
+        4,
+        22,
+        26
+      ],
+      "background_tab_inactive": [
+        4,
+        22,
+        26
+      ],
+      "toolbar": [
+        13,
+        29,
+        34
+      ],
+      "tab_text": [
+        255,
+        127,
+        192
+      ],
+      "tab_background_text": [
+        159,
+        186,
+        191
+      ],
+      "tab_background_text_inactive": [
+        159,
+        186,
+        191
+      ],
+      "bookmark_text": [
+        222,
+        235,
+        236
+      ],
+      "toolbar_text": [
+        222,
+        235,
+        236
+      ],
+      "toolbar_button_icon": [
+        222,
+        235,
+        236
+      ],
+      "omnibox_background": [
+        24,
+        44,
+        50
+      ],
+      "omnibox_text": [
+        222,
+        235,
+        236
+      ]
+    }
+  }
+}

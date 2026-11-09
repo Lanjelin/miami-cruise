@@ -147,7 +147,7 @@ def render_steps(app, downloads):
                 parts.append(f'<p class="note warn">{content}</p>')
             elif kind == "code":
                 parts.extend(code_block(*c) for c in content)
-        if n == 0 and SITE_URL:
+        if n == 0 and SITE_URL and app.get('download_cli', True):
             cmds = [(None, "bash", "\n".join(f'curl -fsSLO {SITE_URL.rstrip("/")}/{d["href"]}' for d in downloads))]
             parts.append("<p>Or from a terminal:</p>" + code_block(*cmds[0]))
         items.append(f"<li><h3>{esc(title)}</h3>{''.join(parts)}</li>")
@@ -156,7 +156,7 @@ def render_steps(app, downloads):
 
 def download_step(app, downloads):
     names = " and ".join(f"<code>{esc(d['name'])}</code>" for d in downloads)
-    text = f"Download {names} using the box on this page."
+    text = app.get('download_intro', f"Download {names} using the box on this page.")
     needs_terminal = any(
         kind == "code" and any(label for label, _, _ in content)
         for _, blocks in app["steps"] for kind, content in blocks

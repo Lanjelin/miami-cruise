@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Native dark/light Brave browser-chrome themes as local-install ZIPs, with a site download page and unpacked-extension instructions; Web Store publishing remains optional.
 - Native Glow/Glamour dark/light Markdown styles with terminal/opaque background options, shared-palette code syntax, install instructions and real rendered-output previews; browser/pager chrome remains unchanged.
 - Colour-only native tmux dark/light files, preserving existing status/powerline formats, bindings and layout, with layered install instructions and isolated real-client previews.
 - Native btop dark/light themes with a shared-palette dashboard, install guide and live-app previews.

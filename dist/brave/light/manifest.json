@@ -1,0 +1,75 @@
+{
+  "manifest_version": 3,
+  "name": "Miami Cruise Light for Brave",
+  "version": "0.1.0",
+  "description": "Miami Cruise light colours for Brave tabs, toolbar and address bar.",
+  "theme": {
+    "colors": {
+      "frame": [
+        228,
+        239,
+        241
+      ],
+      "frame_inactive": [
+        228,
+        239,
+        241
+      ],
+      "background_tab": [
+        228,
+        239,
+        241
+      ],
+      "background_tab_inactive": [
+        228,
+        239,
+        241
+      ],
+      "toolbar": [
+        241,
+        248,
+        249
+      ],
+      "tab_text": [
+        181,
+        28,
+        121
+      ],
+      "tab_background_text": [
+        58,
+        81,
+        87
+      ],
+      "tab_background_text_inactive": [
+        58,
+        81,
+        87
+      ],
+      "bookmark_text": [
+        20,
+        42,
+        48
+      ],
+      "toolbar_text": [
+        20,
+        42,
+        48
+      ],
+      "toolbar_button_icon": [
+        20,
+        42,
+        48
+      ],
+      "omnibox_background": [
+        223,
+        236,
+        238
+      ],
+      "omnibox_text": [
+        20,
+        42,
+        48
+      ]
+    }
+  }
+}
