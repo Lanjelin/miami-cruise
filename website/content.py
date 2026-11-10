@@ -9,7 +9,7 @@ low-contrast pair.
 import re
 
 from project import REPO_URL, SITE_URL  # noqa: F401  (re-exported for the generator)
-from themes import load_guides
+from themes import GROUPS, load_guides
 
 TAGLINE = "Teal-ink neutrals. One magenta hero. Dark and light, for your editor, terminal and web."
 
@@ -30,7 +30,8 @@ def default_badge(name):
     return "".join(word[0] for word in words[:3]).upper()
 
 
-APPS = [{**DEFAULTS, "mono": default_badge(g["name"]), "id": app_id, **g} for app_id, g in load_guides().items()]
+APPS = [{**DEFAULTS, "mono": default_badge(g["name"]), "id": app_id, **g,
+         "badge_tone": GROUPS[g["category"]]} for app_id, g in load_guides().items()]
 
 TOKEN_USE = {
     "bg": "Page / main surface", "panel": "Sidebars, headers, recessed panels", "border": "Dividers and borders",

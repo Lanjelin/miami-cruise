@@ -41,7 +41,7 @@ def manifest(variant, p):
 
 
 GUIDE = dict(
-    name='Brave', category='Browser', order=70, mono='brv', text_badge=True,
+    name='Brave', category='Browser & web', mono='brv', text_badge=True,
     tags=['Browser', 'Chromium'], aliases='brave chrome chromium browser tabs toolbar address bar',
     status='Local loading verified in Brave 156 on Linux; visible chrome not yet checked',
     tagline='Miami Cruise colours for Brave tabs, toolbar and address bar.',

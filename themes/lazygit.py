@@ -56,7 +56,7 @@ def render(pals, variant=None):
 
 
 GUIDE = dict(
-    name="lazygit", category="Terminal", order=46, mono="lzg", badge_tone="orchid",
+    name="lazygit", category="Git & diffs", mono="lzg",
     tags=["Git", "TUI", "YAML"], aliases="lazygit git tui commits branches stage yaml",
     status="Beta. Tested with lazygit 0.66.3 on Linux; macOS and Windows not tested",
     tagline="A calm Git interface with magenta focus, clear selections and readable status colours.",

@@ -162,7 +162,7 @@ function miami_cruise_dir() {{
 
 
 GUIDE = dict(
-    name="Zsh", category="Terminal", order=50, mono="zsh", badge_tone="info",
+    name="Zsh", category="Terminal & shell", mono="zsh",
     tags=["Shell", "Prompt", "Oh My Zsh"], aliases="zsh oh my zsh prompt shell git status ahead behind staged untracked user host path",
     status="Beta. Tested with Zsh 5.9 and Oh My Zsh on Linux; macOS not tested",
     tagline="A two-line prompt with adaptive paths and Git status.",

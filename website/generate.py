@@ -16,6 +16,7 @@ import zipfile
 from pathlib import Path
 
 from palette import TOKEN_ORDER, VERSION, contrast
+from themes import GROUPS
 from themes import _hl
 from themes.brand import BRAND, brand_values, fill
 
@@ -206,19 +207,25 @@ def swatch(token, hexv):
 
 
 def index_page(scene, pals, zip_info):
-    cards = "".join(
-        f'<li data-card data-cat="{esc(a["category"])}" data-search="{esc((a["name"] + " " + a["aliases"] + " " + " ".join(a["tags"]) + " " + a["category"] + " " + a["tagline"]).lower())}">'
-        f'<a class="card" href="apps/{a["id"]}.html">{app_icon(a)}'
-        f'<strong>{esc(a["name"])}</strong><p>{esc(a["tagline"])}</p>'
-        f'<ul class="tags">{"".join(f"<li class=tag>{esc(t)}</li>" for t in a["tags"])}</ul></a></li>'
-        for a in APPS
+    def card(a):
+        search = (a["name"] + " " + a["aliases"] + " " + " ".join(a["tags"]) +
+                  " " + a["category"] + " " + a["tagline"]).lower()
+        return (f'<li data-card data-cat="{esc(a["category"])}" data-search="{esc(search)}">'
+                f'<a class="card" href="apps/{a["id"]}.html">{app_icon(a)}'
+                f'<strong>{esc(a["name"])}</strong><p>{esc(a["tagline"])}</p>'
+                f'<ul class="tags">{"".join(f"<li class=tag>{esc(t)}</li>" for t in a["tags"])}</ul></a></li>')
+
+    cats = [c for c in GROUPS if any(a["category"] == c for a in APPS)]
+    groups = "".join(
+        f'<section class="app-group" data-group="{esc(c)}"><h3>{esc(c)}</h3>'
+        f'<ul class="grid">{"".join(card(a) for a in APPS if a["category"] == c)}</ul></section>'
+        for c in cats
     )
-    cats = sorted({a["category"] for a in APPS})
     chips = ""
     if len(cats) > 1:
         buttons = '<button type="button" data-cat-set="" aria-pressed="true">All</button>' + "".join(
             f'<button type="button" data-cat-set="{esc(c)}" aria-pressed="false">{esc(c)}</button>' for c in cats)
-        chips = f'<div class="chips" role="group" aria-label="Filter by type">{buttons}</div>'
+        chips = f'<div class="chips" role="group" aria-label="Filter by app group">{buttons}</div>'
     dark = pals["dark"][0]
     strip = "".join(swatch(k, dark[k]) for k in ("bg", "panel", "border", "text", "accent", "success", "warning", "danger", "info", "orange", "orchid"))
     zip_btn = (f'<a class="btn ghost" href="{zip_info["href"]}" download>Download everything <small>{zip_info["size"]}</small></a>')
@@ -241,7 +248,7 @@ def index_page(scene, pals, zip_info):
     <kbd aria-hidden="true">/</kbd></label>
   {chips}
   <p class="count" id="count" aria-live="polite"></p>
-  <ul class="grid" id="apps">{cards}</ul>
+  <div class="app-groups" id="app-groups">{groups}</div>
   <p class="empty" id="empty" hidden>No app matches that yet. The <a href="apps/tokens.html">design tokens</a> work for anything.</p>
   <p style="margin-top:22px">{zip_btn}</p>
 </div></section>

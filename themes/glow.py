@@ -62,7 +62,7 @@ def style(p):
 
 
 GUIDE = dict(
-    name='Glow', category='Terminal', order=50, mono='Glow', badge_tone='info',
+    name='Glow', category='Reading & monitoring', mono='Glow',
     tags=['Markdown', 'Reader'], aliases='glow glamour markdown md reader documentation',
     status='Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed',
     tagline='Readable Markdown, magenta headings and matching code syntax in your terminal.',

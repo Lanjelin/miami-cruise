@@ -194,7 +194,7 @@ def _core_lua(pals):
 # Install guide: rendered to dist/nvim/README.md and used by the website and the README table.
 # Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
 GUIDE = dict(
-    category='Editor', order=10, mono='nvim', text_badge=True,
+    category='Editors', mono='nvim', text_badge=True,
     tags=['Editor', 'Lua'],
     aliases='neovim nvim lua treesitter lsp editor vim',
     status='Stable. Tested on Neovim 0.12 with Treesitter',

@@ -43,7 +43,7 @@ def render(p, variant):
 
 
 GUIDE = dict(
-    name="btop", category="Terminal", order=48, mono="btop", badge_tone="info",
+    name="btop", category="Reading & monitoring", mono="btop",
     tags=["Monitor", "TUI", "Theme"], aliases="btop btop++ system monitor cpu memory network graphs",
     status="Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested",
     tagline="A calm system dashboard with readable graphs and magenta focus.",

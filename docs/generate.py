@@ -14,9 +14,9 @@ START, END = "<!-- apps:start -->", "<!-- apps:end -->"
 
 
 def apps_table():
-    rows = ["| App | Install guide | Status |", "|---|---|---|"]
+    rows = ["| Group | App | Install guide | Status |", "|---|---|---|---|"]
     for app_id, g in load_guides().items():
-        rows.append(f"| {g['name']} | [`dist/{app_id}`](dist/{app_id}) | {g['status']} |")
+        rows.append(f"| {g['category']} | {g['name']} | [`dist/{app_id}`](dist/{app_id}) | {g['status']} |")
     return "\n".join(rows)
 
 

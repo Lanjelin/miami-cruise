@@ -69,7 +69,8 @@
   var q = document.getElementById("q");
   if (q) {
     var cards = document.querySelectorAll("[data-card]");
-    var grid = document.getElementById("apps");
+    var grid = document.getElementById("app-groups");
+    var groups = document.querySelectorAll("[data-group]");
     var count = document.getElementById("count");
     var empty = document.getElementById("empty");
     var chips = document.querySelectorAll("[data-cat-set]");
@@ -82,6 +83,9 @@
           (category === "" || cards[k].getAttribute("data-cat") === category);
         cards[k].hidden = !ok;
         if (ok) shown++;
+      }
+      for (var g = 0; g < groups.length; g++) {
+        groups[g].hidden = !groups[g].querySelector("[data-card]:not([hidden])");
       }
       grid.hidden = shown === 0;
       empty.hidden = shown !== 0;

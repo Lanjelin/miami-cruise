@@ -80,6 +80,9 @@ h3 { font-size: 1.1rem; margin: 22px 0 6px; }
 .chips button:hover { color: var(--mc-text); border-color: var(--mc-accent); }
 .chips button[aria-pressed="true"] { background: var(--mc-accent); border-color: var(--mc-accent); color: var(--mc-on-accent); font-weight: 700; }
 .count { color: var(--mc-muted); font-size: .9rem; min-height: 1.5em; margin: 0 0 14px; }
+.app-groups { display: grid; gap: 26px; }
+.app-groups[hidden], .app-group[hidden] { display: none; }
+.app-group h3 { margin: 0 0 12px; color: var(--mc-text); font-size: 1.15rem; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; padding: 0; margin: 0; list-style: none; }
 .grid[hidden], [data-card][hidden] { display: none; }
 .card { display: flex; flex-direction: column; gap: 10px; height: 100%; padding: 20px; color: var(--mc-text); text-decoration: none;

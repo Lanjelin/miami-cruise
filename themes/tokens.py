@@ -10,7 +10,7 @@ TEXT_KEYS = ("text", "muted", "disabled", "accent", "success", "warning", "dange
 # Install guide: rendered to dist/tokens/README.md and used by the website and the README table.
 # Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
 GUIDE = dict(
-    category='Data', order=90, mono='{}', badge_tone='orchid',
+    category='Design resources', mono='{}',
     tags=['JSON', 'Any app'],
     aliases='tokens json design palette colours colors port other app custom',
     status='Design tokens as JSON',

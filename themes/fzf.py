@@ -29,7 +29,7 @@ def render(p, variant):
 
 
 GUIDE = dict(
-    name="fzf", category="Terminal", order=47, mono="fzf", badge_tone="info",
+    name="fzf", category="Files & finding", mono="fzf",
     tags=["Search", "CLI", "Options"], aliases="fzf fuzzy finder search picker shell",
     status="Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested",
     tagline="Magenta search highlights and clear selections over your terminal background.",

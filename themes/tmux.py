@@ -47,7 +47,7 @@ def render(p, variant):
 
 
 GUIDE = dict(
-    name='tmux', category='Terminal', order=49, mono='tmux', badge_tone='info',
+    name='tmux', category='Terminal & shell', mono='tmux',
     tags=['Multiplexer', 'Colour only'], aliases='tmux multiplexer powerline status bar panes',
     status='Tested with tmux 3.4 on Linux; existing powerline layouts preserved, not replaced',
     tagline='Miami Cruise colours for your existing tmux layout.',

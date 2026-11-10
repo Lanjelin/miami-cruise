@@ -137,7 +137,7 @@ def _lua_list(name, colors):
 # Install guide: rendered to dist/wezterm/README.md and used by the website and the README table.
 # Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
 GUIDE = dict(
-    category='Terminal', order=30, mono='wez', text_badge=True,
+    category='Terminal & shell', mono='wez', text_badge=True,
     tags=['Terminal', 'Lua'],
     aliases='wezterm wez terminal lua tabs windows macos linux',
     status='Verified on Linux/X11; macOS, Windows and system appearance transitions not yet tested',

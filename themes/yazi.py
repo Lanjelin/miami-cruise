@@ -111,7 +111,7 @@ def render(p, variant):
 
 
 GUIDE = dict(
-    name="Yazi", category="Terminal", order=47, mono="yazi", text_badge=True,
+    name="Yazi", category="Files & finding", mono="yazi", text_badge=True,
     tags=["Files", "TUI", "Flavor"], aliases="yazi file manager terminal tui flavor file browser",
     status="Beta. Tested with Yazi 26.9.1 on Linux; macOS and Windows not tested",
     tagline="A calm file manager with magenta focus and matching code previews.",

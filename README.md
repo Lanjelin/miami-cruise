@@ -52,24 +52,24 @@ The light and dark palettes, with the full specification and contrast ratios, ar
 Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. Each app has its own folder with a README that explains how to install it, and the [website](https://lanjelin.github.io/miami-cruise) has the same guides with downloads for macOS, Linux and Windows.
 
 <!-- apps:start -->
-| App | Install guide | Status |
-|---|---|---|
-| Neovim | [`dist/nvim`](dist/nvim) | Stable. Tested on Neovim 0.12 with Treesitter |
-| Vim | [`dist/vim`](dist/vim) | Stable. Tested on Vim 9.1 |
-| WezTerm | [`dist/wezterm`](dist/wezterm) | Verified on Linux/X11; macOS, Windows and system appearance transitions not yet tested |
-| eza | [`dist/eza`](dist/eza) | Beta. Tested with eza 0.23.5 on Linux; macOS and Windows not yet tested |
-| Web / CSS | [`dist/web`](dist/web) | Stable. The project's own website is built on it |
-| bat | [`dist/bat`](dist/bat) | Beta. Tested with bat 0.26.1 on Linux; macOS and Windows not tested |
-| delta | [`dist/delta`](dist/delta) | Beta. Tested with delta 0.20.1 and bat 0.26.1 on Linux; macOS and Windows not tested |
-| lazygit | [`dist/lazygit`](dist/lazygit) | Beta. Tested with lazygit 0.66.3 on Linux; macOS and Windows not tested |
-| fzf | [`dist/fzf`](dist/fzf) | Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested |
-| Yazi | [`dist/yazi`](dist/yazi) | Beta. Tested with Yazi 26.9.1 on Linux; macOS and Windows not tested |
-| btop | [`dist/btop`](dist/btop) | Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested |
-| tmux | [`dist/tmux`](dist/tmux) | Tested with tmux 3.4 on Linux; existing powerline layouts preserved, not replaced |
-| Glow | [`dist/glow`](dist/glow) | Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed |
-| Zsh | [`dist/zsh`](dist/zsh) | Beta. Tested with Zsh 5.9 and Oh My Zsh on Linux; macOS not tested |
-| Brave | [`dist/brave`](dist/brave) | Local loading verified in Brave 156 on Linux; visible chrome not yet checked |
-| Design tokens | [`dist/tokens`](dist/tokens) | Design tokens as JSON |
+| Group | App | Install guide | Status |
+|---|---|---|---|
+| Editors | Neovim | [`dist/nvim`](dist/nvim) | Stable. Tested on Neovim 0.12 with Treesitter |
+| Editors | Vim | [`dist/vim`](dist/vim) | Stable. Tested on Vim 9.1 |
+| Terminal & shell | tmux | [`dist/tmux`](dist/tmux) | Tested with tmux 3.4 on Linux; existing powerline layouts preserved, not replaced |
+| Terminal & shell | WezTerm | [`dist/wezterm`](dist/wezterm) | Verified on Linux/X11; macOS, Windows and system appearance transitions not yet tested |
+| Terminal & shell | Zsh | [`dist/zsh`](dist/zsh) | Beta. Tested with Zsh 5.9 and Oh My Zsh on Linux; macOS not tested |
+| Files & finding | eza | [`dist/eza`](dist/eza) | Beta. Tested with eza 0.23.5 on Linux; macOS and Windows not yet tested |
+| Files & finding | fzf | [`dist/fzf`](dist/fzf) | Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested |
+| Files & finding | Yazi | [`dist/yazi`](dist/yazi) | Beta. Tested with Yazi 26.9.1 on Linux; macOS and Windows not tested |
+| Git & diffs | delta | [`dist/delta`](dist/delta) | Beta. Tested with delta 0.20.1 and bat 0.26.1 on Linux; macOS and Windows not tested |
+| Git & diffs | lazygit | [`dist/lazygit`](dist/lazygit) | Beta. Tested with lazygit 0.66.3 on Linux; macOS and Windows not tested |
+| Reading & monitoring | bat | [`dist/bat`](dist/bat) | Beta. Tested with bat 0.26.1 on Linux; macOS and Windows not tested |
+| Reading & monitoring | btop | [`dist/btop`](dist/btop) | Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested |
+| Reading & monitoring | Glow | [`dist/glow`](dist/glow) | Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed |
+| Browser & web | Brave | [`dist/brave`](dist/brave) | Local loading verified in Brave 156 on Linux; visible chrome not yet checked |
+| Browser & web | Web / CSS | [`dist/web`](dist/web) | Stable. The project's own website is built on it |
+| Design resources | Design tokens | [`dist/tokens`](dist/tokens) | Design tokens as JSON |
 <!-- apps:end -->
 
 Your app isn't listed? [Request a port](../../issues/new/choose) or [write one](docs/PORTING.md); a port is a single small file.

@@ -8,6 +8,18 @@ import pkgutil
 
 NOT_APPS = {"brand", "guides"}
 
+# Catalogue order and text-badge tone. Each app chooses one group in its GUIDE;
+# cards, filter chips and the README table follow the same order.
+GROUPS = {
+    "Editors": "accent",
+    "Terminal & shell": "accent",
+    "Files & finding": "info",
+    "Git & diffs": "orchid",
+    "Reading & monitoring": "info",
+    "Browser & web": "accent",
+    "Design resources": "orchid",
+}
+
 
 def modules():
     """{name: module} for every app theme, sorted by name."""
@@ -22,6 +34,10 @@ def modules():
 
 
 def load_guides():
-    """{app_id: GUIDE} for every theme that has one, in display order (order, then name)."""
+    """{app_id: GUIDE} in catalogue group order, then alphabetically by name."""
     guides = {name: m.GUIDE for name, m in modules().items() if hasattr(m, "GUIDE")}
-    return dict(sorted(guides.items(), key=lambda kv: (kv[1].get("order", 50), kv[1]["name"].lower())))
+    unknown = {g["category"] for g in guides.values()} - GROUPS.keys()
+    if unknown:
+        raise ValueError(f"Unknown app group(s): {sorted(unknown)}; add them to themes.GROUPS")
+    rank = {name: i for i, name in enumerate(GROUPS)}
+    return dict(sorted(guides.items(), key=lambda kv: (rank[kv[1]["category"]], kv[1]["name"].casefold())))

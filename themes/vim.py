@@ -90,7 +90,7 @@ def _block(p, transparent):
 # Install guide: rendered to dist/vim/README.md and used by the website and the README table.
 # Step blocks: ("p", html) | ("note", html) | ("warn", html) | ("code", [(os_label | None, lang, text), ...])
 GUIDE = dict(
-    category='Editor', order=20, mono='vim', text_badge=True,
+    category='Editors', mono='vim', text_badge=True,
     tags=['Editor', 'Vimscript'],
     aliases='vim vi vimscript editor gvim',
     status='Stable. Tested on Vim 9.1',

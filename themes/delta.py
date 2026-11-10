@@ -49,7 +49,7 @@ def render(pals):
 
 
 GUIDE = dict(
-    name="delta", category="Terminal", order=44, mono="dlt", badge_tone="info",
+    name="delta", category="Git & diffs", mono="dlt",
     tags=["Git", "Diff", "CLI"], aliases="delta git diff pager syntax highlighting",
     status="Beta. Tested with delta 0.20.1 and bat 0.26.1 on Linux; macOS and Windows not tested",
     tagline="A Miami Cruise diff on your terminal background, with clear inline changes.",

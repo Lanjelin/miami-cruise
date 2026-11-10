@@ -2,7 +2,7 @@
 from ._textmate import export_themes, install_steps
 
 GUIDE = dict(
-    name="bat", category="Terminal", order=42, mono="bat",
+    name="bat", category="Reading & monitoring", mono="bat",
     tags=["CLI", "Syntax", "TextMate"], aliases="bat batcat cat syntax highlighting pager tmtheme",
     status="Beta. Tested with bat 0.26.1 on Linux; macOS and Windows not tested",
     tagline="Readable syntax highlighting for source files, with Miami Cruise colours.",
