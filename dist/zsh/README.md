@@ -9,7 +9,7 @@ The theme files:
 - [`miami-cruise-dark.zsh-theme`](miami-cruise-dark.zsh-theme): Oh My Zsh prompt · dark
 - [`miami-cruise-light.zsh-theme`](miami-cruise-light.zsh-theme): Oh My Zsh prompt · light
 
-These themes preserve gnzh's two-line layout, user@host, full path, Ruby/virtualenv and Git segments, and right-side exit status. gnzh hardcodes its colours, so this is a small compatible theme rather than a colour-only overlay. It does not install plugins, change aliases or modify your shell configuration. Based on Oh My Zsh's gnzh theme; its MIT licence is embedded in each download and included as `LICENSE-oh-my-zsh.txt`.
+These themes preserve gnzh's two-line layout, user@host, full path, Ruby/virtualenv and Git segments, and right-side exit status. Git now shows branch, ahead/behind commits and changed-file counts. gnzh hardcodes its colours, so this is a small compatible theme rather than a colour-only overlay. It does not install plugins, change aliases or modify your shell configuration. Based on Oh My Zsh's gnzh theme; its MIT licence is embedded in each download and included as `LICENSE-oh-my-zsh.txt`.
 
 Run the commands below from this folder, or from wherever you saved the file.
 
@@ -33,7 +33,14 @@ ZSH_THEME="miami-cruise-dark"
 > [!NOTE]
 > Leave your existing plugin list and `source "$ZSH/oh-my-zsh.sh"` line intact. The original gnzh shape is retained; the downloaded theme does not alter completion, suggestions or syntax highlighting.
 
-### 2. Switch or remove
+### 2. Read the Git segment
+
+For example, `master ⇡2 ?1` means the branch is master, two commits ahead of its upstream and one untracked file. `⇣` is commits behind, `+` staged files, `!` unstaged files and `×` conflicts. Zero counts are hidden; there is no Git segment outside a repository.
+
+> [!NOTE]
+> Ahead/behind compares against your local upstream-tracking ref. Run `git fetch` to refresh it; the prompt does not contact the network. The theme checks Git status on each prompt, which may be noticeable in very large repositories.
+
+### 3. Switch or remove
 
 To switch, change only `ZSH_THEME` to the other variant and start a new shell. There is no automatic dark/light switching. To remove, restore your previous `ZSH_THEME` value and start a new shell; then delete the copied files if desired.
 
@@ -43,9 +50,9 @@ To switch, change only `ZSH_THEME` to the other variant and start a new shell. T
 ## Details
 
 - **Variants:** dark and light
-- **Covers:** Two-line prompt, user and host, full path, Git branch, Ruby and virtualenv markers, exit status, root and SSH cues
+- **Covers:** Two-line prompt, user and host, full path, Git branch and status counts, Ruby and virtualenv markers, exit status, root and SSH cues
 - **Glow:** No: the flat palette
-- **Tested:** Zsh 5.9 and Oh My Zsh on Linux: dark/light load, prompt layout, Git/venv/Ruby slots, exit status and SSH/root colour branches; macOS not tested
+- **Tested:** Zsh 5.9 and Oh My Zsh on Linux: dark/light load, prompt layout, Git branch/ahead/behind/staged/unstaged/untracked counts, venv/Ruby slots, exit status and SSH/root colour branches; macOS not tested
 
 ## More
 

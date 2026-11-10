@@ -5,7 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
-- Dark/light Oh My Zsh prompt themes matching the existing gnzh two-line layout, with palette-driven colours and unchanged shell plugins.
+- Dark/light Oh My Zsh prompt themes matching the existing gnzh two-line layout, with palette-driven colours and compact Git branch, ahead/behind, staged, unstaged and untracked counts; no extra shell plugin.
 - Native dark/light Brave browser-chrome themes as local-install ZIPs, with a site download page and unpacked-extension instructions; Web Store publishing remains optional.
 - Native Glow/Glamour dark/light Markdown styles with palette backgrounds, shared-palette code syntax, install instructions and real rendered-output previews; browser/pager chrome remains unchanged.
 - Colour-only native tmux dark/light files, preserving existing status/powerline formats, bindings and layout, with layered install instructions and isolated real-client previews.
