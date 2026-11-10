@@ -2,6 +2,8 @@
 
 A two-line prompt with adaptive paths and Git status.
 
+![Real Zsh prompt in dark and light: user and host, adaptive path and Git status](../../previews/zsh/palette.png)
+
 ## Install
 
 The theme files:
