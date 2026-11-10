@@ -53,8 +53,6 @@ def render(p, variant):
                 # Override inherited bold/dim/underline so the exact palette stays readable.
                 attrs = [f'foreground: "{p[value]}"', "is_bold: false", "is_dimmed: false",
                          "is_underline: false"]
-                if key == "multi_link_file":
-                    attrs.append(f'background: "{p["bg"]}"')
                 lines.append(prefix + " { " + ", ".join(attrs) + " }")
 
     emit(roles())

@@ -1,6 +1,6 @@
 # Miami Cruise for fzf
 
-Magenta search highlights, clear selections and a calm true-colour picker.
+Magenta search highlights and clear selections over your terminal background.
 
 ![Real fzf picker in dark and light with search matches, multi-selection and optional bat preview](../../previews/fzf/palette.png)
 
@@ -17,7 +17,7 @@ Run the commands below from this folder, or from wherever you saved the file.
 
 ### 1. Load the colours alongside your current options
 
-Install fzf first and keep the downloaded file in a permanent folder. Append its contents to your current `FZF_DEFAULT_OPTS`, using the actual absolute path. Existing bindings, layout and preview commands remain unchanged. Run once in your current shell to try it.
+Install fzf first and keep the downloaded file in a permanent folder. Append its contents to your current `FZF_DEFAULT_OPTS`, using the actual absolute path. The picker and preview base backgrounds use the terminal default (`bg:-1`); selected rows retain a tint. Use a matching dark/light terminal background. Existing bindings, layout and preview commands remain unchanged. Run once in your current shell to try it.
 
 **Bash / Zsh**
 
@@ -64,7 +64,7 @@ For light mode, change both the loaded fzf options and bat's theme name. The pre
 ## Details
 
 - **Variants:** dark and light
-- **Covers:** Text, surfaces, search matches, current and multi-selected rows, markers, prompt, counters, borders, labels, scrollbars, header, footer and preview chrome
+- **Covers:** Text, terminal background, search matches, current and multi-selected rows, markers, prompt, counters, borders, labels, scrollbars, header, footer and preview chrome
 - **Glow:** No: the flat palette
 - **Tested:** fzf 0.75.0 on Linux: native options-file loading, existing defaults, search, current/multi-selection, accept/cancel, no matches and optional bat 0.26.1 preview; macOS, Windows and fish not tested
 

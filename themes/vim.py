@@ -23,9 +23,17 @@ if has('termguicolors') && ($COLORTERM ==# 'truecolor' || $COLORTERM ==# '24bit'
 endif
 
 if &background ==# 'light'
+  if get(g:, 'miami_cruise_opaque_background', 0)
+@@LIGHT_OPAQUE@@
+  else
 @@LIGHT@@
+  endif
 else
+  if get(g:, 'miami_cruise_opaque_background', 0)
+@@DARK_OPAQUE@@
+  else
 @@DARK@@
+  endif
 endif
 """
 
@@ -67,10 +75,10 @@ def _hi(name, spec):
     return "  " + " ".join(parts)
 
 
-def _block(p):
-    groups = _hl.core(p)
+def _block(p, transparent):
+    groups = _hl.core(p, transparent=transparent)
     # Vim-only groups
-    groups["Terminal"] = {"fg": p["text"], "bg": p["bg"]}
+    groups["Terminal"] = {"fg": p["text"]} if transparent else {"fg": p["text"], "bg": p["bg"]}
     groups["StatusLineTerm"] = {"link": "StatusLine"}
     groups["StatusLineTermNC"] = {"link": "StatusLineNC"}
     lines = [_hi(n, s) for n, s in groups.items()]
@@ -106,11 +114,10 @@ GUIDE = dict(
             ("code", [(None, "vim", 'syntax on\nset termguicolors       " if your terminal supports true colour\nset background=dark   " or light\ncolorscheme miami-cruise')]),
         ]),
         ("Colours in the terminal", [
-            ("p", "Use <code>set termguicolors</code> for the exact Miami Cruise background and colours in a true-colour terminal. "
+            ("p", "The main editor area, sign/fold columns and embedded terminal inherit your terminal background by default. Set <code>let g:miami_cruise_opaque_background = 1</code> before loading the colorscheme if you prefer the exact Miami Cruise fill. Keep your terminal in the matching dark/light mode. Use <code>set termguicolors</code> for exact Miami Cruise foreground colours in a true-colour terminal. "
                   "The theme also enables it automatically when <code>$COLORTERM</code> is <code>truecolor</code> or <code>24bit</code>, "
-                  "but some true-colour terminals do not set that variable. Without true colour, Vim uses approximate xterm-256 colours; "
-                  "the dark background becomes neutral grey instead of teal-black."),
-            ("note", "Changing <code>background</code> later reloads the theme by itself."),
+                  "but some true-colour terminals do not set that variable. Without true colour, Vim uses approximate xterm-256 foregrounds."),
+            ("note", "Selection, diffs, menus and status surfaces still have deliberate fills. Changing <code>background</code> or the opaque setting later requires reloading the theme with <code>:colorscheme miami-cruise</code>."),
         ]),
     ],
 )
@@ -119,5 +126,8 @@ GUIDE = dict(
 def export(pals, dist: Path):
     out = dist / "vim" / "colors"
     out.mkdir(parents=True, exist_ok=True)
-    text = VIM.replace("@@LIGHT@@", _block(pals["light"][0])).replace("@@DARK@@", _block(pals["dark"][0]))
+    text = VIM
+    for variant in ("light", "dark"):
+        text = text.replace(f"@@{variant.upper()}_OPAQUE@@", _block(pals[variant][0], False))
+        text = text.replace(f"@@{variant.upper()}@@", _block(pals[variant][0], True))
     (out / "miami-cruise.vim").write_text(text)

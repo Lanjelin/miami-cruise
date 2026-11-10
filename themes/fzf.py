@@ -7,16 +7,16 @@ def render(p, variant):
         if contrast(p[fg], p[bg]) < 4.5:
             raise ValueError(f"fzf: {fg} on {bg} is below 4.5:1")
     roles = {
-        "fg": "text", "bg": "bg", "hl": "accent",
+        "fg": "text", "bg": "terminal", "hl": "accent",
         "fg+": "text", "bg+": "hover", "hl+": "text",
         "selected-fg": "text", "selected-bg": "hover", "selected-hl": "text",
-        "gutter": "bg", "query": "text", "disabled": "disabled", "ghost": "disabled",
+        "gutter": "terminal", "query": "text", "disabled": "disabled", "ghost": "disabled",
         "info": "muted", "border": "disabled", "separator": "disabled",
         "scrollbar": "info", "label": "accent", "prompt": "accent",
         "pointer": "accent", "marker": "accent", "spinner": "info",
         "header": "info", "footer": "muted", "preview-fg": "text",
-        "preview-bg": "bg", "preview-border": "disabled", "preview-scrollbar": "info",
-        "input-bg": "bg", "header-bg": "bg", "footer-bg": "bg",
+        "preview-bg": "terminal", "preview-border": "disabled", "preview-scrollbar": "info",
+        "input-bg": "terminal", "header-bg": "terminal", "footer-bg": "terminal",
     }
     entries = [variant]
     for role, token in roles.items():
@@ -24,7 +24,7 @@ def render(p, variant):
         attrs = ":regular:bold:underline" if role in ("hl+", "selected-hl") else ":regular"
         if role in ("hl", "prompt", "pointer", "marker"):
             attrs += ":bold"
-        entries.append(f"{role}:{p[token]}{attrs}")
+        entries.append(f"{role}:{'-1' if token == 'terminal' else p[token]}{'' if token == 'terminal' else attrs}")
     return "--color=" + ",".join(entries) + "\n"
 
 
@@ -32,15 +32,15 @@ GUIDE = dict(
     name="fzf", category="Terminal", order=47, mono="fzf", badge_tone="info",
     tags=["Search", "CLI", "Options"], aliases="fzf fuzzy finder search picker shell",
     status="Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested",
-    tagline="Magenta search highlights, clear selections and a calm true-colour picker.",
+    tagline="Magenta search highlights and clear selections over your terminal background.",
     files=[(f"fzf/miami-cruise-{v}.opts", f"miami-cruise-{v}.opts", f"Native fzf options · {v}") for v in ("dark", "light")],
     file_note="These are plain fzf option files containing only <code>--color</code>, not shell scripts. Do not source them. No dependency on bat or delta is required.",
     shots=[("fzf/palette.png", "Real fzf picker in dark and light with search matches, multi-selection and optional bat preview")],
     tested="fzf 0.75.0 on Linux: native options-file loading, existing defaults, search, current/multi-selection, accept/cancel, no matches and optional bat 0.26.1 preview; macOS, Windows and fish not tested",
-    covers="Text, surfaces, search matches, current and multi-selected rows, markers, prompt, counters, borders, labels, scrollbars, header, footer and preview chrome",
+    covers="Text, terminal background, search matches, current and multi-selected rows, markers, prompt, counters, borders, labels, scrollbars, header, footer and preview chrome",
     glow="No: the flat palette",
     steps=[("Load the colours alongside your current options", [
-        ("p", "Install fzf first and keep the downloaded file in a permanent folder. Append its contents to your current <code>FZF_DEFAULT_OPTS</code>, using the actual absolute path. Existing bindings, layout and preview commands remain unchanged. Run once in your current shell to try it."),
+        ("p", "Install fzf first and keep the downloaded file in a permanent folder. Append its contents to your current <code>FZF_DEFAULT_OPTS</code>, using the actual absolute path. The picker and preview base backgrounds use the terminal default (<code>bg:-1</code>); selected rows retain a tint. Use a matching dark/light terminal background. Existing bindings, layout and preview commands remain unchanged. Run once in your current shell to try it."),
         ("code", [
             ("Bash / Zsh", "bash", 'export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS-} $(cat /absolute/path/to/miami-cruise-dark.opts)"\nfzf'),
             ("Fish", "fish", 'set -gx FZF_DEFAULT_OPTS "$FZF_DEFAULT_OPTS "(string join " " < /absolute/path/to/miami-cruise-dark.opts)\nfzf'),

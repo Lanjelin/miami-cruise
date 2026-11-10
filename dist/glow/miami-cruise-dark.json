@@ -1,6 +1,7 @@
 {
   "document": {
     "color": "#deebec",
+    "background_color": "#0d1d22",
     "block_prefix": "\n",
     "block_suffix": "\n",
     "margin": 2
@@ -89,6 +90,7 @@
   },
   "code_block": {
     "color": "#deebec",
+    "background_color": "#0d1d22",
     "margin": 2,
     "chroma": {
       "text": {
@@ -185,6 +187,9 @@
       "generic_subheading": {
         "color": "#ff7fc0",
         "bold": true
+      },
+      "background": {
+        "background_color": "#0d1d22"
       }
     }
   },

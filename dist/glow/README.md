@@ -8,10 +8,8 @@ Readable Markdown, magenta headings and matching code syntax in your terminal.
 
 The theme files:
 
-- [`miami-cruise-dark.json`](miami-cruise-dark.json): Glamour Markdown style · dark, terminal background
-- [`miami-cruise-dark-opaque.json`](miami-cruise-dark-opaque.json): Glamour Markdown style · dark, palette background
-- [`miami-cruise-light.json`](miami-cruise-light.json): Glamour Markdown style · light, terminal background
-- [`miami-cruise-light-opaque.json`](miami-cruise-light-opaque.json): Glamour Markdown style · light, palette background
+- [`miami-cruise-dark.json`](miami-cruise-dark.json): Glamour Markdown style · dark, palette background
+- [`miami-cruise-light.json`](miami-cruise-light.json): Glamour Markdown style · light, palette background
 
 Native Glamour JSON styles for rendered Markdown, not replacement glow.yml files. Glow itself is unmodified. Browser lists, help bars and pager chrome retain their built-in colours. These files do not change keybindings, paging, wrapping or file discovery.
 
@@ -38,7 +36,7 @@ Copy-Item miami-cruise-*.json $styles
 glow -s (Join-Path $styles "miami-cruise-dark.json") README.md
 ```
 
-Choose dark or light to match your terminal. The two files without a suffix leave the Markdown body and fenced-code background unset, so your terminal background shows through; the -opaque files paint the Miami Cruise palette background instead. Inline-code chips and first-level headings retain accent fills in all four. Glow has no separate background toggle in glow.yml: switch the style path to choose another file. Its built-in auto selection does not switch between custom files.
+Choose dark or light to match your terminal. Each style paints the Miami Cruise palette background for Markdown body and fenced code, with accent fills on inline code and first-level headings. Glow has no separate background toggle in glow.yml: switch the style path to choose the other file. Its built-in auto selection does not switch between custom files.
 
 > [!NOTE]
 > Markdown body colours (headings, links, quotes, tables) render true-colour. Fenced-code syntax highlighting goes through Chroma's terminal256 formatter, so those colours are quantized to the nearest of 256 terminal colours and can look very slightly off from the exact palette hex.
@@ -65,17 +63,17 @@ glow -s "$HOME/.config/glow/styles/miami-cruise-light.json" -w 80 README.md
 
 The same Markdown style can be used when reading documents in Glow's TUI. It does not theme the file browser, search/list selection, status/help bars or other application chrome. No upstream patch or custom Glow build is involved.
 
-To uninstall, restore your previous style key (or remove it to use Glow's default auto style) and stop passing this JSON path via -s. Then remove only the four Miami Cruise JSON files. Other Glow settings stay intact.
+To uninstall, restore your previous style key (or remove it to use Glow's default auto style) and stop passing this JSON path via -s. Then remove only the two Miami Cruise JSON files. Other Glow settings stay intact.
 
 > [!NOTE]
 > Tested with Glow 3.0.0 on Linux. The JSON format is Glamour's native Markdown styling API; older versions and other platforms are not verified. Reference: https://github.com/charmbracelet/glow#styles
 
 ## Details
 
-- **Variants:** Dark/light × terminal/opaque background
+- **Variants:** Dark and light, with palette backgrounds
 - **Covers:** Markdown body, headings, emphasis, links/images, quotes, rules, lists/tasks, tables, definitions, inline code and fenced-code syntax
 - **Glow:** No: the flat palette (Glow is the application name)
-- **Tested:** Glow 3.0.0 (Glamour 2.0.1) on Linux: four dark/light and terminal/opaque styles, file and stdin input, config loading and CLI style precedence, headings, emphasis, quotes, lists/tasks, tables, inline code, Python/JSON/diff/plain code blocks, true-colour output and width control. Browser/pager chrome intentionally not themed; macOS/Windows not tested
+- **Tested:** Glow 3.0.0 (Glamour 2.0.1) on Linux: dark/light styles, file and stdin input, config loading and CLI style precedence, headings, emphasis, quotes, lists/tasks, tables, inline code, Python/JSON/diff/plain code blocks, true-colour output and width control. Browser/pager chrome intentionally not themed; macOS/Windows not tested
 
 ## More
 

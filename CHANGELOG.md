@@ -5,8 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Dark/light Oh My Zsh prompt themes matching the existing gnzh two-line layout, with palette-driven colours and unchanged shell plugins.
 - Native dark/light Brave browser-chrome themes as local-install ZIPs, with a site download page and unpacked-extension instructions; Web Store publishing remains optional.
-- Native Glow/Glamour dark/light Markdown styles with terminal/opaque background options, shared-palette code syntax, install instructions and real rendered-output previews; browser/pager chrome remains unchanged.
+- Native Glow/Glamour dark/light Markdown styles with palette backgrounds, shared-palette code syntax, install instructions and real rendered-output previews; browser/pager chrome remains unchanged.
 - Colour-only native tmux dark/light files, preserving existing status/powerline formats, bindings and layout, with layered install instructions and isolated real-client previews.
 - Native btop dark/light themes with a shared-palette dashboard, install guide and live-app previews.
 - Native fzf dark/light colour option files, preserving existing picker behaviour, with shell instructions and real interactive previews.
@@ -17,6 +18,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Generated eza themes in dark and light, with shared install guides and a preview captured from real eza output.
 
 ### Fixed
+- Let Vim/Neovim editor surfaces, delta's ordinary diff lines, fzf and eza inherit the terminal background; retain deliberate selection/panel fills and an opt-in opaque editor background. Recommend btop's native background toggle for the same effect.
 - Verify WezTerm on Linux/X11, fix fancy/retro tab colours and window-frame colours, replace mock previews with live captures, and document existing-config overrides and Linux appearance-portal requirements.
 - Clarify delta's native Git-config theme versus its supporting TextMate syntax palettes; put delta setup first in its README and website guide.
 

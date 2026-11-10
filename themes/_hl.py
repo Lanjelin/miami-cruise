@@ -19,14 +19,14 @@ def mix(a, b, t):
     return "#%02x%02x%02x" % tuple(out)
 
 
-def core(p):
+def core(p, transparent=False):
     sel = mix(p["bg"], p["accent"], 0.20)
 
     def tint(token, t):
         return mix(p["bg"], p[token], t)
 
     on = p["on-accent"]
-    return {
+    groups = {
         # Editor
         "Normal": {"fg": p["text"], "bg": p["bg"]},
         "Cursor": {"fg": on, "bg": p["accent"]},
@@ -115,6 +115,10 @@ def core(p):
         "DiffDelete": {"bg": tint("danger", 0.18)},
         "DiffText": {"bg": tint("warning", 0.32)},
     }
+    if transparent:
+        for name in ("Normal", "SignColumn", "FoldColumn"):
+            groups[name].pop("bg")
+    return groups
 
 
 def ansi(p):

@@ -45,8 +45,10 @@ vim.cmd.colorscheme("miami-cruise")
 
 The theme follows `'background'`. Change it at any time and the colours update: `:set background=light`.
 
+The main editor area, inactive windows, sign/fold columns and window bars inherit the terminal background by default. Set `vim.g.miami_cruise_opaque_background = 1` before loading the colorscheme for an exact Miami Cruise fill. Reload the colorscheme after changing that setting. Keep your terminal in the matching dark/light mode.
+
 > [!NOTE]
-> It turns on `termguicolors` for you, so a true-colour terminal is needed.
+> Selections, diff highlights, floating windows and status surfaces still have deliberate fills. It turns on `termguicolors` for you, so a true-colour terminal is needed.
 
 ## Details
 

@@ -49,7 +49,7 @@ users:
   group_other: { foreground: "#9fbabf", is_bold: false, is_dimmed: false, is_underline: false }
 links:
   normal: { foreground: "#9fbabf", is_bold: false, is_dimmed: false, is_underline: false }
-  multi_link_file: { foreground: "#70d5ed", is_bold: false, is_dimmed: false, is_underline: false, background: "#0d1d22" }
+  multi_link_file: { foreground: "#70d5ed", is_bold: false, is_dimmed: false, is_underline: false }
 git:
   new: { foreground: "#5ed99e", is_bold: false, is_dimmed: false, is_underline: false }
   modified: { foreground: "#ecd065", is_bold: false, is_dimmed: false, is_underline: false }

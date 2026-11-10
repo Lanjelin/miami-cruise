@@ -30,18 +30,18 @@ btop
 
 Inside btop, press `Esc` to open the menu, choose `Options`, then select `miami-cruise-dark` or `miami-cruise-light` under `Color theme`. btop saves the selection on exit. There is no automatic dark/light switching in these theme files.
 
-### 2. Use the full palette without replacing your config
+### 2. Use your terminal background without replacing your config
 
-Enable `Truecolor` and `Theme background` in Options for the intended palette. If editing your existing `btop.conf` while btop is closed, update these existing keys rather than appending duplicate settings:
+Enable `Truecolor` and disable `Theme background` in Options to let your terminal background show through. If editing your existing `btop.conf` while btop is closed, update these existing keys rather than appending duplicate settings:
 
 ```ini
 color_theme = "miami-cruise-dark"
 truecolor = true
-theme_background = true
+theme_background = false
 ```
 
 > [!NOTE]
-> With `theme_background = false`, btop uses your terminal background instead; use a matching terminal theme. `--low-color` quantizes RGB to 256 colours. TTY mode forces btop's built-in 16-colour TTY theme, so it cannot show the full palette. Process colour/gradient settings also affect how the colour ramps appear.
+> With `theme_background = false`, btop uses your terminal background; use a matching terminal theme. Set it to `true` if you prefer the exact Miami Cruise background. `--low-color` quantizes RGB to 256 colours. TTY mode forces btop's built-in 16-colour TTY theme, so it cannot show the full palette. Process colour/gradient settings also affect how the colour ramps appear.
 
 If you use a nonstandard theme folder or launch btop with a custom `--config` file, pass an explicit theme directory. These options are supported by the tested btop 1.4.8:
 

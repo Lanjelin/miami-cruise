@@ -4,14 +4,14 @@ import json
 from palette import contrast
 
 
-def style(p, opaque=False):
+def style(p):
     def colour(token, **kwargs):
         return dict(color=p[token], **kwargs)
 
     # Keep familiar Markdown typography and markers. These structural choices
     # are explicit because a custom Glamour stylesheet is not a colour overlay.
     result = dict(
-        document=colour('text', block_prefix='\n', block_suffix='\n', margin=2),
+        document=colour('text', background_color=p['bg'], block_prefix='\n', block_suffix='\n', margin=2),
         block_quote=colour('muted', indent=1, indent_token='│ '),
         paragraph={}, list=dict(level_indent=2),
         heading=colour('accent', bold=True, block_suffix='\n'),
@@ -26,7 +26,7 @@ def style(p, opaque=False):
         link=colour('info', underline=True), link_text=colour('info', bold=True),
         image=colour('info', underline=True), image_text=colour('muted', format='Image: {{.text}} →'),
         code=colour('text', background_color=p['panel'], prefix='\u00a0', suffix='\u00a0'),
-        code_block=colour('text', margin=2),
+        code_block=colour('text', background_color=p['bg'], margin=2),
         table=colour('text'), definition_list={}, definition_term=colour('info', bold=True),
         definition_description=dict(block_prefix='\n→ '), html_block={}, html_span={},
     )
@@ -46,11 +46,8 @@ def style(p, opaque=False):
     chroma['generic_strong']['bold'] = True
     chroma['generic_subheading']['bold'] = True
     chroma['error']['underline'] = True
+    chroma['background'] = dict(background_color=p['bg'])
     result['code_block']['chroma'] = chroma
-    if opaque:
-        result['document']['background_color'] = p['bg']
-        result['code_block']['background_color'] = p['bg']
-        chroma['background'] = dict(background_color=p['bg'])
 
     def check(node, inherited_fg=p['text'], inherited_bg=p['bg']):
         fg, bg = node.get('color', inherited_fg), node.get('background_color', inherited_bg)
@@ -69,20 +66,19 @@ GUIDE = dict(
     tags=['Markdown', 'Reader'], aliases='glow glamour markdown md reader documentation',
     status='Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed',
     tagline='Readable Markdown, magenta headings and matching code syntax in your terminal.',
-    files=[(f'glow/miami-cruise-{v}{suffix}.json', f'miami-cruise-{v}{suffix}.json',
-            f'Glamour Markdown style · {v}, {label}')
-           for v in ('dark', 'light') for suffix, label in (('', 'terminal background'), ('-opaque', 'palette background'))],
+    files=[(f'glow/miami-cruise-{v}.json', f'miami-cruise-{v}.json',
+            f'Glamour Markdown style · {v}, palette background') for v in ('dark', 'light')],
     file_note='Native Glamour JSON styles for rendered Markdown, not replacement glow.yml files. Glow itself is unmodified. Browser lists, help bars and pager chrome retain their built-in colours. These files do not change keybindings, paging, wrapping or file discovery.',
     shots=[('glow/palette.png', 'Real Glow Markdown output in dark and light: headings, links, quotes, lists, tables and syntax-highlighted code')],
-    tested='Glow 3.0.0 (Glamour 2.0.1) on Linux: four dark/light and terminal/opaque styles, file and stdin input, config loading and CLI style precedence, headings, emphasis, quotes, lists/tasks, tables, inline code, Python/JSON/diff/plain code blocks, true-colour output and width control. Browser/pager chrome intentionally not themed; macOS/Windows not tested',
-    variants='Dark/light × terminal/opaque background',
+    tested='Glow 3.0.0 (Glamour 2.0.1) on Linux: dark/light styles, file and stdin input, config loading and CLI style precedence, headings, emphasis, quotes, lists/tasks, tables, inline code, Python/JSON/diff/plain code blocks, true-colour output and width control. Browser/pager chrome intentionally not themed; macOS/Windows not tested',
+    variants='Dark and light, with palette backgrounds',
     covers='Markdown body, headings, emphasis, links/images, quotes, rules, lists/tasks, tables, definitions, inline code and fenced-code syntax',
     glow='No: the flat palette (Glow is the application name)',
     steps=[('Try a Markdown style', [
         ('p', 'Install Glow and use a true-colour terminal with a matching dark or light background. Keep these JSON files in a permanent folder. Back up same-named customized files before copying. There is no bat dependency, syntax-cache build or patched Glow binary.'),
         ('code', [('Linux / macOS', 'bash', 'mkdir -p ~/.config/glow/styles\ncp miami-cruise-*.json ~/.config/glow/styles/\nglow -s "$HOME/.config/glow/styles/miami-cruise-dark.json" README.md'),
                   ('Windows (PowerShell)', 'powershell', '$styles = Join-Path $env:APPDATA "glow/styles"\nNew-Item -ItemType Directory -Force $styles | Out-Null\nCopy-Item miami-cruise-*.json $styles\nglow -s (Join-Path $styles "miami-cruise-dark.json") README.md')]),
-        ('p', 'Choose dark or light to match your terminal. The two files without a suffix leave the Markdown body and fenced-code background unset, so your terminal background shows through; the -opaque files paint the Miami Cruise palette background instead. Inline-code chips and first-level headings retain accent fills in all four. Glow has no separate background toggle in glow.yml: switch the style path to choose another file. Its built-in auto selection does not switch between custom files.'),
+        ('p', 'Choose dark or light to match your terminal. Each style paints the Miami Cruise palette background for Markdown body and fenced code, with accent fills on inline code and first-level headings. Glow has no separate background toggle in glow.yml: switch the style path to choose the other file. Its built-in auto selection does not switch between custom files.'),
         ('note', 'Markdown body colours (headings, links, quotes, tables) render true-colour. Fenced-code syntax highlighting goes through Chroma\'s terminal256 formatter, so those colours are quantized to the nearest of 256 terminal colours and can look very slightly off from the exact palette hex.'),
     ]), ('Keep your current Glow settings', [
         ('p', 'For persistence, edit only the style key in your existing glow.yml, preserving pager, width, mouse and other settings. Run glow --help to find your platform\'s config path, or glow config to open it. Use the actual absolute JSON path; the example below must be adapted to your machine.'),
@@ -91,7 +87,7 @@ GUIDE = dict(
         ('code', [('Linux / macOS', 'bash', '# Optional one-off width, without editing config:\nglow -s "$HOME/.config/glow/styles/miami-cruise-light.json" -w 80 README.md')]),
     ]), ('Scope and removal', [
         ('p', 'The same Markdown style can be used when reading documents in Glow\'s TUI. It does not theme the file browser, search/list selection, status/help bars or other application chrome. No upstream patch or custom Glow build is involved.'),
-        ('p', 'To uninstall, restore your previous style key (or remove it to use Glow\'s default auto style) and stop passing this JSON path via -s. Then remove only the four Miami Cruise JSON files. Other Glow settings stay intact.'),
+        ('p', 'To uninstall, restore your previous style key (or remove it to use Glow\'s default auto style) and stop passing this JSON path via -s. Then remove only the two Miami Cruise JSON files. Other Glow settings stay intact.'),
         ('note', 'Tested with Glow 3.0.0 on Linux. The JSON format is Glamour\'s native Markdown styling API; older versions and other platforms are not verified. Reference: https://github.com/charmbracelet/glow#styles'),
     ])],
 )
@@ -101,5 +97,4 @@ def export(pals, dist):
     out = dist / 'glow'
     out.mkdir(parents=True, exist_ok=True)
     for variant, (p, _) in pals.items():
-        for suffix, opaque in (('', False), ('-opaque', True)):
-            (out / f'miami-cruise-{variant}{suffix}.json').write_text(json.dumps(style(p, opaque), indent=2) + '\n')
+        (out / f'miami-cruise-{variant}.json').write_text(json.dumps(style(p), indent=2) + '\n')

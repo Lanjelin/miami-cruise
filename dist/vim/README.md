@@ -42,10 +42,10 @@ colorscheme miami-cruise
 
 ### 3. Colours in the terminal
 
-Use `set termguicolors` for the exact Miami Cruise background and colours in a true-colour terminal. The theme also enables it automatically when `$COLORTERM` is `truecolor` or `24bit`, but some true-colour terminals do not set that variable. Without true colour, Vim uses approximate xterm-256 colours; the dark background becomes neutral grey instead of teal-black.
+The main editor area, sign/fold columns and embedded terminal inherit your terminal background by default. Set `let g:miami_cruise_opaque_background = 1` before loading the colorscheme if you prefer the exact Miami Cruise fill. Keep your terminal in the matching dark/light mode. Use `set termguicolors` for exact Miami Cruise foreground colours in a true-colour terminal. The theme also enables it automatically when `$COLORTERM` is `truecolor` or `24bit`, but some true-colour terminals do not set that variable. Without true colour, Vim uses approximate xterm-256 foregrounds.
 
 > [!NOTE]
-> Changing `background` later reloads the theme by itself.
+> Selection, diffs, menus and status surfaces still have deliberate fills. Changing `background` or the opaque setting later requires reloading the theme with `:colorscheme miami-cruise`.
 
 ## Details
 

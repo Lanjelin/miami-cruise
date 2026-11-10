@@ -49,6 +49,7 @@ vim.g.colors_name = "miami-cruise"
 
 local key = vim.o.background == "light" and "light" or "dark"
 local p = palettes[key]
+local transparent = vim.g.miami_cruise_opaque_background ~= 1
 local sel = mix(p.bg, p.accent, 0.20)
 
 local function tint(color, t)
@@ -58,14 +59,14 @@ end
 -- Groups shared with Vim come pre-resolved in the `core` table above.
 -- Below: Neovim-only groups and plugin integrations; colours are mixed at load time.
 local groups = {
-  NormalNC = { fg = p.text, bg = p.bg },
+  NormalNC = { fg = p.text },
   NormalFloat = { fg = p.text, bg = p.panel },
   FloatBorder = { fg = p.border, bg = p.panel },
   FloatTitle = { fg = p.accent, bg = p.panel, bold = true },
   TermCursor = { link = "Cursor" },
   WinSeparator = { fg = p.border },
-  WinBar = { fg = p.muted, bg = p.bg },
-  WinBarNC = { fg = p.disabled, bg = p.bg },
+  WinBar = { fg = p.muted },
+  WinBarNC = { fg = p.disabled },
   CurSearch = { fg = p["on-accent"], bg = p.accent },
   Substitute = { fg = p["on-accent"], bg = p.danger },
 
@@ -131,6 +132,15 @@ local groups = {
   TelescopePromptPrefix = { fg = p.accent },
 }
 
+if transparent then
+  for _, name in ipairs({ "Normal", "SignColumn", "FoldColumn" }) do
+    core[key][name].bg = nil
+  end
+else
+  for _, name in ipairs({ "NormalNC", "WinBar", "WinBarNC" }) do
+    groups[name].bg = p.bg
+  end
+end
 for name, spec in pairs(core[key]) do
   vim.api.nvim_set_hl(0, name, spec)
 end
@@ -210,7 +220,8 @@ GUIDE = dict(
         ]),
         ("Switch between dark and light", [
             ("p", "The theme follows <code>'background'</code>. Change it at any time and the colours update: <code>:set background=light</code>."),
-            ("note", "It turns on <code>termguicolors</code> for you, so a true-colour terminal is needed."),
+            ("p", "The main editor area, inactive windows, sign/fold columns and window bars inherit the terminal background by default. Set <code>vim.g.miami_cruise_opaque_background = 1</code> before loading the colorscheme for an exact Miami Cruise fill. Reload the colorscheme after changing that setting. Keep your terminal in the matching dark/light mode."),
+            ("note", "Selections, diff highlights, floating windows and status surfaces still have deliberate fills. It turns on <code>termguicolors</code> for you, so a true-colour terminal is needed."),
         ]),
     ],
 )

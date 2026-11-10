@@ -1,6 +1,6 @@
 # Miami Cruise for delta
 
-A Miami Cruise diff: clear additions, removals and inline changes.
+A Miami Cruise diff on your terminal background, with clear inline changes.
 
 ![Real delta output in dark and light, including inline changes](../../previews/delta/palette.png)
 
@@ -31,7 +31,7 @@ Install delta. Save `miami-cruise.gitconfig` somewhere permanent. Add the follow
 > [!NOTE]
 > Merge these sections with your existing config. Keep other feature names you want, but select only one Miami Cruise variant. Explicit colour settings in your main delta config can override the feature. The theme does not force side-by-side view, paging or line-number preferences.
 
-Choose `miami-cruise-light` instead for light mode. The next step installs the supporting code-syntax palettes. Use a true-colour terminal with the matching Miami Cruise background.
+Choose `miami-cruise-light` instead for light mode. The next step installs the supporting code-syntax palettes. Ordinary diff lines and hunk headers inherit the terminal background; inline changes and whitespace errors retain intentional fills. Use a true-colour terminal with a matching dark/light background.
 
 > [!NOTE]
 > bat is needed to build the custom syntax cache, not to run delta afterwards. delta reads that cache directly.
