@@ -5,6 +5,11 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Vi-mode indicators use the prompt arrow by default; ASCII mode alone uses right-side text labels.
+- Zsh same-directory transient prompts and optional rightmost submission timestamps; read-only indicators now use a lock immediately before the path, with an ASCII fallback.
+- Dependency-free opt-in Zsh pipeline/signal status, Git operation/progress labels, smart SSH/root context, read-only-directory and nested-shell/Yazi indicators, and ASCII theme symbols; defaults preserve the existing prompt.
+- Zsh `MIAMI_CRUISE_SHOW_RETURN_CODE` flag to hide failed-command return codes; enabled by default.
+- Configurable Zsh command duration (3-second default threshold), running/suspended job counts, opt-in vi-mode labels, native Python/Conda environments and asynchronous Git refresh with directory-safe results; existing widgets and layout/transient modes preserved.
 - Independent Zsh flags for single-line layout and transient prompts, preserving the existing two-line persistent default.
 - Dark/light Oh My Zsh prompt themes with palette-driven colours, adaptive path shortening, and Git branch, ahead/behind, staged, unstaged and untracked counts.
 - Native dark/light Brave browser-chrome themes as local-install ZIPs, with a site download page and unpacked-extension instructions; Web Store publishing remains optional.

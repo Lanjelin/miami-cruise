@@ -27,6 +27,7 @@ python3 -I build.py -v         # also print the token table and contrast ratios
 - `dist/`, `docs/SPEC.md` and the apps table in the README are generated and committed. **Run the build and commit the result**, or CI fails saying they are out of date. Don't edit them by hand.
 - `website/dist/` is generated and not committed.
 - Screenshots live in `previews/<app>/` and `website/previews/`. `previews/render.sh` re-renders them all, or run one app's `previews/<app>/render.sh`; they need a headless Brave and, for Neovim, a Neovim binary. The eza preview needs eza 0.23.5+ on Linux (`EZA=/path/to/eza` to override). Re-rendering is optional for most changes.
+- Zsh prompt regression checks: after building, run `python3 tests/zsh-prompt.py`, `python3 tests/zsh-context.py` and `python3 tests/zsh-polish.py` (requires Zsh 5.9+, Git and tmux). The standard-library-only suite uses disposable shells and tmux servers, not your shell configuration. It covers both palettes and all layout/transient combinations, context flags, existing hooks/widgets, delayed async Git results, pipeline/signal details, Git operations/worktrees, smart context, directory permissions, shell nesting, same-directory transient tracking, rightmost submission timestamps, path-lock placement and ASCII symbols.
 - Test a change in the real app, in both dark and light, and say in your pull request what you tested.
 - The tmux preview needs tmux 3.4 and uses two isolated servers to capture the real client chrome, with disposable layout fixtures. It never attaches to personal sessions.
 
