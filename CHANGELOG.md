@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Independent Zsh flags for single-line layout and transient prompts, preserving the existing two-line persistent default.
 - Dark/light Oh My Zsh prompt themes with palette-driven colours, adaptive path shortening, and Git branch, ahead/behind, staged, unstaged and untracked counts.
 - Native dark/light Brave browser-chrome themes as local-install ZIPs, with a site download page and unpacked-extension instructions; Web Store publishing remains optional.
 - Native Glow/Glamour dark/light Markdown styles with palette backgrounds, shared-palette code syntax, install instructions and real rendered-output previews; browser/pager chrome remains unchanged.
