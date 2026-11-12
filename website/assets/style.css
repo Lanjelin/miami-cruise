@@ -146,14 +146,14 @@ td .dot { display: inline-block; width: 14px; height: 14px; border-radius: 4px; 
 .meta code { font-size: .72rem; }
 .facts { margin: 0; padding: 0; list-style: none; display: grid; gap: 16px; font-size: .95rem; color: var(--mc-text); }
 .facts b { color: var(--mc-text); font-weight: 600; }
-.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin: 28px 0 40px; }
-.shots figure { margin: 0; }
-.shot-preview { position: relative; display: flex; align-items: center; justify-content: center;
-  height: 240px; padding: 12px 12px 38px; background: var(--mc-panel);
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 24px; margin: 28px 0 40px; }
+.shots figure { margin: 0; min-width: 0; max-width: 760px; }
+.shot-preview { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden;
+  padding: 0; background: var(--mc-panel);
   border: 1px solid var(--mc-border); border-radius: 12px; cursor: zoom-in; }
 .shot-preview:hover { border-color: var(--mc-accent); }
-.shot-preview img { width: 100%; height: 100%; object-fit: contain; }
-.shot-preview span { position: absolute; bottom: 8px; right: 12px; color: var(--mc-muted); font-size: .8rem; }
+.shot-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.shot-hint { display: block; margin-top: 4px; font-size: .8rem; }
 .screenshot-dialog { width: min(1400px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px);
   padding: 20px; color: var(--mc-text); background: var(--mc-bg); border: 1px solid var(--mc-border); border-radius: 14px; }
 .screenshot-dialog::backdrop { background: rgb(0 0 0 / .8); }
@@ -166,7 +166,6 @@ td .dot { display: inline-block; width: 14px; height: 14px; border-radius: 4px; 
 .zoom-actual .zoom-stage img { max-width: none; max-height: none; }
 html:has(.screenshot-dialog[open]) { overflow: hidden; }
 @media (max-width: 540px) {
-  .shot-preview { height: 200px; }
   .screenshot-dialog { padding: 14px; }
   .zoom-stage, .zoom-stage img { max-height: calc(100dvh - 230px); }
 }
