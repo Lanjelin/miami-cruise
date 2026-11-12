@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Website “Install with an agent” entry points with copyable no-clone prompts on the home page and supported application pages.
 - No-clone agent setup prompt, pinned GitHub/direct website sourcing guidance, and a qualified Linux container install/restore test record.
 - Agent-assisted installation and conflict-aware restoration instructions, a restore-manifest schema/example, and playbooks for all supported terminal apps plus a Brave manual-install handoff.
 

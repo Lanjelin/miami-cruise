@@ -23,7 +23,8 @@ from themes.brand import BRAND, brand_values, fill
 ROOT = Path(__file__).resolve().parent.parent  # project root
 WEB = Path(__file__).resolve().parent  # website/
 
-from .content import APPS, REPO_URL, SITE_URL, TAGLINE, TOKEN_USE
+from .content import (APPS, REPO_URL, SITE_URL, TAGLINE, TOKEN_USE,
+                      AGENT_GUIDE_URL, AGENT_RAW_GUIDE_URL, AGENT_INTRO, AGENT_PROMPT)
 from .icons import ASSETS as ICON_ASSETS, ICONS
 
 # --------------------------------------------------------------------- helpers
@@ -92,7 +93,7 @@ def page(title, desc, body, up="", current=""):
         return f'<a href="{up}{href}"{cur}>{label}</a>'
 
     repo = f'<a href="{esc(REPO_URL)}">Source</a>' if REPO_URL else ""
-    links = nav("Apps", "index.html#apps", "apps") + nav("Palette", "palette.html", "palette") + repo
+    links = nav("Apps", "index.html#apps", "apps") + nav("Palette", "palette.html", "palette") + nav("Install with an agent", "index.html#agent-install", "agent") + repo
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -133,6 +134,19 @@ def code_block(os_label, lang, text):
     label = f'<span class="os">{esc(os_label)}</span>' if os_label else ""
     return (f'<div class="code">{label}<pre><code class="lang-{esc(lang)}">{esc(text)}</code></pre>'
             f'<button type="button" class="copy" hidden aria-label="Copy to clipboard">Copy</button></div>')
+
+
+def agent_install(app=None):
+    selection = (f"Inspect and propose installation for {app['name']} only; ask which variant I want."
+                 if app else "Discover supported apps and let me choose apps and variants.")
+    prompt = AGENT_PROMPT.format(guide_url=AGENT_RAW_GUIDE_URL, selection=selection)
+    return (f'<section class="section" id="agent-install" aria-labelledby="agent-install-title"><div class="wrap">'
+            f'<h2 id="agent-install-title">Install with an agent</h2><p>{esc(AGENT_INTRO)}</p>'
+            f'{code_block("Agent prompt", "text", prompt)}'
+            f'<p>The agent inspects first and asks for approval. If it cannot access your machine, '
+            f'it can provide tailored commands instead. '
+            f'<a href="{esc(AGENT_GUIDE_URL)}">Read the installation and restoration guide</a>.</p>'
+            f'</div></section>')
 
 
 def render_steps(app, downloads):
@@ -185,6 +199,7 @@ def app_page(app, downloads):
         shots = f'<div class="shots">{figs}</div>'
     facts = "".join(f"<li><b>{k}</b><br>{esc(v)}</li>" for k, v in (
         ("Variants", app.get("variants", "Dark and light")), ("Covers", app["covers"]), ("Glow", app["glow"])))
+    agent_section = agent_install(app) if app["id"] not in ("web", "tokens") else ""
     body = f"""<div class="wrap">
 <p class="crumbs"><a href="../index.html">Miami Cruise</a> / <a href="../index.html#apps">Apps</a> / {esc(app['name'])}</p>
 <div class="apphead">{app_icon(app, '../')}
@@ -197,7 +212,8 @@ def app_page(app, downloads):
     <div class="box"><h2>About</h2><ul class="facts">{facts}</ul><details class="disclosure"><summary>Tested environments and coverage</summary><p>{esc(app["tested"])}</p></details></div>
   </aside>
 </div>
-</div>"""
+</div>
+{agent_section}"""
     return page(f"{app['name']} · Miami Cruise", f"Install Miami Cruise for {app['name']}: {app['tagline']}", body, up="../", current="apps")
 
 
@@ -234,7 +250,7 @@ def index_page(scene, pals, zip_info):
   <div>
     <h1>Miami <em>Cruise</em></h1>
     <p class="lead">{esc(TAGLINE)}</p>
-    <div class="cta"><a class="btn mc-primary" href="#apps">Pick your app</a><a class="btn ghost" href="palette.html">See the palette</a></div>
+    <div class="cta"><a class="btn mc-primary" href="#apps">Pick your app</a><a class="btn ghost" href="#agent-install">Install with an agent</a><a class="btn ghost" href="palette.html">See the palette</a></div>
   </div>
   <div class="scene">{scene}</div>
 </section>
@@ -251,6 +267,7 @@ def index_page(scene, pals, zip_info):
   <p class="empty" id="empty" hidden>No app matches that yet. The <a href="apps/tokens.html">design tokens</a> work for anything.</p>
   <p style="margin-top:22px">{zip_btn}</p>
 </div></section>
+{agent_install()}
 <section class="section"><div class="wrap">
   <h2>The palette</h2>
   <p class="sub">Click a swatch to copy its hex. <span id="copied" class="hl" aria-live="polite"></span></p>

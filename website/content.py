@@ -13,6 +13,15 @@ from themes import GROUPS, load_guides
 
 TAGLINE = "Teal-ink neutrals. One magenta hero. Dark and light, for your editor, terminal and web."
 
+# Agent setup copy stays here alongside other site-wide text.
+AGENT_GUIDE_URL = f"{REPO_URL}/blob/main/INSTALL.md"
+AGENT_RAW_GUIDE_URL = REPO_URL.replace("https://github.com/", "https://raw.githubusercontent.com/") + "/main/INSTALL.md"
+AGENT_INTRO = "Paste this prompt into an agent with web access and access to the machine where your apps run. No cloning, building or manual file downloads needed."
+AGENT_PROMPT = """Help me install Miami Cruise. Read
+{guide_url}
+and follow its linked playbooks. {selection}
+Download the selected files yourself from the project website or a pinned GitHub revision. Propose exact changes and wait for my approval before making changes. Include private backups and conflict-aware restoration instructions and scripts before applying changes."""
+
 # ------------------------------------------------------------------ apps
 # Everything about an app (guide, files, screenshots, category, tags, search words) comes from its theme
 # module (GUIDE in themes/<app>.py), so adding an app never means editing this file.

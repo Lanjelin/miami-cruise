@@ -17,6 +17,12 @@ Reading styles use the existing palette's body-text token for instructions and i
 
 The install steps are not written here: they come from each theme's `GUIDE`, so the website and the READMEs in `dist/` can't disagree. The logo and hero-scene artwork live in `../brand/`.
 
+The home page and supported application pages include **Install with an agent**
+with a copyable no-clone prompt linking to the repository installation contract.
+App-page prompts scope the request to that app; web/CSS and token assets keep their
+project-integration workflow. Prompt text lives in `content.py` and reuses the
+existing accessible copy controls.
+
 ## Build and preview
 
 ```sh
