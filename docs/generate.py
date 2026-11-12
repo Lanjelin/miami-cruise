@@ -1,9 +1,10 @@
-"""Docs generator: docs/SPEC.md and the README apps table, both derived so they cannot drift.
+"""Docs generator: specification, README version badge and apps table, derived from source.
 
 SPEC.md comes from the palette; the apps table between the <!-- apps:start/end --> markers in README.md
 comes from each theme's GUIDE. Runs as part of `python3 -I build.py`.
 """
 import json
+import re
 from pathlib import Path
 
 import palette as p
@@ -25,6 +26,13 @@ def update_readme():
     text = path.read_text()
     if START not in text or END not in text:
         raise SystemExit(f"README.md needs {START} and {END} around the apps table")
+    # The version badge is generated too, so release bumps cannot leave it stale.
+    badge = (f'<img alt="Version {p.VERSION}" '
+             f'src="https://img.shields.io/badge/version-{p.VERSION.replace("-", "--")}-70d5ed?labelColor=0d1d22">')
+    text, count = re.subn(r'<img alt="Version [^"]+" src="https://img\.shields\.io/badge/version-[^"]+">',
+                          lambda _: badge, text)
+    if count != 1:
+        raise SystemExit("README.md needs exactly one version badge")
     head, rest = text.split(START, 1)
     _, tail = rest.split(END, 1)
     path.write_text(f"{head}{START}\n{apps_table()}\n{END}{tail}")

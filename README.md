@@ -7,7 +7,7 @@
 
 <p align="center">
   <img alt="Licence: MIT" src="https://img.shields.io/badge/licence-MIT-ff7fc0?labelColor=0d1d22">
-  <img alt="Version 0.1.0" src="https://img.shields.io/badge/version-0.1.0-70d5ed?labelColor=0d1d22">
+  <img alt="Version 0.2.0" src="https://img.shields.io/badge/version-0.2.0-70d5ed?labelColor=0d1d22">
   <img alt="Text contrast at least 4.5:1" src="https://img.shields.io/badge/text%20contrast-%E2%89%A54.5%3A1-5ed99e?labelColor=0d1d22">
 </p>
 
