@@ -4,7 +4,13 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Changed
+- Prefer an active Python venv's `VIRTUAL_ENV_PROMPT` display name, falling back to its directory name.
+- Move the native Python/Conda environment segment to the leftmost position in the Zsh right prompt.
+- Enable the Zsh read-only-directory marker by default; set `MIAMI_CRUISE_SHOW_READ_ONLY=0` to opt out.
+
 ### Added
+- Nerd Font icons for Zsh Python environments, command duration and nested shell/Yazi levels; ASCII mode retains text-only labels.
 - Vi-mode indicators use the prompt arrow by default; ASCII mode alone uses right-side text labels.
 - Zsh same-directory transient prompts and optional rightmost submission timestamps; read-only indicators now use a lock immediately before the path, with an ASCII fallback.
 - Dependency-free opt-in Zsh pipeline/signal status, Git operation/progress labels, smart SSH/root context, read-only-directory and nested-shell/Yazi indicators, and ASCII theme symbols; defaults preserve the existing prompt.

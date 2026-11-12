@@ -147,11 +147,13 @@ typeset -g _miami_cruise_started='' _miami_cruise_jobs='' _miami_cruise_error=''
 typeset -gA _miami_cruise_symbols=(
   arrow '➤' first '╭─' last '╰─' branch '' ahead '⇡' behind '⇣'
   conflict '×' failure '↵' running '⚙' suspended 'Ⅱ' ruby_open '‹' ruby_close '›' lock ''
+  python ' ' duration '󱎫 ' shell ' ' yazi ' '
 )
 if [[ ${MIAMI_CRUISE_ASCII:-0} == 1 ]]; then
   _miami_cruise_symbols=(
     arrow '>' first '+-' last '+-' branch 'git:' ahead '^' behind 'v'
     conflict 'x' failure 'exit' running 'jobs:' suspended 'stopped:' ruby_open '<' ruby_close '>' lock '[RO]'
+    python '' duration '' shell '' yazi ''
   )
 fi
 
@@ -173,7 +175,7 @@ function miami_cruise_timestamp_update() {
 function miami_cruise_right_prompt_update() {
   local part
   local -a segments=()
-  for part in "$_miami_cruise_shell_level" "$_miami_cruise_mode" \
+  for part in "$(miami_cruise_venv)" "$_miami_cruise_shell_level" "$_miami_cruise_mode" \
       "$_miami_cruise_jobs" "$_miami_cruise_duration" \
       "$_miami_cruise_error" "$_miami_cruise_timestamp"; do
     [[ -n $part ]] && segments+=("${part% }")
@@ -198,6 +200,9 @@ function miami_cruise_context() {
   if [[ ${MIAMI_CRUISE_SMART_CONTEXT:-0} != 1 || $UID == 0 ||
         -n $SSH_CONNECTION || -n $SSH_CLIENT || -n $SSH2_CLIENT || -n $SSH_TTY ]]; then
     print -nr -- "$_miami_cruise_user_host "
+  elif [[ ${MIAMI_CRUISE_SINGLE_LINE:-0} != 1 ]]; then
+    # Keep the path (or read-only marker) clear of the two-line decoration.
+    print -nr -- ' '
   fi
   return 0
 }
@@ -294,14 +299,27 @@ function miami_cruise_git_prompt() {
 
 function miami_cruise_venv() {
   [[ ${MIAMI_CRUISE_SHOW_VIRTUALENV:-1} == 1 ]] || return 0
-  local env_name=${VIRTUAL_ENV:t}
-  [[ -n $env_name ]] || env_name=${CONDA_DEFAULT_ENV:t}
+  local env_name=''
+  if [[ -n $VIRTUAL_ENV ]]; then
+    env_name=${VIRTUAL_ENV_PROMPT:-${VIRTUAL_ENV:t}}
+  else
+    env_name=${CONDA_DEFAULT_ENV:t}
+  fi
   [[ -n $env_name ]] || return 0
-  print -nr -- "%F{#fd717c}(${env_name//\%/%%})%f "
+  print -nr -- "%F{#fd717c}${_miami_cruise_symbols[python]}(${env_name//\%/%%})%f "
 }
 
 function miami_cruise_ruby() {
   (( ${+functions[ruby_prompt_info]} )) && ruby_prompt_info
+  return 0
+}
+
+function miami_cruise_inline_segments() {
+  local segment
+  segment=$(miami_cruise_ruby)
+  [[ -n $segment ]] && print -nr -- " $segment"
+  segment=$(miami_cruise_git_prompt)
+  [[ -n $segment ]] && print -nr -- " $segment"
   return 0
 }
 
@@ -336,15 +354,15 @@ function miami_cruise_precmd() {
     [[ -n $label ]] && _miami_cruise_error="%F{#fd717c}${label} ${_miami_cruise_symbols[failure]}%f"
   fi
   _miami_cruise_read_only=''
-  if [[ ${MIAMI_CRUISE_SHOW_READ_ONLY:-0} == 1 && ! -w $PWD ]]; then
+  if [[ ${MIAMI_CRUISE_SHOW_READ_ONLY:-1} == 1 && ! -w $PWD ]]; then
     _miami_cruise_read_only="%F{#fd717c}${_miami_cruise_symbols[lock]}%f "
   fi
   _miami_cruise_shell_level=''
   if [[ ${MIAMI_CRUISE_SHOW_SHELL_LEVEL:-0} == 1 ]]; then
     if [[ ${YAZI_LEVEL:-0} == <-> ]] && (( ${YAZI_LEVEL:-0} > 0 )); then
-      _miami_cruise_shell_level="%F{#70d5ed}yazi:${YAZI_LEVEL}%f "
+      _miami_cruise_shell_level="%F{#70d5ed}${_miami_cruise_symbols[yazi]}yazi:${YAZI_LEVEL}%f "
     elif (( SHLVL > 1 )); then
-      _miami_cruise_shell_level="%F{#70d5ed}sh:${SHLVL}%f "
+      _miami_cruise_shell_level="%F{#70d5ed}${_miami_cruise_symbols[shell]}sh:${SHLVL}%f "
     fi
   fi
   local threshold=${MIAMI_CRUISE_DURATION_THRESHOLD:-3} job_state
@@ -354,7 +372,7 @@ function miami_cruise_precmd() {
     [[ $threshold == <-> || $threshold == <->.<-> ]] || threshold=3
     elapsed=$(( EPOCHREALTIME - _miami_cruise_started ))
     if (( elapsed >= threshold )); then
-      printf -v _miami_cruise_duration '%%F{#ecd065}%.1fs%%f ' $elapsed
+      printf -v _miami_cruise_duration '%%F{#ecd065}%s%.1fs%%f ' "${_miami_cruise_symbols[duration]}" $elapsed
     fi
   fi
   _miami_cruise_started=''
@@ -446,12 +464,11 @@ fi
   local user_host='$(miami_cruise_context)'
   local current_dir='${_miami_cruise_read_only}$(miami_cruise_dir)'
   local git_branch='$(miami_cruise_git_prompt)'
-  local venv_prompt='$(miami_cruise_venv)'
 
   if [[ ${MIAMI_CRUISE_SINGLE_LINE:-0} == 1 ]]; then
-    PROMPT="${venv_prompt}${user_host}${current_dir} \$(miami_cruise_ruby) ${git_branch} $PR_PROMPT "
+    PROMPT="${user_host}${current_dir}\$(miami_cruise_inline_segments) $PR_PROMPT "
   else
-    PROMPT="%F{#9fbabf}${_miami_cruise_symbols[first]}%f${venv_prompt}${user_host}${current_dir} \$(miami_cruise_ruby) ${git_branch}
+    PROMPT="%F{#9fbabf}${_miami_cruise_symbols[first]}%f${user_host}${current_dir} \$(miami_cruise_ruby) ${git_branch}
 %F{#9fbabf}${_miami_cruise_symbols[last]}%f$PR_PROMPT "
   fi
   typeset -g _miami_cruise_transient_prompt="$PR_PROMPT "

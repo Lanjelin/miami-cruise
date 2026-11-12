@@ -127,7 +127,10 @@ miami_cruise_precmd
 [[ -n $(miami_cruise_context) ]] || exit 1
 MIAMI_CRUISE_SMART_CONTEXT=1
 if (( UID != 0 )); then
-  [[ -z $(miami_cruise_context) ]] || exit 2
+  [[ $(miami_cruise_context) == ' ' ]] || exit 2
+  MIAMI_CRUISE_SINGLE_LINE=1
+  [[ -z $(miami_cruise_context) ]] || exit 21
+  MIAMI_CRUISE_SINGLE_LINE=0
 fi
 SSH_CONNECTION=test
 [[ -n $(miami_cruise_context) ]] || exit 3
@@ -140,16 +143,16 @@ miami_cruise_precmd
 [[ -z $_miami_cruise_shell_level ]] || exit 5
 SHLVL=2
 miami_cruise_precmd
-[[ $_miami_cruise_shell_level == *sh:2* ]] || exit 6
+[[ $_miami_cruise_shell_level == *' sh:2'* ]] || exit 6
 YAZI_LEVEL=3
 miami_cruise_precmd
-[[ $_miami_cruise_shell_level == *yazi:3* && $_miami_cruise_shell_level != *sh:* ]] || exit 7
+[[ $_miami_cruise_shell_level == *' yazi:3'* && $_miami_cruise_shell_level != *sh:* ]] || exit 7
 MIAMI_CRUISE_SHOW_SHELL_LEVEL=0
 miami_cruise_precmd
 [[ -z $_miami_cruise_shell_level ]] || exit 8
 ''')
         probe(variant, readonly, r'''
-MIAMI_CRUISE_SHOW_READ_ONLY=1
+unset MIAMI_CRUISE_SHOW_READ_ONLY
 miami_cruise_precmd
 if [[ ! -w $PWD ]]; then
   [[ $_miami_cruise_read_only == *''* && $_miami_cruise_right_prompt != *''* ]] || exit 1
@@ -165,6 +168,15 @@ miami_cruise_precmd
         output = probe(variant, repo, f'''
 MIAMI_CRUISE_ASCII=1
 source {str(theme)!r}
+VIRTUAL_ENV=/tmp/ascii-env
+MIAMI_CRUISE_SHOW_SHELL_LEVEL=1
+YAZI_LEVEL=2
+MIAMI_CRUISE_DURATION_THRESHOLD=0
+_miami_cruise_started=$(( EPOCHREALTIME - 4 ))
+miami_cruise_precmd
+[[ $_miami_cruise_right_prompt == *'(ascii-env)'*yazi:2*4.0s* ]] || exit 30
+[[ $(print -P -- "$PROMPT") != *ascii-env* ]] || exit 31
+print -P -- "$RPROMPT"
 function ruby_prompt_info() {{ print -nr -- "${{ZSH_THEME_RUBY_PROMPT_PREFIX}}ruby${{ZSH_THEME_RUBY_PROMPT_SUFFIX}}"; }}
 print -P -- "$PROMPT"
 MIAMI_CRUISE_SHOW_RETURN_CODE=1
@@ -174,4 +186,37 @@ print -P -- "$RPROMPT"
 ''')
         assert all(ord(c) < 128 for c in output), output
         assert 'git:main' in output and '<ruby>' in output and '1 exit' in output, output
+        assert '(ascii-env)' in output and 'yazi:2' in output and '4.0s' in output, output
+        probe(variant, repo, r'''
+function miami_cruise_ruby() { :; }
+function miami_cruise_git_prompt() { :; }
+[[ -z $(miami_cruise_inline_segments) ]] || exit 1
+function miami_cruise_git_prompt() { print -nr -- git; }
+[[ $(miami_cruise_inline_segments) == ' git' ]] || exit 2
+function miami_cruise_ruby() { print -nr -- ruby; }
+[[ $(miami_cruise_inline_segments) == ' ruby git' ]] || exit 3
+function miami_cruise_git_prompt() { :; }
+[[ $(miami_cruise_inline_segments) == ' ruby' ]] || exit 4
+''')
+        probe(variant, repo, r'''
+MIAMI_CRUISE_SHOW_VIRTUALENV=1
+VIRTUAL_ENV=/tmp/project/.venv
+CONDA_DEFAULT_ENV=conda-env
+VIRTUAL_ENV_PROMPT=nbno
+[[ $(miami_cruise_venv) == *'(nbno)'* ]] || exit 1
+VIRTUAL_ENV_PROMPT='named%venv'
+[[ $(miami_cruise_venv) == *'(named%%venv)'* ]] || exit 2
+VIRTUAL_ENV_PROMPT=''
+[[ $(miami_cruise_venv) == *'(.venv)'* ]] || exit 3
+unset VIRTUAL_ENV_PROMPT
+[[ $(miami_cruise_venv) == *'(.venv)'* ]] || exit 4
+VIRTUAL_ENV_PROMPT=stale-name
+unset VIRTUAL_ENV
+[[ $(miami_cruise_venv) == *'(conda-env)'* ]] || exit 5
+unset CONDA_DEFAULT_ENV
+[[ -z $(miami_cruise_venv) ]] || exit 6
+VIRTUAL_ENV=/tmp/project/.venv
+MIAMI_CRUISE_SHOW_VIRTUALENV=0
+[[ -z $(miami_cruise_venv) ]] || exit 7
+''')
         print(f'PASS {variant}: pipeline/signal flags, context, permissions, shell depth and ASCII')
