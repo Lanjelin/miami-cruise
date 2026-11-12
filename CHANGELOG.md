@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- Ignore stale Python venv metadata when its bin directory is missing or no longer on PATH; valid inherited environments remain visible without a deactivate function.
+
 ### Changed
 - Use uniform screenshot preview sizes on app pages, with an accessible click-to-zoom viewer and original-image fallback.
 - Simplify website reading and installation layouts: stronger body text, roomier steps, quieter inline code and expandable secondary download/testing details.

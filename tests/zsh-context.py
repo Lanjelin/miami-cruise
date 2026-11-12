@@ -88,6 +88,8 @@ with tempfile.TemporaryDirectory(prefix='miami-zsh-context-') as scratch:
     print('PASS real merge/rebase/cherry-pick/revert/bisect states and linked worktrees')
     readonly = base / 'readonly'
     readonly.mkdir(mode=0o555)
+    (repo / '.venv/bin').mkdir(parents=True)
+    (repo / 'ascii-env/bin').mkdir(parents=True)
     for variant in ('dark', 'light'):
         probe(variant, repo, r'''
 # A ZLE hangup notification can arrive with the complete record still buffered.
@@ -168,7 +170,8 @@ miami_cruise_precmd
         output = probe(variant, repo, f'''
 MIAMI_CRUISE_ASCII=1
 source {str(theme)!r}
-VIRTUAL_ENV=/tmp/ascii-env
+VIRTUAL_ENV="$PWD/ascii-env"
+PATH="$VIRTUAL_ENV/bin:$PATH"
 MIAMI_CRUISE_SHOW_SHELL_LEVEL=1
 YAZI_LEVEL=2
 MIAMI_CRUISE_DURATION_THRESHOLD=0
@@ -200,9 +203,12 @@ function miami_cruise_git_prompt() { :; }
 ''')
         probe(variant, repo, r'''
 MIAMI_CRUISE_SHOW_VIRTUALENV=1
-VIRTUAL_ENV=/tmp/project/.venv
+VIRTUAL_ENV="$PWD/.venv"
+PATH="$VIRTUAL_ENV/bin:$PATH"
 CONDA_DEFAULT_ENV=conda-env
 VIRTUAL_ENV_PROMPT=nbno
+# A valid inherited environment needs no shell-local deactivate function.
+(( ! $+functions[deactivate] )) || exit 8
 [[ $(miami_cruise_venv) == *'(nbno)'* ]] || exit 1
 VIRTUAL_ENV_PROMPT='named%venv'
 [[ $(miami_cruise_venv) == *'(named%%venv)'* ]] || exit 2
@@ -215,8 +221,19 @@ unset VIRTUAL_ENV
 [[ $(miami_cruise_venv) == *'(conda-env)'* ]] || exit 5
 unset CONDA_DEFAULT_ENV
 [[ -z $(miami_cruise_venv) ]] || exit 6
-VIRTUAL_ENV=/tmp/project/.venv
+VIRTUAL_ENV="$PWD/.venv"
+PATH="$VIRTUAL_ENV/bin:$PATH"
 MIAMI_CRUISE_SHOW_VIRTUALENV=0
 [[ -z $(miami_cruise_venv) ]] || exit 7
+MIAMI_CRUISE_SHOW_VIRTUALENV=1
+saved_path=$PATH
+PATH=/usr/bin:/bin
+[[ -z $(miami_cruise_venv) ]] || exit 9
+[[ $VIRTUAL_ENV == "$PWD/.venv" && $VIRTUAL_ENV_PROMPT == stale-name && $PATH == /usr/bin:/bin ]] || exit 10
+PATH=$saved_path
+[[ $(miami_cruise_venv) == *'(stale-name)'* ]] || exit 11
+VIRTUAL_ENV="$PWD/missing-venv"
+PATH="$VIRTUAL_ENV/bin:$PATH"
+[[ -z $(miami_cruise_venv) ]] || exit 12
 ''')
         print(f'PASS {variant}: pipeline/signal flags, context, permissions, shell depth and ASCII')

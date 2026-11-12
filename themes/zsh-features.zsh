@@ -172,7 +172,10 @@ function miami_cruise_git_prompt() {
 function miami_cruise_venv() {
   [[ ${MIAMI_CRUISE_SHOW_VIRTUALENV:-1} == 1 ]] || return 0
   local env_name=''
-  if [[ -n $VIRTUAL_ENV ]]; then
+  local venv_bin=${VIRTUAL_ENV%/}/bin
+  # New shells can inherit the name after startup has removed activation's PATH.
+  # Do not require deactivate: functions are not inherited by valid child shells.
+  if [[ -n $VIRTUAL_ENV && -d $venv_bin && ${path[(Ie)$venv_bin]} != 0 ]]; then
     env_name=${VIRTUAL_ENV_PROMPT:-${VIRTUAL_ENV:t}}
   else
     env_name=${CONDA_DEFAULT_ENV:t}
