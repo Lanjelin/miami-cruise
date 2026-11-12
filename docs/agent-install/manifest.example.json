@@ -1,0 +1,71 @@
+{
+  "format_version": 1,
+  "installation_id": "FICTIONAL-EXAMPLE-NOT-AN-INSTALLATION",
+  "created_utc": "2026-11-12T00:00:00Z",
+  "source": {
+    "release": "0.2.0",
+    "commit": null
+  },
+  "target": {
+    "os": "example POSIX system",
+    "user": "example-user",
+    "machine": "example-machine"
+  },
+  "apps": [
+    {
+      "id": "eza",
+      "variant": "dark"
+    }
+  ],
+  "approval": {
+    "reference": "Fictional approval; this example authorizes nothing",
+    "scope": [
+      "Illustration: merge one existing theme file and save a private restore record"
+    ]
+  },
+  "status": "verified",
+  "entries": [
+    {
+      "id": "file-001",
+      "app": "eza",
+      "path": "/example-home/.config/eza/theme.yml",
+      "symlink_chain": [],
+      "operation": "modify",
+      "before": {
+        "kind": "file",
+        "sha256": "bad5f81c2eb280af3576154d7993f54dece5495625bc8da7a8a57a23935eea67",
+        "backup": "backups/file-001.before",
+        "link_target": null,
+        "metadata": {
+          "unix_mode": "0644",
+          "owner": "example-user",
+          "group": "example-group",
+          "limitations": "Illustrative metadata only"
+        }
+      },
+      "after": {
+        "kind": "file",
+        "sha256": "cd57bd849a391a4470c65df347ece6aa186d12c720a290ab9bfb64f4e0c6ba33",
+        "backup": null,
+        "link_target": null,
+        "metadata": {
+          "unix_mode": "0644",
+          "owner": "example-user",
+          "group": "example-group",
+          "limitations": "Illustrative metadata only"
+        }
+      },
+      "status": "verified"
+    }
+  ],
+  "generated_actions": [],
+  "dependency_actions": [],
+  "session_changes": [],
+  "artifacts": [
+    {
+      "app": "eza",
+      "source": "Fictional demonstration artifact, not an installable palette",
+      "sha256": "cd57bd849a391a4470c65df347ece6aa186d12c720a290ab9bfb64f4e0c6ba33"
+    }
+  ]
+}

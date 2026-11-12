@@ -10,6 +10,14 @@ Thanks for helping. This project is small on purpose: one palette, one tiny modu
 - **Fix or improve a port.** Contrast, a missing highlight group, a platform quirk: all welcome.
 - **Improve the install guides, the docs or the website.** An app's install guide lives in its module, `themes/<app>.py`; the site's shared text in `website/content.py`.
 
+## Agent installation documentation
+
+[INSTALL.md](INSTALL.md) defines the shared consent and restoration procedure.
+App-specific discovery, merge and recovery guidance lives in `docs/agent-install/`;
+keep native commands and tested versions in the existing `themes/<app>.py` GUIDE.
+Changes to installation behaviour must also update its restore guidance. These are
+agent instructions, not an installer implementation or proof of cross-platform tests.
+
 ## Changing the palette
 
 The palette in `palette.py` feeds every port, so a change there changes all of them. Open an issue first and explain the reason (a contrast problem, a clash between two colours, a missing role). Palette changes need a version bump and a changelog entry.

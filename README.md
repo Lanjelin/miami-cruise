@@ -51,6 +51,8 @@ The light and dark palettes, with the full specification and contrast ratios, ar
 
 Every theme is a ready-to-use file in [`dist/`](dist); nothing needs building. Each app has its own folder with a README that explains how to install it, and the [website](https://lanjelin.github.io/miami-cruise) has the same guides with downloads for macOS, Linux and Windows.
 
+For agent-assisted setup, give your agent the [no-clone prompt in INSTALL.md](INSTALL.md#start-without-cloning). The agent downloads selected files from the website or a pinned GitHub revision; you do not need to clone, build or move files manually. It supports a single-app request or guided selection, with inspection, explicit approval and a private restore record. Playbooks cover all supported terminal apps; Brave has a manual browser-install handoff.
+
 <!-- apps:start -->
 | Group | App | Install guide | Status |
 |---|---|---|---|

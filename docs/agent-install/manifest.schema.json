@@ -1,0 +1,590 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Miami Cruise agent installation restore manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format_version",
+    "installation_id",
+    "created_utc",
+    "source",
+    "target",
+    "apps",
+    "approval",
+    "status",
+    "entries",
+    "generated_actions",
+    "dependency_actions",
+    "session_changes",
+    "artifacts"
+  ],
+  "properties": {
+    "format_version": {
+      "const": 1
+    },
+    "installation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]+)?Z$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "release",
+        "commit"
+      ],
+      "properties": {
+        "release": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "release": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "commit": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "os",
+        "user",
+        "machine"
+      ],
+      "properties": {
+        "os": {
+          "type": "string",
+          "minLength": 1
+        },
+        "user": {
+          "type": "string",
+          "minLength": 1
+        },
+        "machine": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "apps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "variant"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "variant": {
+            "enum": [
+              "dark",
+              "light",
+              "auto"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "approval": {
+      "type": "object",
+      "required": [
+        "reference",
+        "scope"
+      ],
+      "properties": {
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": [
+        "planned",
+        "applying",
+        "verified",
+        "partial",
+        "failed",
+        "restored"
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "generated_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "dependency_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "session_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "before",
+          "after",
+          "scope",
+          "restore"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "before": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "after": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "scope": {
+            "type": "string"
+          },
+          "restore": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "app",
+          "source",
+          "sha256"
+        ],
+        "properties": {
+          "app": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Source URL without credentials, or local artifact identity plus release/commit."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "manual_actions": {
+      "type": "array",
+      "description": "User-performed UI actions, not filesystem backup entries. Remain planned until performed.",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/action"
+          },
+          {
+            "required": [
+              "before",
+              "after",
+              "verification"
+            ]
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "applied",
+                    "verified"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "after": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "sha256",
+        "backup",
+        "link_target",
+        "metadata"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "absent",
+            "file",
+            "symlink",
+            "directory"
+          ]
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "backup": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^backups/[A-Za-z0-9][A-Za-z0-9._-]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "link_target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Original or observed mode, ownership, ACLs/attributes and preservation limitations; native representations must be explained in RESTORE.md."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "file"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "sha256": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "symlink"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "link_target": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "absent"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "sha256": {
+                "type": "null"
+              },
+              "backup": {
+                "type": "null"
+              },
+              "link_target": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "app",
+        "path",
+        "symlink_chain",
+        "operation",
+        "before",
+        "after",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "app": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Absolute path of the exact object to mutate; validate OS-specific absolute syntax outside the schema."
+        },
+        "symlink_chain": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "path",
+              "target"
+            ],
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "operation": {
+          "enum": [
+            "create",
+            "modify",
+            "replace",
+            "remove"
+          ]
+        },
+        "before": {
+          "$ref": "#/$defs/state"
+        },
+        "after": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/state"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "applied",
+            "verified",
+            "failed",
+            "restored"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "before": {
+                "properties": {
+                  "kind": {
+                    "const": "file"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "before": {
+                "properties": {
+                  "backup": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "applied",
+                  "verified"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "after": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "scope",
+        "strategy",
+        "restore",
+        "limitations",
+        "status"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strategy": {
+          "type": "string"
+        },
+        "restore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitations": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "applied",
+            "verified",
+            "failed",
+            "restored"
+          ]
+        },
+        "before": {
+          "type": "object",
+          "description": "Relevant native live/UI state and provenance; never a complete application profile dump."
+        },
+        "after": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Observed native post-action state, null until observed; not inferred from file copying."
+        },
+        "verification": {
+          "type": "string",
+          "description": "User confirmation, agent-observed result, or pending/unverified limitation."
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "verified"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "manual_actions": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "verified"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

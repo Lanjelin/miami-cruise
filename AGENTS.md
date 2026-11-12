@@ -14,6 +14,14 @@ Miami Cruise is a generated dark/light theme collection. Read
 - Repository work does not authorize installing themes into the user's environment
   or changing shell/system configuration. Obtain specific approval for those actions.
 
+## Installing themes for a user
+
+- For installation or restoration requests, follow [INSTALL.md](INSTALL.md).
+  Its host-change approval and restore requirements apply to those tasks; they do
+  not turn ordinary repository development into an installation request.
+- Keep app detection/merge/restore playbooks in `docs/agent-install/`; native install
+  commands, artifact lists and tested versions remain in each theme's GUIDE metadata.
+
 ## Source and generated files
 
 - Edit generators and templates, not generated outputs alone. App generators and
