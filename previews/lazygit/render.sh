@@ -4,5 +4,5 @@
 set -eu
 cd "$(dirname "$0")/../.." && . previews/lib.sh
 python3 -I previews/lazygit/render.py "$tmp"
-shot 1280,1460 previews/lazygit/palette.png "$tmp/palette.html"
-shot 1280,1460 previews/lazygit/delta.png "$tmp/delta.html"
+shot 1280,1460 previews/lazygit/palette.png "$tmp/palette.html" section dark light
+shot 1280,1460 previews/lazygit/delta.png "$tmp/delta.html" section delta-dark delta-light

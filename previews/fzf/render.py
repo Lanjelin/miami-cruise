@@ -30,7 +30,7 @@ def capture(output):
         base = Path(tmp)
         env = {k: v for k, v in os.environ.items()
                if not k.startswith(('FZF_', 'BAT_', 'TMUX')) and k != 'NO_COLOR'}
-        env.update(TERM='tmux-256color', COLORTERM='truecolor', LC_ALL='C.UTF-8',
+        env.update(SHELL='/bin/sh', TERM='tmux-256color', COLORTERM='truecolor', LC_ALL='C.UTF-8',
                    XDG_CONFIG_HOME=str(base / 'config'), XDG_CACHE_HOME=str(base / 'cache'),
                    BAT_CONFIG_DIR=str(base / 'bat'))
         config = base / 'bat/themes'

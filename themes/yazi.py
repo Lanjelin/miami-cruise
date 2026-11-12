@@ -118,7 +118,8 @@ GUIDE = dict(
     files=[(f"yazi/miami-cruise-{v}.yazi.zip", f"miami-cruise-{v}.yazi.zip", f"Yazi flavor · {v}")
            for v in ("dark", "light")],
     file_note="Each ZIP contains a native Yazi flavor and its matching code-preview syntax palette. No plugins, keymaps, file openers or layout settings are changed. Icons retain Yazi's default glyphs and colours.",
-    shots=[("yazi/palette.png", "Real Yazi file manager in dark and light with Miami Cruise colours; optional Nerd Font icons hidden for the preview")],
+    shots=[("yazi/dark.png", "Real Yazi with the dark theme; optional Nerd Font icons hidden for the preview"),
+           ("yazi/light.png", "Real Yazi with the light theme; optional Nerd Font icons hidden for the preview")],
     tested="Yazi 26.9.1 on Linux: both flavor packages recognized by Yazi; matching styles rendered in isolated sessions with file list, selection, tabs, status bar, help and code preview. Terminal appearance auto-detection and macOS/Windows not tested",
     covers="File kinds, pane indicators, borders, tabs, modes, status and permissions, dialogs, notifications, help and syntax-highlighted previews",
     glow="No: the flat palette",

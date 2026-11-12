@@ -1,4 +1,4 @@
-"""Capture the generated Zsh theme running in isolated Oh My Zsh sessions."""
+"""Capture native Zsh prompts in disposable shells; use Oh My Zsh when installed."""
 
 import json
 import os
@@ -18,8 +18,6 @@ from _terminal import ansi_html
 
 def render(output):
     omz = Path(os.environ.get("ZSH", Path.home() / ".local/share/oh-my-zsh"))
-    if not (omz / "oh-my-zsh.sh").is_file():
-        raise SystemExit("Preview needs Oh My Zsh; set ZSH to its installed directory.")
     for executable in ("zsh", "git", "tmux"):
         if not shutil.which(executable):
             raise SystemExit(f"Preview needs {executable}.")
@@ -36,11 +34,17 @@ def render(output):
                 folder.mkdir(parents=True)
             shutil.copyfile(ROOT / f"dist/zsh/miami-cruise-{variant}.zsh-theme",
                             custom / "themes" / f"miami-cruise-{variant}.zsh-theme")
-            zdot.joinpath(".zshrc").write_text(
+            startup = (
                 f'HOST=cruise\nZSH={str(omz)!r}\nZSH_CUSTOM={str(custom)!r}\n'
                 f'ZSH_THEME=miami-cruise-{variant}\nplugins=()\n'
                 'DISABLE_AUTO_UPDATE=true\nZSH_DISABLE_COMPFIX=true\n'
                 'source "$ZSH/oh-my-zsh.sh"\n')
+            if not (omz / "oh-my-zsh.sh").is_file():
+                startup = f'HOST=cruise\nsource {str(custom / "themes" / f"miami-cruise-{variant}.zsh-theme")!r}\n'
+            zdot.joinpath(".zshrc").write_text(startup)
+            # Global zshenv may redirect ZDOTDIR to HOME/.config/zsh.
+            (home / ".config/zsh").mkdir(parents=True)
+            (home / ".config/zsh/.zshrc").symlink_to(zdot / ".zshrc")
             env = {k: v for k, v in os.environ.items()
                    if not k.startswith(("TMUX", "ZSH", "GIT_")) and k not in ("NO_COLOR", "FZF_DEFAULT_OPTS")}
             env.update(HOME=str(home), ZDOTDIR=str(zdot), TERM="tmux-256color",
@@ -129,7 +133,7 @@ def render(output):
            ".branch-symbol{display:inline-block;width:9px;height:14px;vertical-align:-2px;"
            "fill:none;stroke:currentColor;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}")
     output.write_text('<!doctype html><meta charset="utf-8"><style>' + css + '</style>' + ''.join(sections))
-    print("Verified Zsh: both generated themes in isolated Oh My Zsh, Git ahead/untracked, adaptive path.",
+    print("Verified Zsh: both generated themes in isolated shells (Oh My Zsh when installed), Git ahead/untracked, adaptive path.",
           file=sys.stderr)
 
 

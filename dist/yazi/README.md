@@ -2,7 +2,8 @@
 
 A calm file manager with magenta focus and matching code previews.
 
-![Real Yazi file manager in dark and light with Miami Cruise colours; optional Nerd Font icons hidden for the preview](../../previews/yazi/palette.png)
+![Real Yazi with the dark theme; optional Nerd Font icons hidden for the preview](../../previews/yazi/dark.png)
+![Real Yazi with the light theme; optional Nerd Font icons hidden for the preview](../../previews/yazi/light.png)
 
 ## Install
 

@@ -2,7 +2,8 @@
 
 A Miami Cruise diff on your terminal background, with clear inline changes.
 
-![Real delta output in dark and light, including inline changes](../../previews/delta/palette.png)
+![Real delta output with the dark theme, including inline changes](../../previews/delta/dark.png)
+![Real delta output with the light theme, including inline changes](../../previews/delta/light.png)
 
 ## Install
 

@@ -57,7 +57,8 @@ GUIDE = dict(
     file_note="<code>miami-cruise.gitconfig</code> is the native delta theme: it defines the dark/light features and diff styles. The <code>.tmTheme</code> files supply custom code-syntax colours to delta's bat-based highlighter; they are not replacements for the Git-config file. All three files are intentional parts of this delta port.",
     files=[("delta/miami-cruise.gitconfig", "miami-cruise.gitconfig", "Native delta theme (both variants)")] +
           [(f"delta/miami-cruise-{v}.tmTheme", f"miami-cruise-{v}.tmTheme", f"Supporting {v} syntax palette (TextMate)") for v in ("dark", "light")],
-    shots=[("delta/palette.png", "Real delta output in dark and light, including inline changes")],
+    shots=[("delta/dark.png", "Real delta output with the dark theme, including inline changes"),
+           ("delta/light.png", "Real delta output with the light theme, including inline changes")],
     tested="delta 0.20.1 with bat 0.26.1 on Linux: both features, syntax cache, unified and side-by-side diffs, additions, removals and inline changes; macOS and Windows not tested",
     covers="Syntax, diff lines, inline emphasis, file/hunk/commit headers and line numbers",
     glow="No: terminal output uses the flat palette",

@@ -2,7 +2,8 @@
 
 A true-colour file listing, from directories and permissions to Git status.
 
-![Real eza output in dark and light terminal backgrounds](../../previews/eza/palette.png)
+![Real eza output on the dark terminal background](../../previews/eza/dark.png)
+![Real eza output on the light terminal background](../../previews/eza/light.png)
 
 ## Install
 

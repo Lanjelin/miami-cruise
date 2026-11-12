@@ -56,6 +56,9 @@ Miami Cruise is a generated dark/light theme collection. Read
 
 - Run checks appropriate to the change and `git diff --check`. For generator or
   palette changes, run the full build before handoff and inspect generated diffs.
+- Preview tmux fixtures must use an explicit POSIX launcher shell (for example,
+  `SHELL=/bin/sh`) so user Zsh startup cannot override disposable config paths.
+  Run app-specific shells explicitly when testing them.
 - For visual changes, verify both dark and light variants in the relevant app
   when available; screenshots need not be regenerated for unrelated changes.
 - Report what changed, which checks ran, and any checks blocked or not performed.

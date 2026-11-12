@@ -3,4 +3,4 @@
 set -eu
 cd "$(dirname "$0")/../.." && . previews/lib.sh
 python3 -I previews/tmux/render.py "$tmp/palette.html"
-shot 1080,886 previews/tmux/palette.png "$tmp/palette.html"
+shot 1080,886 previews/tmux/palette.png "$tmp/palette.html" section dark light

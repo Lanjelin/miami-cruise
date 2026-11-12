@@ -2,7 +2,8 @@
 
 Readable syntax highlighting for source files, with Miami Cruise colours.
 
-![Real bat syntax highlighting in dark and light](../../previews/bat/palette.png)
+![Real bat syntax highlighting with the dark theme](../../previews/bat/dark.png)
+![Real bat syntax highlighting with the light theme](../../previews/bat/light.png)
 
 ## Install
 

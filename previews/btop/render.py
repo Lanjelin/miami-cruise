@@ -28,7 +28,7 @@ def capture(output):
     with tempfile.TemporaryDirectory(prefix='miami-btop-') as tmp:
         base = Path(tmp)
         env = {k: v for k, v in os.environ.items() if not k.startswith('TMUX') and k != 'NO_COLOR'}
-        env.update(TERM='tmux-256color', COLORTERM='truecolor', LC_ALL='C.UTF-8',
+        env.update(SHELL='/bin/sh', TERM='tmux-256color', COLORTERM='truecolor', LC_ALL='C.UTF-8',
                    XDG_CONFIG_HOME=str(base / 'config'), XDG_STATE_HOME=str(base / 'state'))
         themes = base / 'config/btop/themes'
         themes.mkdir(parents=True)

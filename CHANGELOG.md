@@ -8,6 +8,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Ignore stale Python venv metadata when its bin directory is missing or no longer on PATH; valid inherited environments remain visible without a deactivate function.
 
 ### Changed
+- Export separate dark/light screenshots from the preview generators and use them in app galleries; retain merged contact sheets. Headless captures now use Chromium/CDP with disposable profiles or an existing endpoint.
 - Use uniform screenshot preview sizes on app pages, with an accessible click-to-zoom viewer and original-image fallback.
 - Simplify website reading and installation layouts: stronger body text, roomier steps, quieter inline code and expandable secondary download/testing details.
 - Prefer an active Python venv's `VIRTUAL_ENV_PROMPT` display name, falling back to its directory name.

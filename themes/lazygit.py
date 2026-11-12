@@ -62,8 +62,10 @@ GUIDE = dict(
     tagline="A calm Git interface with magenta focus, clear selections and readable status colours.",
     files=[("lazygit/miami-cruise.yml", "miami-cruise.yml", "Automatic dark/light theme")] +
           [(f"lazygit/miami-cruise-{v}.yml", f"miami-cruise-{v}.yml", f"Fixed {v} theme") for v in ("dark", "light")],
-    shots=[("lazygit/palette.png", "Real lazygit UI in dark and light with a disposable Git repository"),
-           ("lazygit/delta.png", "Real lazygit UI with the optional Miami Cruise delta renderer")],
+    shots=[("lazygit/dark.png", "Real lazygit UI with the dark theme and a disposable Git repository"),
+           ("lazygit/light.png", "Real lazygit UI with the light theme and a disposable Git repository"),
+           ("lazygit/delta-dark.png", "Real lazygit with the dark theme and optional Miami Cruise delta renderer"),
+           ("lazygit/delta-light.png", "Real lazygit with the light theme and optional Miami Cruise delta renderer")],
     tested="lazygit 0.66.3 on Linux: dark/light layers, automatic-theme overrides, files, staging, branches, commits and search; optional delta 0.20.1 with bat 0.26.1; macOS and Windows not tested",
     covers="Focused/inactive/search borders, selections, help, unstaged changes, authors, copied commits and marked-base colours; diffs remain the renderer's responsibility",
     glow="No: the flat palette",

@@ -2,7 +2,8 @@
 
 A configurable prompt with adaptive paths, async Git and compact context.
 
-![Real Zsh prompt in dark and light: user and host, adaptive path and Git status](../../previews/zsh/palette.png)
+![Real Zsh prompt with the dark theme: user and host, adaptive path and Git status](../../previews/zsh/dark.png)
+![Real Zsh prompt with the light theme: user and host, adaptive path and Git status](../../previews/zsh/light.png)
 
 ## Install
 

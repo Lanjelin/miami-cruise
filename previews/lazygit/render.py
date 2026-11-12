@@ -42,7 +42,7 @@ def capture(output):
         env = {k: v for k, v in os.environ.items()
                if not k.startswith(('GIT_', 'BAT_', 'DELTA_', 'LG_', 'TMUX')) and
                k not in ('NO_COLOR', 'CONFIG_DIR')}
-        env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull,
+        env.update(SHELL='/bin/sh', GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull,
                    TERM='tmux-256color', COLORTERM='truecolor', LC_ALL='C.UTF-8', TZ='UTC',
                    XDG_CONFIG_HOME=str(base / 'config'), XDG_CACHE_HOME=str(base / 'cache'),
                    XDG_STATE_HOME=str(base / 'state'),

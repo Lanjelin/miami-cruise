@@ -3,4 +3,4 @@
 set -eu
 cd "$(dirname "$0")/../.." && . previews/lib.sh
 python3 -I previews/web/mock.py "$tmp/web.html"
-shot 1500,345 previews/web/palette.png "$tmp/web.html"
+shot 1500,345 previews/web/palette.png "$tmp/web.html" .p dark light dark-flat

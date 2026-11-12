@@ -2,7 +2,9 @@
 
 CSS variables for the palette, plus an optional glow layer.
 
-![A sample interface in the dark theme, the light theme, and the dark theme without glow](../../previews/web/palette.png)
+![Sample web interface with the dark theme and optional glow](../../previews/web/dark.png)
+![Sample web interface with the light theme and optional glow](../../previews/web/light.png)
+![Sample web interface with the dark theme, without glow](../../previews/web/dark-flat.png)
 
 ## Install
 

@@ -53,7 +53,7 @@ def capture(output):
                 "\n# Preview-only: this render host has no Nerd Font. The distributed flavor keeps Yazi's icons.\n"
                 "[icon]\nglobs = []\ndirs = []\nfiles = []\nexts = []\nconds = []\n")
             env = {k: v for k, v in os.environ.items() if not k.startswith(("TMUX", "YAZI_")) and k != "NO_COLOR"}
-            env.update(YAZI_CONFIG_HOME=str(config), XDG_CACHE_HOME=str(base / variant / "cache"),
+            env.update(SHELL='/bin/sh', YAZI_CONFIG_HOME=str(config), XDG_CACHE_HOME=str(base / variant / "cache"),
                        XDG_STATE_HOME=str(base / variant / "state"), TERM="tmux-256color",
                        COLORTERM="truecolor", LC_ALL="C.UTF-8", YAZI_LOG="debug")
             socket = base / variant / "tmux.sock"

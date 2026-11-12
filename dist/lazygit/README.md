@@ -2,8 +2,10 @@
 
 A calm Git interface with magenta focus, clear selections and readable status colours.
 
-![Real lazygit UI in dark and light with a disposable Git repository](../../previews/lazygit/palette.png)
-![Real lazygit UI with the optional Miami Cruise delta renderer](../../previews/lazygit/delta.png)
+![Real lazygit UI with the dark theme and a disposable Git repository](../../previews/lazygit/dark.png)
+![Real lazygit UI with the light theme and a disposable Git repository](../../previews/lazygit/light.png)
+![Real lazygit with the dark theme and optional Miami Cruise delta renderer](../../previews/lazygit/delta-dark.png)
+![Real lazygit with the light theme and optional Miami Cruise delta renderer](../../previews/lazygit/delta-light.png)
 
 ## Install
 

@@ -4,4 +4,4 @@
 set -eu
 cd "$(dirname "$0")/../.." && . previews/lib.sh
 python3 -I previews/eza/render.py "$tmp/eza.html"
-shot 1200,780 previews/eza/palette.png "$tmp/eza.html"
+shot 1200,780 previews/eza/palette.png "$tmp/eza.html" section dark light

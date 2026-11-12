@@ -2,7 +2,8 @@
 
 Miami Cruise colours for your existing tmux layout.
 
-![Real tmux in dark and light: existing status layout, active window, split borders and selection; disposable preview fixture](../../previews/tmux/palette.png)
+![Real tmux with the dark theme: status layout, active window, split borders and selection](../../previews/tmux/dark.png)
+![Real tmux with the light theme: status layout, active window, split borders and selection](../../previews/tmux/light.png)
 
 ## Install
 
