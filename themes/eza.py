@@ -66,8 +66,8 @@ GUIDE = dict(
     tagline="A true-colour file listing, from directories and permissions to Git status.",
     files=[("eza/miami-cruise-dark.yml", "miami-cruise-dark.yml", "Dark theme"),
            ("eza/miami-cruise-light.yml", "miami-cruise-light.yml", "Light theme")],
-    shots=[("eza/dark.png", "Real eza output on the dark terminal background"),
-           ("eza/light.png", "Real eza output on the light terminal background")],
+    shots=[("eza/dark.png", "eza output on the dark terminal background"),
+           ("eza/light.png", "eza output on the light terminal background")],
     tested="eza 0.23.5 on Linux, both variants: true-colour output, file types, permissions, sizes, Git status and symlinks; macOS and Windows not tested",
     covers="File kinds and categories, permissions, owners, sizes, dates, links, Git status, repository status and metadata",
     glow="No: a flat palette",
@@ -92,6 +92,14 @@ GUIDE = dict(
             ]),
             ("p", "For light mode, use <code>miami-cruise-light.yml</code> instead. eza reads <code>theme.yml</code> on each invocation; it has no automatic dark/light switch."),
             ("note", "On macOS the native default config location may differ from Linux. The explicit <code>EZA_CONFIG_DIR</code> above makes the location unambiguous. Keep that variable in your shell profile if using this location on macOS or a custom location on any platform."),
+        ]),
+        ("Keep the config directory in your environment", [
+            ("p", "<code>EZA_CONFIG_DIR</code> selects the directory containing <code>theme.yml</code>, not a theme filename. The install commands above already export it for the current shell. For the same default location in new sessions, add the appropriate assignment to your shell profile:"),
+            ("code", [
+                ("macOS / Linux", "bash", 'export EZA_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/eza"'),
+                ("Windows (PowerShell)", "powershell", '$env:EZA_CONFIG_DIR = Join-Path $env:APPDATA "eza"'),
+            ]),
+            ("p", "If you installed into a custom directory, use that directory instead. Keep any existing <code>EZA_CONFIG_DIR</code> choice consistent with where you copied the theme. Changing this variable does not install a theme or select a variant by name; copy the chosen dark or light file to <code>theme.yml</code> in that directory."),
         ]),
         ("Try it without colour overrides", [
             ("code", [

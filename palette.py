@@ -5,7 +5,7 @@ Palettes are defined in OKLCH (lightness, chroma, hue) in PALETTES below.
 """
 import math
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 
 # ---------------------------------------------------------------- colour maths

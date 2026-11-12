@@ -2,31 +2,31 @@
 
 A calm file manager with magenta focus and matching code previews.
 
-![Real Yazi with the dark theme; optional Nerd Font icons hidden for the preview](../../previews/yazi/dark.png)
-![Real Yazi with the light theme; optional Nerd Font icons hidden for the preview](../../previews/yazi/light.png)
+![Yazi with the dark theme; optional Nerd Font icons hidden for the preview](../../previews/yazi/dark.png)
+![Yazi with the light theme; optional Nerd Font icons hidden for the preview](../../previews/yazi/light.png)
 
 ## Install
 
 The theme files:
 
-- [`miami-cruise-dark.yazi.zip`](miami-cruise-dark.yazi.zip): Yazi flavor · dark
-- [`miami-cruise-light.yazi.zip`](miami-cruise-light.yazi.zip): Yazi flavor · light
+- [`miami-cruise-dark.yazi.tar.gz`](miami-cruise-dark.yazi.tar.gz): Yazi flavor · dark
+- [`miami-cruise-light.yazi.tar.gz`](miami-cruise-light.yazi.tar.gz): Yazi flavor · light
 
-Each ZIP contains a native Yazi flavor and its matching code-preview syntax palette. No plugins, keymaps, file openers or layout settings are changed. Icons retain Yazi's default glyphs and colours.
+Each tar.gz archive contains a native Yazi flavor and its matching code-preview syntax palette. No plugins, keymaps, file openers or layout settings are changed. Icons retain Yazi's default glyphs and colours.
 
 Run the commands below from this folder, or from wherever you saved the file.
 
 ### 1. Install the two flavors
 
-Install Yazi first. Extract both ZIPs into your Yazi `flavors` directory. Each archive contains one `miami-cruise-*.yazi` folder with `flavor.toml` and `tmtheme.xml` inside. The shell example uses `unzip`; any ZIP extractor works. Keep any existing Yazi configuration and back up same-named custom flavors before replacing them.
+Install Yazi first. Extract both tar.gz archives into your Yazi `flavors` directory. Each archive contains one `miami-cruise-*.yazi` folder with `flavor.toml` and `tmtheme.xml` inside. The examples use `tar`, available on macOS, modern Windows and most Linux systems. Keep any existing Yazi configuration and back up same-named custom flavors before replacing them.
 
 **Linux / macOS**
 
 ```bash
 yazi_dir="${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}"
 mkdir -p "$yazi_dir/flavors"
-unzip miami-cruise-dark.yazi.zip -d "$yazi_dir/flavors"
-unzip miami-cruise-light.yazi.zip -d "$yazi_dir/flavors"
+tar -xzf miami-cruise-dark.yazi.tar.gz -C "$yazi_dir/flavors"
+tar -xzf miami-cruise-light.yazi.tar.gz -C "$yazi_dir/flavors"
 ```
 
 **Windows (PowerShell)**
@@ -34,8 +34,8 @@ unzip miami-cruise-light.yazi.zip -d "$yazi_dir/flavors"
 ```powershell
 $yaziDir = if ($env:YAZI_CONFIG_HOME) { $env:YAZI_CONFIG_HOME } else { Join-Path $env:APPDATA "yazi/config" }
 New-Item -ItemType Directory -Force "$yaziDir/flavors" | Out-Null
-Expand-Archive miami-cruise-dark.yazi.zip "$yaziDir/flavors"
-Expand-Archive miami-cruise-light.yazi.zip "$yaziDir/flavors"
+tar -xzf miami-cruise-dark.yazi.tar.gz -C "$yaziDir/flavors"
+tar -xzf miami-cruise-light.yazi.tar.gz -C "$yaziDir/flavors"
 ```
 
 ### 2. Select dark and light in your existing theme.toml

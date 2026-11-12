@@ -2,8 +2,8 @@
 
 Readable Markdown, magenta headings and matching code syntax in your terminal.
 
-![Real Glow Markdown output with the dark theme: headings, links, quotes, lists, tables and code](../../previews/glow/dark.png)
-![Real Glow Markdown output with the light theme: headings, links, quotes, lists, tables and code](../../previews/glow/light.png)
+![Glow Markdown output with the dark theme: headings, links, quotes, lists, tables and code](../../previews/glow/dark.png)
+![Glow Markdown output with the light theme: headings, links, quotes, lists, tables and code](../../previews/glow/light.png)
 
 ## Install
 

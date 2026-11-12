@@ -2,10 +2,10 @@
 
 A calm Git interface with magenta focus, clear selections and readable status colours.
 
-![Real lazygit UI with the dark theme and a disposable Git repository](../../previews/lazygit/dark.png)
-![Real lazygit UI with the light theme and a disposable Git repository](../../previews/lazygit/light.png)
-![Real lazygit with the dark theme and optional Miami Cruise delta renderer](../../previews/lazygit/delta-dark.png)
-![Real lazygit with the light theme and optional Miami Cruise delta renderer](../../previews/lazygit/delta-light.png)
+![lazygit UI with the dark theme and a disposable Git repository](../../previews/lazygit/dark.png)
+![lazygit UI with the light theme and a disposable Git repository](../../previews/lazygit/light.png)
+![lazygit with the dark theme and optional Miami Cruise delta renderer](../../previews/lazygit/delta-dark.png)
+![lazygit with the light theme and optional Miami Cruise delta renderer](../../previews/lazygit/delta-light.png)
 
 ## Install
 
@@ -50,14 +50,44 @@ Alternatively merge the theme's `gui` keys into your existing config (back it up
 > [!NOTE]
 > These files change appearance only: no keybindings, network behaviour, Git commands, layouts or pager preferences are set. To uninstall, remove the theme from your config-layer list, or restore the GUI keys you merged.
 
-### 2. Choose automatic or fixed colours
+### 2. Optional: load the config layers through your environment
+
+Instead of passing `--use-config-file` each time, export `LG_CONFIG_FILE` with the same comma-separated paths. This example uses lazygit's reported config directory and the same theme-path placeholder as above. It preserves an existing layer list and adds the theme last:
+
+**macOS / Linux**
+
+```bash
+lg_dir="$(lazygit --print-config-dir)"
+lg_files="${LG_CONFIG_FILE:-}"
+if [ -z "$lg_files" ] && [ -f "$lg_dir/config.yml" ]; then
+  lg_files="$lg_dir/config.yml"
+fi
+export LG_CONFIG_FILE="${lg_files:+$lg_files,}/absolute/path/to/miami-cruise.yml"
+lazygit
+```
+
+**Windows (PowerShell)**
+
+```powershell
+$lgDir = lazygit --print-config-dir
+$baseConfig = Join-Path $lgDir "config.yml"
+$lgFiles = $env:LG_CONFIG_FILE
+if (!$lgFiles -and (Test-Path $baseConfig)) { $lgFiles = $baseConfig }
+$theme = "C:/absolute/path/to/miami-cruise.yml"
+$env:LG_CONFIG_FILE = if ($lgFiles) { "$lgFiles,$theme" } else { $theme }
+lazygit
+```
+
+Replace the theme placeholder with its permanent absolute path. This sets the layer list for the current shell and child processes. For new sessions, put the resolved `LG_CONFIG_FILE` assignment in your shell profile, keeping your existing layers and listing the theme only once; do not repeatedly append it on each startup. Use the automatic file shown here or substitute a fixed dark/light file. To stop loading the theme, remove only its path from the list.
+
+### 3. Choose automatic or fixed colours
 
 `miami-cruise.yml` uses lazygit's native `gui.darkTheme`/`gui.lightTheme` support. It queries the terminal's background, not your desktop setting. If the terminal does not reply, lazygit defaults to dark. For a reliable manual choice, load `miami-cruise-dark.yml` or `miami-cruise-light.yml` instead.
 
 > [!NOTE]
 > Use a true-colour terminal with the matching Miami Cruise foreground, background and ANSI palette. lazygit does not set the terminal background; raw Git diffs and some status colours use terminal ANSI colours. The UI theme does not replace your diff renderer. Native automatic detection depends on terminal support; both automatic-file branches were tested with explicit colour-scheme overrides.
 
-### 3. Optional: use the Miami Cruise delta diff renderer
+### 4. Optional: use the Miami Cruise delta diff renderer
 
 Install the Miami Cruise delta port and its syntax cache first. Then merge this optional setting into your lazygit config. This example is for lazygit 0.66.3's `git.diffRenderers` format; older versions may use `git.pagers`.
 

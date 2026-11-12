@@ -4,10 +4,14 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-12
+
 ### Fixed
 - Ignore stale Python venv metadata when its bin directory is missing or no longer on PATH; valid inherited environments remain visible without a deactivate function.
 
 ### Changed
+- Package Yazi flavors as deterministic `.tar.gz` archives with tar-based installation examples on Linux, macOS and Windows; the all-themes bundle remains ZIP.
+- Keep bat syntax-theme files and cache-install instructions in the bat port; delta links to that shared setup and retains its own cache-discovery guidance.
 - Export separate dark/light screenshots from the preview generators and use them in app galleries; retain merged contact sheets. Headless captures now use Chromium/CDP with disposable profiles or an existing endpoint.
 - Use uniform screenshot preview sizes on app pages, with an accessible click-to-zoom viewer and original-image fallback.
 - Simplify website reading and installation layouts: stronger body text, roomier steps, quieter inline code and expandable secondary download/testing details.

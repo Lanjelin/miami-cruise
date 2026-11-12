@@ -81,7 +81,7 @@ def capture(app):
         base = Path(tmp)
         config = base / 'bat'
         (config / 'themes').mkdir(parents=True)
-        for path in (ROOT / 'dist' / app).glob('*.tmTheme'):
+        for path in (ROOT / 'dist/bat').glob('*.tmTheme'):
             shutil.copyfile(path, config / 'themes' / path.name)
         env = {k: v for k, v in os.environ.items()
                if not k.startswith(('BAT_', 'DELTA_', 'GIT_')) and k != 'NO_COLOR'}

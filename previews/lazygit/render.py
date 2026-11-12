@@ -75,7 +75,7 @@ def capture(output):
         # Build an isolated standard bat cache; delta ignores BAT_CACHE_PATH.
         bat_config = base / 'bat'
         (bat_config / 'themes').mkdir(parents=True)
-        for path in (ROOT / 'dist/delta').glob('*.tmTheme'):
+        for path in (ROOT / 'dist/bat').glob('*.tmTheme'):
             shutil.copyfile(path, bat_config / 'themes' / path.name)
         env['BAT_CONFIG_DIR'] = str(bat_config)
         run([paths['bat'], 'cache', '--build'], env, base)

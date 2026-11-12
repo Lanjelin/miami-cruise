@@ -2,8 +2,8 @@
 
 Magenta search highlights and clear selections over your terminal background.
 
-![Real fzf picker with the dark theme: search matches, multi-selection and bat preview](../../previews/fzf/dark.png)
-![Real fzf picker with the light theme: search matches, multi-selection and bat preview](../../previews/fzf/light.png)
+![fzf picker with the dark theme: search matches, multi-selection and bat preview](../../previews/fzf/dark.png)
+![fzf picker with the light theme: search matches, multi-selection and bat preview](../../previews/fzf/light.png)
 
 ## Install
 

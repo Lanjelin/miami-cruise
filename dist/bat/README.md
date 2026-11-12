@@ -2,8 +2,8 @@
 
 Readable syntax highlighting for source files, with Miami Cruise colours.
 
-![Real bat syntax highlighting with the dark theme](../../previews/bat/dark.png)
-![Real bat syntax highlighting with the light theme](../../previews/bat/light.png)
+![bat syntax highlighting with the dark theme](../../previews/bat/dark.png)
+![bat syntax highlighting with the light theme](../../previews/bat/light.png)
 
 ## Install
 
@@ -47,7 +47,23 @@ bat --list-themes
 bat --theme=miami-cruise-dark --color=always --paging=never build.py
 ```
 
-Use `--theme=miami-cruise-light` for light mode. To make your choice persistent, add `--theme=miami-cruise-dark` to the config file reported by `bat --config-file`, preserving your other options. A command-line `--theme` overrides the default.
+Use `--theme=miami-cruise-light` for light mode. Alternatively, after installing the themes and rebuilding the cache, select the default through `BAT_THEME`:
+
+**macOS / Linux**
+
+```bash
+export BAT_THEME="miami-cruise-dark"
+```
+
+**Windows (PowerShell)**
+
+```powershell
+$env:BAT_THEME = "miami-cruise-dark"
+```
+
+Use `miami-cruise-light` for the light variant. These assignments affect the current shell and its child processes; add the appropriate assignment to your shell profile if you want it in new sessions. The variable selects an installed theme; it does not install or rebuild the syntax cache. An explicit command-line `--theme` overrides this selection.
+
+If you prefer bat's own config file instead, add `--theme=miami-cruise-dark` to the file reported by `bat --config-file`, preserving your other options. Choose one default-selection method rather than setting conflicting defaults.
 
 > [!NOTE]
 > bat colours the output, not the terminal's background. Use the matching Miami Cruise terminal palette. This port does not automatically switch variants.

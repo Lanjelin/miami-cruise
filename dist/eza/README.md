@@ -2,8 +2,8 @@
 
 A true-colour file listing, from directories and permissions to Git status.
 
-![Real eza output on the dark terminal background](../../previews/eza/dark.png)
-![Real eza output on the light terminal background](../../previews/eza/light.png)
+![eza output on the dark terminal background](../../previews/eza/dark.png)
+![eza output on the light terminal background](../../previews/eza/light.png)
 
 ## Install
 
@@ -49,7 +49,25 @@ For light mode, use `miami-cruise-light.yml` instead. eza reads `theme.yml` on e
 > [!NOTE]
 > On macOS the native default config location may differ from Linux. The explicit `EZA_CONFIG_DIR` above makes the location unambiguous. Keep that variable in your shell profile if using this location on macOS or a custom location on any platform.
 
-### 2. Try it without colour overrides
+### 2. Keep the config directory in your environment
+
+`EZA_CONFIG_DIR` selects the directory containing `theme.yml`, not a theme filename. The install commands above already export it for the current shell. For the same default location in new sessions, add the appropriate assignment to your shell profile:
+
+**macOS / Linux**
+
+```bash
+export EZA_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/eza"
+```
+
+**Windows (PowerShell)**
+
+```powershell
+$env:EZA_CONFIG_DIR = Join-Path $env:APPDATA "eza"
+```
+
+If you installed into a custom directory, use that directory instead. Keep any existing `EZA_CONFIG_DIR` choice consistent with where you copied the theme. Changing this variable does not install a theme or select a variant by name; copy the chosen dark or light file to `theme.yml` in that directory.
+
+### 3. Try it without colour overrides
 
 **macOS / Linux**
 

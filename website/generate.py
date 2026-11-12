@@ -150,7 +150,7 @@ def render_steps(app, downloads):
                 parts.extend(code_block(*c) for c in content)
         if n == 0 and SITE_URL and app.get('download_cli', True):
             cmds = [(None, "bash", "\n".join(f'curl -fsSLO {SITE_URL.rstrip("/")}/{d["href"]}' for d in downloads))]
-            parts.append('<details class="disclosure"><summary>Download from a terminal instead</summary>' + code_block(*cmds[0]) + "</details>")
+            parts.append(code_block(*cmds[0]))
         items.append(f"<li><h3>{esc(title)}</h3>{''.join(parts)}</li>")
     return '<ol class="steps">' + "".join(items) + "</ol>"
 

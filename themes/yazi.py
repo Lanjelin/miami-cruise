@@ -1,6 +1,8 @@
 """Yazi flavors: UI colours plus the shared TextMate palette for code previews."""
 
-import zipfile
+import gzip
+import io
+import tarfile
 
 from palette import contrast
 from ._textmate import render as render_textmate
@@ -115,18 +117,18 @@ GUIDE = dict(
     tags=["Files", "TUI", "Flavor"], aliases="yazi file manager terminal tui flavor file browser",
     status="Beta. Tested with Yazi 26.9.1 on Linux; macOS and Windows not tested",
     tagline="A calm file manager with magenta focus and matching code previews.",
-    files=[(f"yazi/miami-cruise-{v}.yazi.zip", f"miami-cruise-{v}.yazi.zip", f"Yazi flavor · {v}")
+    files=[(f"yazi/miami-cruise-{v}.yazi.tar.gz", f"miami-cruise-{v}.yazi.tar.gz", f"Yazi flavor · {v}")
            for v in ("dark", "light")],
-    file_note="Each ZIP contains a native Yazi flavor and its matching code-preview syntax palette. No plugins, keymaps, file openers or layout settings are changed. Icons retain Yazi's default glyphs and colours.",
-    shots=[("yazi/dark.png", "Real Yazi with the dark theme; optional Nerd Font icons hidden for the preview"),
-           ("yazi/light.png", "Real Yazi with the light theme; optional Nerd Font icons hidden for the preview")],
+    file_note="Each tar.gz archive contains a native Yazi flavor and its matching code-preview syntax palette. No plugins, keymaps, file openers or layout settings are changed. Icons retain Yazi's default glyphs and colours.",
+    shots=[("yazi/dark.png", "Yazi with the dark theme; optional Nerd Font icons hidden for the preview"),
+           ("yazi/light.png", "Yazi with the light theme; optional Nerd Font icons hidden for the preview")],
     tested="Yazi 26.9.1 on Linux: both flavor packages recognized by Yazi; matching styles rendered in isolated sessions with file list, selection, tabs, status bar, help and code preview. Terminal appearance auto-detection and macOS/Windows not tested",
     covers="File kinds, pane indicators, borders, tabs, modes, status and permissions, dialogs, notifications, help and syntax-highlighted previews",
     glow="No: the flat palette",
     steps=[("Install the two flavors", [
-        ("p", "Install Yazi first. Extract both ZIPs into your Yazi <code>flavors</code> directory. Each archive contains one <code>miami-cruise-*.yazi</code> folder with <code>flavor.toml</code> and <code>tmtheme.xml</code> inside. The shell example uses <code>unzip</code>; any ZIP extractor works. Keep any existing Yazi configuration and back up same-named custom flavors before replacing them."),
-        ("code", [("Linux / macOS", "bash", 'yazi_dir="${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}"\nmkdir -p "$yazi_dir/flavors"\nunzip miami-cruise-dark.yazi.zip -d "$yazi_dir/flavors"\nunzip miami-cruise-light.yazi.zip -d "$yazi_dir/flavors"'),
-                  ("Windows (PowerShell)", "powershell", '$yaziDir = if ($env:YAZI_CONFIG_HOME) { $env:YAZI_CONFIG_HOME } else { Join-Path $env:APPDATA "yazi/config" }\nNew-Item -ItemType Directory -Force "$yaziDir/flavors" | Out-Null\nExpand-Archive miami-cruise-dark.yazi.zip "$yaziDir/flavors"\nExpand-Archive miami-cruise-light.yazi.zip "$yaziDir/flavors"')]),
+        ("p", "Install Yazi first. Extract both tar.gz archives into your Yazi <code>flavors</code> directory. Each archive contains one <code>miami-cruise-*.yazi</code> folder with <code>flavor.toml</code> and <code>tmtheme.xml</code> inside. The examples use <code>tar</code>, available on macOS, modern Windows and most Linux systems. Keep any existing Yazi configuration and back up same-named custom flavors before replacing them."),
+        ("code", [("Linux / macOS", "bash", 'yazi_dir="${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}"\nmkdir -p "$yazi_dir/flavors"\ntar -xzf miami-cruise-dark.yazi.tar.gz -C "$yazi_dir/flavors"\ntar -xzf miami-cruise-light.yazi.tar.gz -C "$yazi_dir/flavors"'),
+                  ("Windows (PowerShell)", "powershell", '$yaziDir = if ($env:YAZI_CONFIG_HOME) { $env:YAZI_CONFIG_HOME } else { Join-Path $env:APPDATA "yazi/config" }\nNew-Item -ItemType Directory -Force "$yaziDir/flavors" | Out-Null\ntar -xzf miami-cruise-dark.yazi.tar.gz -C "$yaziDir/flavors"\ntar -xzf miami-cruise-light.yazi.tar.gz -C "$yaziDir/flavors"')]),
     ]), ("Select dark and light in your existing theme.toml", [
         ("p", "Add or update these two entries in the existing <code>[flavor]</code> section of <code>theme.toml</code> in your Yazi config directory. If there is no file or section yet, create one. Preserve all other sections and avoid a duplicate <code>[flavor]</code> header."),
         ("code", [(None, "toml", '[flavor]\ndark = "miami-cruise-dark"\nlight = "miami-cruise-light"')]),
@@ -152,9 +154,18 @@ def export(pals, dist):
                  "LICENSE": licence}
         for name, data in files.items():
             (folder / name).write_bytes(data)
-        with zipfile.ZipFile(out / f"miami-cruise-{variant}.yazi.zip", "w", zipfile.ZIP_DEFLATED) as z:
-            for name, data in files.items():
-                info = zipfile.ZipInfo(f"{folder.name}/{name}", date_time=(2026, 1, 1, 0, 0, 0))
-                info.compress_type = zipfile.ZIP_DEFLATED
-                info.external_attr = 0o644 << 16
-                z.writestr(info, data)
+        # Stable gzip/tar headers make repeated builds byte-for-byte identical.
+        with (out / f"miami-cruise-{variant}.yazi.tar.gz").open("wb") as raw:
+            with gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed:
+                with tarfile.open(fileobj=compressed, mode="w", format=tarfile.USTAR_FORMAT) as archive:
+                    directory = tarfile.TarInfo(folder.name + "/")
+                    directory.type = tarfile.DIRTYPE
+                    directory.mode = 0o755
+                    directory.mtime = 1767225600  # 2026-01-01 UTC
+                    archive.addfile(directory)
+                    for name, data in files.items():
+                        info = tarfile.TarInfo(f"{folder.name}/{name}")
+                        info.mode = 0o644
+                        info.mtime = directory.mtime
+                        info.size = len(data)
+                        archive.addfile(info, io.BytesIO(data))

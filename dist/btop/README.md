@@ -2,8 +2,8 @@
 
 A calm system dashboard with readable graphs and magenta focus.
 
-![Real btop dashboard with the dark theme and a selected demo process](../../previews/btop/dark.png)
-![Real btop dashboard with the light theme and a selected demo process](../../previews/btop/light.png)
+![btop dashboard with the dark theme and a selected demo process](../../previews/btop/dark.png)
+![btop dashboard with the light theme and a selected demo process](../../previews/btop/light.png)
 
 ## Install
 

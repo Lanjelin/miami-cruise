@@ -2,18 +2,16 @@
 
 A Miami Cruise diff on your terminal background, with clear inline changes.
 
-![Real delta output with the dark theme, including inline changes](../../previews/delta/dark.png)
-![Real delta output with the light theme, including inline changes](../../previews/delta/light.png)
+![delta output with the dark theme, including inline changes](../../previews/delta/dark.png)
+![delta output with the light theme, including inline changes](../../previews/delta/light.png)
 
 ## Install
 
-Delta configuration and supporting syntax files:
+Delta configuration:
 
 - [`miami-cruise.gitconfig`](miami-cruise.gitconfig): Native delta theme (both variants)
-- [`miami-cruise-dark.tmTheme`](miami-cruise-dark.tmTheme): Supporting dark syntax palette (TextMate)
-- [`miami-cruise-light.tmTheme`](miami-cruise-light.tmTheme): Supporting light syntax palette (TextMate)
 
-`miami-cruise.gitconfig` is the native delta theme: it defines the dark/light features and diff styles. The `.tmTheme` files supply custom code-syntax colours to delta's bat-based highlighter; they are not replacements for the Git-config file. All three files are intentional parts of this delta port.
+`miami-cruise.gitconfig` defines the dark/light delta features and diff styles. Code-syntax colours use the shared Miami Cruise bat themes; see the <a href="https://lanjelin.github.io/miami-cruise/apps/bat.html#install">bat install guide</a> for those files and cache setup.
 
 Run the commands below from this folder, or from wherever you saved the file.
 
@@ -32,46 +30,20 @@ Install delta. Save `miami-cruise.gitconfig` somewhere permanent. Add the follow
 > [!NOTE]
 > Merge these sections with your existing config. Keep other feature names you want, but select only one Miami Cruise variant. Explicit colour settings in your main delta config can override the feature. The theme does not force side-by-side view, paging or line-number preferences.
 
-Choose `miami-cruise-light` instead for light mode. The next step installs the supporting code-syntax palettes. Ordinary diff lines and hunk headers inherit the terminal background; inline changes and whitespace errors retain intentional fills. Use a true-colour terminal with a matching dark/light background.
+Choose `miami-cruise-light` instead for light mode. The next step links to the shared code-syntax setup. Ordinary diff lines and hunk headers inherit the terminal background; inline changes and whitespace errors retain intentional fills. Use a true-colour terminal with a matching dark/light background.
 
-> [!NOTE]
-> bat is needed to build the custom syntax cache, not to run delta afterwards. delta reads that cache directly.
+### 2. Use the shared bat syntax themes
 
-> [!WARNING]
-> delta 0.20.1 does not honour `BAT_CACHE_PATH`. If you use that override, rebuild bat's cache in the default location for delta, or set the same absolute `XDG_CACHE_HOME` for both tools on macOS/Linux (cache: `$XDG_CACHE_HOME/bat`). Use compatible bat versions; these themes were verified with bat 0.26.1.
+delta uses bat's syntax-highlighting engine and reads its compiled syntax cache; it does not run the bat executable when displaying diffs. Follow the <a href="https://lanjelin.github.io/miami-cruise/apps/bat.html#install">Miami Cruise bat install guide</a> to download both syntax themes and build the cache. If you already completed that setup, do not install duplicate copies. Selecting `BAT_THEME` for bat itself is optional here: delta's selected Miami Cruise feature sets its own syntax-theme name.
 
-### 2. Install delta's supporting syntax palettes
-
-delta uses bat's syntax-highlighting engine and reads its custom syntax cache. The two `.tmTheme` files are supporting syntax palettes, not delta feature configurations. Install bat to build that cache (some Linux packages call it `batcat`); delta does not run bat afterwards. If you already installed the Miami Cruise bat themes, skip copying them and check discovery below. See <a href="https://dandavison.github.io/delta/supported-languages-and-themes.html">delta's custom-syntax documentation</a>.
-
-**macOS / Linux**
-
-```bash
-bat_dir="$(bat --config-dir)"
-mkdir -p "$bat_dir/themes"
-cp miami-cruise-dark.tmTheme miami-cruise-light.tmTheme "$bat_dir/themes/"
-bat cache --build
-bat --list-themes
-```
-
-**Windows (PowerShell)**
-
-```powershell
-$batDir = bat --config-dir
-New-Item -ItemType Directory -Force "$batDir/themes" | Out-Null
-Copy-Item miami-cruise-dark.tmTheme, miami-cruise-light.tmTheme "$batDir/themes/"
-bat cache --build
-bat --list-themes
-```
-
-> [!NOTE]
-> If files with these same names already exist, back them up before copying. To uninstall, remove just these two files from the themes directory and run `bat cache --build` again. Existing unrelated themes are preserved.
-
-Confirm that delta discovers both palettes. You should see `miami-cruise-dark` and `miami-cruise-light`:
+After completing the bat setup, confirm that delta discovers `miami-cruise-dark` and `miami-cruise-light`:
 
 ```bash
 delta --no-gitconfig --list-syntax-themes
 ```
+
+> [!WARNING]
+> delta 0.20.1 does not honour `BAT_CACHE_PATH`. If you use that override, rebuild bat's cache in the default location for delta, or set the same absolute `XDG_CACHE_HOME` for both tools on macOS/Linux (cache: `$XDG_CACHE_HOME/bat`). Use compatible bat versions; these themes were verified with bat 0.26.1.
 
 ### 3. Try it, then optionally make it your Git pager
 

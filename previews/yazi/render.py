@@ -10,6 +10,7 @@ import sys
 import tempfile
 import time
 import zipfile
+import tarfile
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[2]
@@ -39,12 +40,12 @@ def capture(output):
             config = base / variant / "config"
             flavors = config / "flavors"
             flavors.mkdir(parents=True)
-            archive = ROOT / f"dist/yazi/miami-cruise-{variant}.yazi.zip"
-            with zipfile.ZipFile(archive) as z:
-                z.extractall(flavors)
+            archive = ROOT / f"dist/yazi/miami-cruise-{variant}.yazi.tar.gz"
+            with tarfile.open(archive, "r:gz") as package:
+                package.extractall(flavors, filter="data")
             # Detached tmux cannot answer Yazi's asynchronous appearance probe.
             # Apply the exact flavor.toml content as a user theme for the capture;
-            # the ZIPs and flavor selection are verified separately.
+            # the archives and flavor selection are verified separately.
             flavor = flavors / f"miami-cruise-{variant}.yazi/flavor.toml"
             syntax = flavors / f"miami-cruise-{variant}.yazi/tmtheme.xml"
             theme = flavor.read_text().replace("\n[indicator]",

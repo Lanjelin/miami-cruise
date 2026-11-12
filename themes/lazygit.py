@@ -62,10 +62,10 @@ GUIDE = dict(
     tagline="A calm Git interface with magenta focus, clear selections and readable status colours.",
     files=[("lazygit/miami-cruise.yml", "miami-cruise.yml", "Automatic dark/light theme")] +
           [(f"lazygit/miami-cruise-{v}.yml", f"miami-cruise-{v}.yml", f"Fixed {v} theme") for v in ("dark", "light")],
-    shots=[("lazygit/dark.png", "Real lazygit UI with the dark theme and a disposable Git repository"),
-           ("lazygit/light.png", "Real lazygit UI with the light theme and a disposable Git repository"),
-           ("lazygit/delta-dark.png", "Real lazygit with the dark theme and optional Miami Cruise delta renderer"),
-           ("lazygit/delta-light.png", "Real lazygit with the light theme and optional Miami Cruise delta renderer")],
+    shots=[("lazygit/dark.png", "lazygit UI with the dark theme and a disposable Git repository"),
+           ("lazygit/light.png", "lazygit UI with the light theme and a disposable Git repository"),
+           ("lazygit/delta-dark.png", "lazygit with the dark theme and optional Miami Cruise delta renderer"),
+           ("lazygit/delta-light.png", "lazygit with the light theme and optional Miami Cruise delta renderer")],
     tested="lazygit 0.66.3 on Linux: dark/light layers, automatic-theme overrides, files, staging, branches, commits and search; optional delta 0.20.1 with bat 0.26.1; macOS and Windows not tested",
     covers="Focused/inactive/search borders, selections, help, unstaged changes, authors, copied commits and marked-base colours; diffs remain the renderer's responsibility",
     glow="No: the flat palette",
@@ -77,6 +77,13 @@ GUIDE = dict(
         ]),
         ("p", "Alternatively merge the theme's <code>gui</code> keys into your existing config (back it up first); do not replace the whole file or create duplicate <code>gui</code> keys. If you already use several config layers, append this theme to your current list. Repository-specific settings can override global settings."),
         ("note", "These files change appearance only: no keybindings, network behaviour, Git commands, layouts or pager preferences are set. To uninstall, remove the theme from your config-layer list, or restore the GUI keys you merged."),
+    ]), ("Optional: load the config layers through your environment", [
+        ("p", "Instead of passing <code>--use-config-file</code> each time, export <code>LG_CONFIG_FILE</code> with the same comma-separated paths. This example uses lazygit's reported config directory and the same theme-path placeholder as above. It preserves an existing layer list and adds the theme last:"),
+        ("code", [
+            ("macOS / Linux", "bash", 'lg_dir="$(lazygit --print-config-dir)"\nlg_files="${LG_CONFIG_FILE:-}"\nif [ -z "$lg_files" ] && [ -f "$lg_dir/config.yml" ]; then\n  lg_files="$lg_dir/config.yml"\nfi\nexport LG_CONFIG_FILE="${lg_files:+$lg_files,}/absolute/path/to/miami-cruise.yml"\nlazygit'),
+            ("Windows (PowerShell)", "powershell", '$lgDir = lazygit --print-config-dir\n$baseConfig = Join-Path $lgDir "config.yml"\n$lgFiles = $env:LG_CONFIG_FILE\nif (!$lgFiles -and (Test-Path $baseConfig)) { $lgFiles = $baseConfig }\n$theme = "C:/absolute/path/to/miami-cruise.yml"\n$env:LG_CONFIG_FILE = if ($lgFiles) { "$lgFiles,$theme" } else { $theme }\nlazygit'),
+        ]),
+        ("p", "Replace the theme placeholder with its permanent absolute path. This sets the layer list for the current shell and child processes. For new sessions, put the resolved <code>LG_CONFIG_FILE</code> assignment in your shell profile, keeping your existing layers and listing the theme only once; do not repeatedly append it on each startup. Use the automatic file shown here or substitute a fixed dark/light file. To stop loading the theme, remove only its path from the list."),
     ]), ("Choose automatic or fixed colours", [
         ("p", "<code>miami-cruise.yml</code> uses lazygit's native <code>gui.darkTheme</code>/<code>gui.lightTheme</code> support. It queries the terminal's background, not your desktop setting. If the terminal does not reply, lazygit defaults to dark. For a reliable manual choice, load <code>miami-cruise-dark.yml</code> or <code>miami-cruise-light.yml</code> instead."),
         ("note", "Use a true-colour terminal with the matching Miami Cruise foreground, background and ANSI palette. lazygit does not set the terminal background; raw Git diffs and some status colours use terminal ANSI colours. The UI theme does not replace your diff renderer. Native automatic detection depends on terminal support; both automatic-file branches were tested with explicit colour-scheme overrides."),
