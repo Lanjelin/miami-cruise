@@ -13,6 +13,8 @@ A static, dependency-free website: search by app, an install page for each app w
 | `render.sh` | Re-renders those screenshots. |
 | `dist/` | The generated site. Not committed; this is what gets published. |
 
+Reading styles use the existing palette's body-text token for instructions and important descriptions; secondary labels retain the muted token. Installation steps have generous spacing and wrapping code blocks. Terminal download commands, checksums and detailed test coverage use native expandable sections, which also work without JavaScript.
+
 The install steps are not written here: they come from each theme's `GUIDE`, so the website and the READMEs in `dist/` can't disagree. The logo and hero-scene artwork live in `../brand/`.
 
 ## Build and preview

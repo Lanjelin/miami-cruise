@@ -150,14 +150,14 @@ def render_steps(app, downloads):
                 parts.extend(code_block(*c) for c in content)
         if n == 0 and SITE_URL and app.get('download_cli', True):
             cmds = [(None, "bash", "\n".join(f'curl -fsSLO {SITE_URL.rstrip("/")}/{d["href"]}' for d in downloads))]
-            parts.append("<p>Or from a terminal:</p>" + code_block(*cmds[0]))
+            parts.append('<details class="disclosure"><summary>Download from a terminal instead</summary>' + code_block(*cmds[0]) + "</details>")
         items.append(f"<li><h3>{esc(title)}</h3>{''.join(parts)}</li>")
     return '<ol class="steps">' + "".join(items) + "</ol>"
 
 
 def download_step(app, downloads):
-    names = " and ".join(f"<code>{esc(d['name'])}</code>" for d in downloads)
-    text = app.get('download_intro', f"Download {names} using the box on this page.")
+    names = " and ".join(f'<a href="../{d["href"]}" download><code>{esc(d["name"])}</code></a>' for d in downloads)
+    text = app.get('download_intro', f"Download {names}.")
     needs_terminal = any(
         kind == "code" and any(label for label, _, _ in content)
         for _, blocks in app["steps"] for kind, content in blocks
@@ -173,7 +173,7 @@ def download_step(app, downloads):
 def app_page(app, downloads):
     dl = "".join(
         f'<a class="btn mc-primary" href="../{d["href"]}" download>Download <small>{esc(d["name"])} · {d["size"]}</small></a>'
-        f'<p class="meta">SHA-256 <code>{d["sha"]}</code></p>'
+        f'<details class="checksum"><summary>SHA-256 checksum</summary><code>{d["sha"]}</code></details>'
         for d in downloads
     )
     shots = ""
@@ -184,17 +184,17 @@ def app_page(app, downloads):
         )
         shots = f'<div class="shots">{figs}</div>'
     facts = "".join(f"<li><b>{k}</b><br>{esc(v)}</li>" for k, v in (
-        ("Variants", app.get("variants", "Dark and light")), ("Covers", app["covers"]), ("Glow", app["glow"]), ("Tested", app["tested"])))
+        ("Variants", app.get("variants", "Dark and light")), ("Covers", app["covers"]), ("Glow", app["glow"])))
     body = f"""<div class="wrap">
 <p class="crumbs"><a href="../index.html">Miami Cruise</a> / <a href="../index.html#apps">Apps</a> / {esc(app['name'])}</p>
 <div class="apphead">{app_icon(app, '../')}
   <div><h1>{esc(app['name'])}</h1><p>{esc(app['tagline'])}</p></div></div>
 {shots}
 <div class="layout">
-  <section aria-labelledby="install"><h2 id="install">Install</h2>{render_steps(app, downloads)}</section>
+  <section class="instructions" aria-labelledby="install"><h2 id="install">Install</h2>{render_steps(app, downloads)}</section>
   <aside class="side">
     <div class="box"><h2>Download</h2><div class="dl">{dl}</div></div>
-    <div class="box"><h2>About</h2><ul class="facts">{facts}</ul></div>
+    <div class="box"><h2>About</h2><ul class="facts">{facts}</ul><details class="disclosure"><summary>Tested environments and coverage</summary><p>{esc(app["tested"])}</p></details></div>
   </aside>
 </div>
 </div>"""
@@ -232,7 +232,6 @@ def index_page(scene, pals, zip_info):
     body = f"""<div class="wrap">
 <section class="hero">
   <div>
-    <p class="eyebrow">Colour scheme · v{VERSION}</p>
     <h1>Miami <em>Cruise</em></h1>
     <p class="lead">{esc(TAGLINE)}</p>
     <div class="cta"><a class="btn mc-primary" href="#apps">Pick your app</a><a class="btn ghost" href="palette.html">See the palette</a></div>

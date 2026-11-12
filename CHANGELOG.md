@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Changed
+- Simplify website reading and installation layouts: stronger body text, roomier steps, quieter inline code and expandable secondary download/testing details.
 - Prefer an active Python venv's `VIRTUAL_ENV_PROMPT` display name, falling back to its directory name.
 - Move the native Python/Conda environment segment to the leftmost position in the Zsh right prompt.
 - Enable the Zsh read-only-directory marker by default; set `MIAMI_CRUISE_SHOW_READ_ONLY=0` to opt out.

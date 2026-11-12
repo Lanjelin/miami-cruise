@@ -11,7 +11,7 @@ The theme files:
 - [`miami-cruise-dark.zsh-theme`](miami-cruise-dark.zsh-theme): Oh My Zsh prompt · dark
 - [`miami-cruise-light.zsh-theme`](miami-cruise-light.zsh-theme): Oh My Zsh prompt · light
 
-Two-line by default, with optional single-line layout and transient scrollback. Includes user@host, adaptive path, Ruby/Python environments, async Git status and right-side duration, jobs, optional vi mode, exit status and an optional rightmost command timestamp. A read-only lock can appear before the path. Each theme file includes the required MIT licence notice. Installing it does not change your plugins, aliases or other shell settings. Use a Nerd Font for the complete icon set, or set `MIAMI_CRUISE_ASCII=1` before loading the theme for plain ASCII symbols without a special font.
+Both colour variants support direct sourcing or Oh My Zsh. Installing the theme does not change your plugins, aliases or other shell settings. Use a Nerd Font for the complete icon set, or set `MIAMI_CRUISE_ASCII=1` before loading the theme for plain ASCII symbols without a special font.
 
 Run the commands below from this folder, or from wherever you saved the file.
 
@@ -45,7 +45,13 @@ MIAMI_CRUISE_TRANSIENT_PROMPT=1 # 0 = off, 1 = always, same-dir = repeated direc
 ZSH_THEME="miami-cruise-dark"
 ```
 
-`MIAMI_CRUISE_SINGLE_LINE=1` puts the context and command on one line instead of two. `MIAMI_CRUISE_TRANSIENT_PROMPT=1` reduces a submitted nonempty prompt to its coloured arrow, leaving the command and output in scrollback without user, host, path or Git context. Use `MIAMI_CRUISE_TRANSIENT_PROMPT=same-dir` to keep the first submitted prompt after entering a directory complete, then compact subsequent prompts in that same directory. Returning to a directory after running a command elsewhere retains a full prompt again. Blank input and cancelled editing do not advance this directory tracking. The next editable prompt always shows full context again. When timestamps are enabled, compact prompts retain only the arrow on the left and submission time on the far right. This changes display only, not command history. It works with either layout and needs no Powerlevel10k plugin. Terminal scrollback preservation can retain an old prompt when a redraw clears the screen; in tmux, its `scroll-on-clear` option controls this (the theme does not change it).
+`MIAMI_CRUISE_SINGLE_LINE=1` puts the context and command on one line instead of two. `MIAMI_CRUISE_TRANSIENT_PROMPT=1` reduces a submitted nonempty prompt to its coloured arrow, leaving the command and output in scrollback without user, host, path or Git context.
+
+Use `MIAMI_CRUISE_TRANSIENT_PROMPT=same-dir` to keep the first submitted prompt after entering a directory complete, then compact subsequent prompts in that same directory. Returning to a directory after running a command elsewhere retains a full prompt again. Blank input and cancelled editing do not advance this directory tracking. The next editable prompt always shows full context again.
+
+When timestamps are enabled, compact prompts retain only the arrow on the left and submission time on the far right. This changes display only, not command history. It works with either layout and needs no Powerlevel10k plugin.
+
+Terminal scrollback preservation can retain an old prompt when a redraw clears the screen; in tmux, its `scroll-on-clear` option controls this (the theme does not change it).
 
 ### 3. Choose context segments
 
@@ -79,15 +85,29 @@ MIAMI_CRUISE_SHOW_VI_MODE=0         # off by default: vi-mode indicator; binding
 MIAMI_CRUISE_ASCII=0                # off by default: plain ASCII theme symbols
 ```
 
-`MIAMI_CRUISE_SHOW_RETURN_CODE=1` (the default) shows the return-code indicator for failed commands (for example `1 ↵`). Set it to `0` to hide it. Successful commands remain unmarked. This affects display only, not command exit status. `MIAMI_CRUISE_SHOW_TIMESTAMP=1` adds a muted local `HH:MM:SS` timestamp as the absolute rightmost segment, after status and every other indicator. It shows prompt creation time while editing, refreshes to submission time when you submit, and remains visible in transient scrollback. It is not a continuously ticking clock. Like other right-prompt segments, it can be hidden by Zsh when command input overlaps it. Elapsed time uses a Nerd Font stopwatch (for example `󱎫 3.4s`, or `3.4s` in ASCII mode) and appears after a foreground command meets the threshold and resets for the next command; editing time is excluded. Invalid thresholds fall back to 3 seconds. `⚙2` means two running jobs; `Ⅱ1` means one suspended job. Job counts refresh on the next prompt. With `MIAMI_CRUISE_SHOW_VI_MODE=1`, the prompt arrow indicates insert (`➤`), normal (`❮`), visual (`V`) or replace (`▶`) mode, without an extra right-side label. In ASCII mode, the arrow stays `>` and right-side labels `[INS]`, `[NOR]`, `[VIS]` and `[REP]` indicate the mode instead. Emacs editing is treated as insert. Disabling the flag restores the ordinary arrow and removes labels. Colours, key bindings and existing widgets are unchanged. Existing widgets/hooks are preserved using Zsh dispatchers, without duplicate registrations when re-sourcing.
+`MIAMI_CRUISE_SHOW_RETURN_CODE=1` (the default) shows the return-code indicator for failed commands (for example `1 ↵`). Set it to `0` to hide it. Successful commands remain unmarked. This affects display only, not command exit status.
 
-Python environments appear leftmost on the right-hand side, with a Nerd Font Python icon before the parenthesized name (for example ` (myenv)`); ASCII mode keeps `(myenv)`. For an active Python venv, the name comes from `VIRTUAL_ENV_PROMPT` when nonempty, otherwise the final directory name from `VIRTUAL_ENV`. Without an active venv, it falls back to `CONDA_DEFAULT_ENV`. No Oh My Zsh helpers are required. If your activation script also prepends an environment name, configure that tool to disable its own prompt modification (for standard venv, set `VIRTUAL_ENV_DISABLE_PROMPT=1` before activation). Ruby remains optional and uses `ruby_prompt_info` only when available. The generated files also work when sourced directly in Zsh 5.9, without Oh My Zsh.
+`MIAMI_CRUISE_SHOW_TIMESTAMP=1` adds a muted local `HH:MM:SS` timestamp as the absolute rightmost segment, after status and every other indicator. It shows prompt creation time while editing, refreshes to submission time when you submit, and remains visible in transient scrollback. It is not a continuously ticking clock. Like other right-prompt segments, it can be hidden by Zsh when command input overlaps it.
+
+Elapsed time uses a Nerd Font stopwatch (for example `󱎫 3.4s`, or `3.4s` in ASCII mode) and appears after a foreground command meets the threshold and resets for the next command; editing time is excluded. Invalid thresholds fall back to 3 seconds. `⚙2` means two running jobs; `Ⅱ1` means one suspended job. Job counts refresh on the next prompt.
+
+With `MIAMI_CRUISE_SHOW_VI_MODE=1`, the prompt arrow indicates insert (`➤`), normal (`❮`), visual (`V`) or replace (`▶`) mode, without an extra right-side label. In ASCII mode, the arrow stays `>` and right-side labels `[INS]`, `[NOR]`, `[VIS]` and `[REP]` indicate the mode instead. Emacs editing is treated as insert. Disabling the flag restores the ordinary arrow and removes labels. Colours, key bindings and existing widgets are unchanged. Existing widgets/hooks are preserved using Zsh dispatchers, without duplicate registrations when re-sourcing.
+
+Python environments appear leftmost on the right-hand side, with a Nerd Font Python icon before the parenthesized name (for example ` (myenv)`); ASCII mode keeps `(myenv)`. For an active Python venv, the name comes from `VIRTUAL_ENV_PROMPT` when nonempty, otherwise the final directory name from `VIRTUAL_ENV`. Without an active venv, it falls back to `CONDA_DEFAULT_ENV`. No Oh My Zsh helpers are required.
+
+If your activation script also prepends an environment name, configure that tool to disable its own prompt modification (for standard venv, set `VIRTUAL_ENV_DISABLE_PROMPT=1` before activation).
+
+Ruby remains optional and uses `ruby_prompt_info` only when available. The generated files also work when sourced directly in Zsh 5.9, without Oh My Zsh.
 
 `MIAMI_CRUISE_SHOW_PIPELINE_STATUS=1` shows a failed pipeline as `[1|0] ↵`, including an earlier failure when the final command succeeds; all-success pipelines stay unmarked. `MIAMI_CRUISE_SIGNAL_NAMES=1` translates conventional signal statuses into names such as `SIGINT` or `SIGTERM`. An explicit `exit 130` cannot be distinguished from SIGINT. `MIAMI_CRUISE_SHOW_RETURN_CODE=0` hides both kinds of failure detail. These are display options: the theme never changes `pipefail` or command exit status.
 
 `MIAMI_CRUISE_SHOW_GIT_OPERATION=1` adds interrupted operations to the Git segment: `merge`, `rebase 2/5` (when progress is available), `cherry-pick`, `revert`, `bisect` or `am`. Checks run in the existing async worker and support linked worktrees; disabling async makes these checks synchronous too. No Git metadata is changed.
 
-`MIAMI_CRUISE_SMART_CONTEXT=1` hides user@host locally but keeps it for SSH sessions and root. `MIAMI_CRUISE_SHOW_READ_ONLY=1` (the default) adds a lock icon `` immediately before the path when the current directory fails an effective-user writability check (a Nerd Font is needed for the lock glyph; ASCII mode uses `[RO]` in the same position); set `MIAMI_CRUISE_SHOW_READ_ONLY=0` to hide it. This is not a prediction that every file operation will succeed. `MIAMI_CRUISE_SHOW_SHELL_LEVEL=1` adds ` sh:2` for `SHLVL` above 1, or ` yazi:1` when a positive `YAZI_LEVEL` is present. These icons require a Nerd Font; ASCII mode keeps `sh:2` and `yazi:1` without icons. Shell depth follows inherited environment values and can include terminal launch wrappers.
+`MIAMI_CRUISE_SMART_CONTEXT=1` hides user@host locally but keeps it for SSH sessions and root.
+
+`MIAMI_CRUISE_SHOW_READ_ONLY=1` (the default) adds a lock icon `` immediately before the path when the current directory fails an effective-user writability check (a Nerd Font is needed for the lock glyph; ASCII mode uses `[RO]` in the same position); set `MIAMI_CRUISE_SHOW_READ_ONLY=0` to hide it. This is not a prediction that every file operation will succeed.
+
+`MIAMI_CRUISE_SHOW_SHELL_LEVEL=1` adds ` sh:2` for `SHLVL` above 1, or ` yazi:1` when a positive `YAZI_LEVEL` is present. These icons require a Nerd Font; ASCII mode keeps `sh:2` and `yazi:1` without icons. Shell depth follows inherited environment values and can include terminal launch wrappers.
 
 `MIAMI_CRUISE_ASCII=1` selects `>`, `+-`, `git:`, `^`/`v`, `x`, `exit`, `jobs:` and `stopped:` instead of font-dependent theme glyphs. It applies to both layouts and transient prompts, without rewriting branch names, paths or other user text. Set this flag before sourcing; re-source or restart to switch symbol sets. Pipeline details, signal names, Git operation labels, smart context, shell depth and ASCII mode default to `0`; the read-only marker defaults to `1`. No new external dependencies are needed: Zsh handles shell context and the existing Git executable handles repository information.
 
