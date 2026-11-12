@@ -16,6 +16,54 @@
     } catch (e) { /* storage blocked: the choice just lasts for this page */ }
   }
 
+  // ---- Screenshot previews: native modal handles focus trapping and Escape.
+  // Links still open the original image when JavaScript/dialog is unavailable.
+  var previews = document.querySelectorAll("[data-zoom]");
+  if (previews.length && typeof HTMLDialogElement !== "undefined" && HTMLDialogElement.prototype.showModal) {
+    var viewer = document.createElement("dialog");
+    viewer.className = "screenshot-dialog";
+    viewer.setAttribute("aria-labelledby", "screenshot-caption");
+    viewer.innerHTML = '<div class="zoom-toolbar"><p id="screenshot-caption"></p>' +
+      '<div class="zoom-actions"><button type="button" class="btn ghost" data-actual aria-pressed="false">Actual size</button>' +
+      '<a class="btn ghost" data-original>Open original</a>' +
+      '<button type="button" class="btn ghost" data-close autofocus>Close</button></div></div>' +
+      '<div class="zoom-stage"><img alt=""></div>';
+    document.body.appendChild(viewer);
+    var zoomImage = viewer.querySelector("img");
+    var sizeButton = viewer.querySelector("[data-actual]");
+    var stage = viewer.querySelector(".zoom-stage");
+    var opener;
+    previews.forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        opener = link;
+        zoomImage.src = link.href;
+        zoomImage.alt = link.querySelector("img").alt;
+        viewer.querySelector("#screenshot-caption").textContent = zoomImage.alt;
+        viewer.querySelector("[data-original]").href = link.href;
+        viewer.classList.remove("zoom-actual");
+        sizeButton.setAttribute("aria-pressed", "false");
+        sizeButton.textContent = "Actual size";
+        viewer.showModal();
+        stage.scrollTo(0, 0);
+      });
+    });
+    sizeButton.addEventListener("click", function () {
+      var actual = viewer.classList.toggle("zoom-actual");
+      sizeButton.setAttribute("aria-pressed", String(actual));
+      sizeButton.textContent = actual ? "Fit to screen" : "Actual size";
+      stage.scrollTo(0, 0);
+    });
+    viewer.querySelector("[data-close]").addEventListener("click", function () { viewer.close(); });
+    viewer.addEventListener("click", function (event) {
+      var rect = viewer.getBoundingClientRect();
+      if (event.target === viewer && (event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom)) viewer.close();
+    });
+    viewer.addEventListener("close", function () { if (opener) opener.focus({ preventScroll: true }); });
+  }
+
   // ---- Theme: auto follows the system; dark/light override and are remembered
   var seg = document.querySelectorAll("[data-set]");
   function currentTheme() { return root.getAttribute("data-theme") || "auto"; }

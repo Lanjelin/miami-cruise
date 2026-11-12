@@ -148,7 +148,28 @@ td .dot { display: inline-block; width: 14px; height: 14px; border-radius: 4px; 
 .facts b { color: var(--mc-text); font-weight: 600; }
 .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px; margin: 28px 0 40px; }
 .shots figure { margin: 0; }
-.shots img { border: 1px solid var(--mc-border); border-radius: 12px; }
+.shot-preview { position: relative; display: flex; align-items: center; justify-content: center;
+  height: 240px; padding: 12px 12px 38px; background: var(--mc-panel);
+  border: 1px solid var(--mc-border); border-radius: 12px; cursor: zoom-in; }
+.shot-preview:hover { border-color: var(--mc-accent); }
+.shot-preview img { width: 100%; height: 100%; object-fit: contain; }
+.shot-preview span { position: absolute; bottom: 8px; right: 12px; color: var(--mc-muted); font-size: .8rem; }
+.screenshot-dialog { width: min(1400px, calc(100% - 32px)); max-width: none; max-height: calc(100dvh - 32px);
+  padding: 20px; color: var(--mc-text); background: var(--mc-bg); border: 1px solid var(--mc-border); border-radius: 14px; }
+.screenshot-dialog::backdrop { background: rgb(0 0 0 / .8); }
+.zoom-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.zoom-toolbar p { margin: 0; flex: 1 1 260px; }
+.zoom-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.zoom-actions .btn { padding: 6px 12px; font-size: .9rem; }
+.zoom-stage { overflow: auto; max-height: calc(100dvh - 180px); background: var(--mc-panel); border-radius: 6px; }
+.zoom-stage img { margin-inline: auto; width: auto; height: auto; max-width: 100%; max-height: calc(100dvh - 180px); object-fit: contain; }
+.zoom-actual .zoom-stage img { max-width: none; max-height: none; }
+html:has(.screenshot-dialog[open]) { overflow: hidden; }
+@media (max-width: 540px) {
+  .shot-preview { height: 200px; }
+  .screenshot-dialog { padding: 14px; }
+  .zoom-stage, .zoom-stage img { max-height: calc(100dvh - 230px); }
+}
 .shots figcaption { color: var(--mc-muted); font-size: .85rem; padding-top: 6px; }
 ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
 ol.steps > li { counter-increment: s; position: relative; padding-left: 48px; min-width: 0; }

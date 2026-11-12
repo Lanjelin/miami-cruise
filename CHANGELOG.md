@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Changed
+- Use uniform screenshot preview sizes on app pages, with an accessible click-to-zoom viewer and original-image fallback.
 - Simplify website reading and installation layouts: stronger body text, roomier steps, quieter inline code and expandable secondary download/testing details.
 - Prefer an active Python venv's `VIRTUAL_ENV_PROMPT` display name, falling back to its directory name.
 - Move the native Python/Conda environment segment to the leftmost position in the Zsh right prompt.

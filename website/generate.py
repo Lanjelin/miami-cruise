@@ -179,7 +179,7 @@ def app_page(app, downloads):
     shots = ""
     if app["shots"]:
         figs = "".join(
-            f'<figure><img src="../previews/{esc(src)}" alt="{esc(alt)}" loading="lazy"><figcaption>{esc(alt)}</figcaption></figure>'
+            f'<figure><a class="shot-preview" href="../previews/{esc(src)}" data-zoom aria-label="Enlarge screenshot: {esc(alt)}"><img src="../previews/{esc(src)}" alt="{esc(alt)}" loading="lazy"><span>Click to enlarge</span></a><figcaption>{esc(alt)}</figcaption></figure>'
             for src, alt in app["shots"]
         )
         shots = f'<div class="shots">{figs}</div>'
