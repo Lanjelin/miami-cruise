@@ -151,7 +151,9 @@ def agent_install(app=None):
 
 def render_steps(app, downloads):
     items = []
-    for n, (title, blocks) in enumerate([download_step(app, downloads)] + list(app["steps"])):
+    download_first = app.get("download_first", True)
+    steps = ([download_step(app, downloads)] if download_first else []) + list(app["steps"])
+    for n, (title, blocks) in enumerate(steps):
         parts = []
         for kind, content in blocks:
             if kind == "p":
@@ -162,7 +164,7 @@ def render_steps(app, downloads):
                 parts.append(f'<p class="note warn">{content}</p>')
             elif kind == "code":
                 parts.extend(code_block(*c) for c in content)
-        if n == 0 and SITE_URL and app.get('download_cli', True):
+        if n == 0 and download_first and SITE_URL and app.get('download_cli', True):
             cmds = [(None, "bash", "\n".join(f'curl -fsSLO {SITE_URL.rstrip("/")}/{d["href"]}' for d in downloads))]
             parts.append(code_block(*cmds[0]))
         items.append(f"<li><h3>{esc(title)}</h3>{''.join(parts)}</li>")

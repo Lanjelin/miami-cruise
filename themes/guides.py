@@ -32,7 +32,10 @@ def render_readme(app_id, g):
     files = "\n".join(f"- [`{path}`]({path}): {label}" for path, _, label in rel)
     folders = sorted({str(Path(path).parent) for path, _, _ in rel})
     where = "this folder" if folders == ["."] else "the [`" + folders[0] + "/`](" + folders[0] + ") folder"
-    has_commands = any(kind == 'code' for _, blocks in g['steps'] for kind, _ in blocks)
+    has_commands = any(
+        kind == 'code' and any(lang != 'text' for _, lang, _ in content)
+        for _, blocks in g['steps'] for kind, content in blocks
+    )
     out += [
         "## Install", "",
         g.get("files_heading", "The theme files:"), "", files, "",

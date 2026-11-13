@@ -5,6 +5,8 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Reproducible illustrative OpenClaw dark/light UI previews using native theme colours and synthetic content, linked from the site and install guide.
+- Native OpenClaw Control UI personal-theme JSON with dark/light palettes, direct website download, and manual/agent import and restoration guides. User reported successful agent import; live rendering coverage not recorded.
 - Standardized shell screenshot identities to `miami@cruise`, with a shared preview-only fixture and identity checks.
 - Native dark/light plugin screenshots for vim-airline (four editing modes) and zsh-autosuggestions (history completions), with reproducible preview scripts.
 - Native vim-airline dark/light palette and zsh-autosuggestions highlight styles, with website downloads and manual/agent installation guides. Native loading/style checks passed; user visual verification reported.

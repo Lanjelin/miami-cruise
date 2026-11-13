@@ -80,6 +80,7 @@ version has been tested. Keep each human guide's compatibility limits visible.
 | bat | Syntax themes, compiled cache, default selection | [bat](docs/agent-install/bat.md) | [bat guide](dist/bat/README.md) |
 | btop | Native theme files and saved selection | [btop](docs/agent-install/btop.md) | [btop guide](dist/btop/README.md) |
 | Glow | Markdown stylesheet and existing style selection | [Glow](docs/agent-install/glow.md) | [Glow guide](dist/glow/README.md) |
+| OpenClaw | Native personal-theme import and profile selection | [OpenClaw](docs/agent-install/openclaw.md) | [OpenClaw guide](dist/openclaw/README.md) |
 | Brave | File preparation, then manual browser-profile handoff | [Brave handoff](docs/agent-install/brave.md) | [Brave guide](dist/brave/README.md) |
 
 The [supported-app catalogue](README.md#supported-apps) and `themes/<app>.py`
