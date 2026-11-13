@@ -67,6 +67,8 @@ version has been tested. Keep each human guide's compatibility limits visible.
 |---|---|---|---|
 | Neovim | Runtime file and existing startup/plugin selection | [Neovim](docs/agent-install/nvim.md) | [Neovim guide](dist/nvim/README.md) |
 | Vim | Runtime file and existing vimrc selection | [Vim](docs/agent-install/vim.md) | [Vim guide](dist/vim/README.md) |
+| vim-airline | Existing runtime path and airline theme selection | [vim-airline](docs/agent-install/airline.md) | [vim-airline guide](dist/airline/README.md) |
+| zsh-autosuggestions | Colour-only style sourced after plugin initialization | [zsh-autosuggestions](docs/agent-install/zsh_autosuggestions.md) | [Suggestion style guide](dist/zsh_autosuggestions/README.md) |
 | tmux | Theme include plus separately approved live-server options | [tmux](docs/agent-install/tmux.md) | [tmux guide](dist/tmux/README.md) |
 | WezTerm | Lua module merged into the actual config | [WezTerm](docs/agent-install/wezterm.md) | [WezTerm guide](dist/wezterm/README.md) |
 | Zsh | Direct sourcing or existing framework integration | [Zsh](docs/agent-install/zsh.md) | [Zsh guide](dist/zsh/README.md) |

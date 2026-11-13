@@ -5,6 +5,9 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Added
+- Standardized shell screenshot identities to `miami@cruise`, with a shared preview-only fixture and identity checks.
+- Native dark/light plugin screenshots for vim-airline (four editing modes) and zsh-autosuggestions (history completions), with reproducible preview scripts.
+- Native vim-airline dark/light palette and zsh-autosuggestions highlight styles, with website downloads and manual/agent installation guides. Native loading/style checks passed; user visual verification reported.
 - Website “Install with an agent” entry points with copyable no-clone prompts on the home page and supported application pages.
 - No-clone agent setup prompt, pinned GitHub/direct website sourcing guidance, and a qualified Linux container install/restore test record.
 - Agent-assisted installation and conflict-aware restoration instructions, a restore-manifest schema/example, and playbooks for all supported terminal apps plus a Brave manual-install handoff.

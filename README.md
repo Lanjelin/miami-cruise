@@ -58,9 +58,11 @@ For agent-assisted setup, give your agent the [no-clone prompt in INSTALL.md](IN
 |---|---|---|---|
 | Editors | Neovim | [`dist/nvim`](dist/nvim) | Stable. Tested on Neovim 0.12 with Treesitter |
 | Editors | Vim | [`dist/vim`](dist/vim) | Stable. Tested on Vim 9.1 |
+| Editors | vim-airline | [`dist/airline`](dist/airline) | User visually verified; see testing details |
 | Terminal & shell | tmux | [`dist/tmux`](dist/tmux) | Tested with tmux 3.4 on Linux; existing powerline layouts preserved, not replaced |
 | Terminal & shell | WezTerm | [`dist/wezterm`](dist/wezterm) | Verified on Linux/X11; macOS, Windows and system appearance transitions not yet tested |
 | Terminal & shell | Zsh | [`dist/zsh`](dist/zsh) | Beta. Tested with Zsh 5.9 and Oh My Zsh on Linux; macOS not tested |
+| Terminal & shell | zsh-autosuggestions | [`dist/zsh_autosuggestions`](dist/zsh_autosuggestions) | User visually verified; see testing details |
 | Files & finding | eza | [`dist/eza`](dist/eza) | Beta. Tested with eza 0.23.5 on Linux; macOS and Windows not yet tested |
 | Files & finding | fzf | [`dist/fzf`](dist/fzf) | Beta. Tested with fzf 0.75.0 on Linux; macOS and Windows not tested |
 | Files & finding | Yazi | [`dist/yazi`](dist/yazi) | Beta. Tested with Yazi 26.9.1 on Linux; macOS and Windows not tested |

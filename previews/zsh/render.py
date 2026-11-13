@@ -41,6 +41,7 @@ def render(output):
                 'source "$ZSH/oh-my-zsh.sh"\n')
             if not (omz / "oh-my-zsh.sh").is_file():
                 startup = f'HOST=cruise\nsource {str(custom / "themes" / f"miami-cruise-{variant}.zsh-theme")!r}\n'
+            startup += f'source {str(ROOT / "previews/identity.zsh")!r}\n'
             zdot.joinpath(".zshrc").write_text(startup)
             # Global zshenv may redirect ZDOTDIR to HOME/.config/zsh.
             (home / ".config/zsh").mkdir(parents=True)
@@ -108,6 +109,7 @@ def render(output):
                      "cd examples/summer-night-drive/configuration/integration/terminal/zsh", "Enter")
                 shot = wait_for(lambda s: "~/p/miami-cruise/" in s and s.count("master ⇡2 ?1") >= 3,
                                 "adaptive path")
+                assert "miami@cruise" in plain(shot), "Preview identity drifted"
                 for token in ("accent", "warning", "success", "info"):
                     rgb = ";".join(str(int(p[token][i:i + 2], 16)) for i in (1, 3, 5))
                     assert "38;2;" + rgb in shot, (variant, token)

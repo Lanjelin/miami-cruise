@@ -62,6 +62,11 @@ Miami Cruise is a generated dark/light theme collection. Read
 
 ## Verification and handoff
 
+- Use `miami@cruise` for every preview/demo user-and-host identity, never the
+  render host’s real account or hostname. Zsh preview fixtures should source
+  `previews/identity.zsh` after loading the prompt theme. Keep this preview-only;
+  installed themes must still display the actual user and host.
+
 - Run checks appropriate to the change and `git diff --check`. For generator or
   palette changes, run the full build before handoff and inspect generated diffs.
 - Preview tmux fixtures must use an explicit POSIX launcher shell (for example,
