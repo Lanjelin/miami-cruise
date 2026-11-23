@@ -1,4 +1,4 @@
-"""Draft GTK3/Xfwm4 desktop port, retaining Greybird's widget geometry."""
+"""GTK3/Xfwm4 desktop port, retaining Greybird's widget geometry."""
 import colorsys
 import gzip
 import io
@@ -239,7 +239,7 @@ def package_files(p, variant):
     css = re.sub(r'-gtk-scaled\((?:[^()]|\([^()]*\))*\)',scaled,css)
     css = re.sub(r'url\([\'"]?(assets/[^)\'" ]+)[\'"]?\)',
                  lambda m: m[0] if 'gtk-3.0/'+m[1] in files else 'none',css)
-    files['gtk-3.0/gtk.css'] = ('/* Miami Cruise draft; Greybird derivative, GPL-2.0-or-later. */\n'+css+'\n'+overrides(p)).encode()
+    files['gtk-3.0/gtk.css'] = ('/* Miami Cruise; Greybird derivative, GPL-2.0-or-later. */\n'+css+'\n'+overrides(p)).encode()
     # Recolour both native formats, including the PNG-only base artwork.
     def wmconvert(c):
         level = sum(c)/3
@@ -267,7 +267,7 @@ def package_files(p, variant):
     themerc += f'\nactive_text_color={p["text"]}\ninactive_text_color={p["muted"]}\n'
     files['xfwm4/themerc'] = themerc.encode()
     name = f'Miami-Cruise-{variant.title()}'
-    files['index.theme'] = f'[Desktop Entry]\nType=X-GNOME-Metatheme\nName={name}\nComment=Miami Cruise GTK3 and Xfwm4 draft\n\n[X-GNOME-Metatheme]\nGtkTheme={name}\n'.encode()
+    files['index.theme'] = f'[Desktop Entry]\nType=X-GNOME-Metatheme\nName={name}\nComment=Miami Cruise GTK3 and Xfwm4 theme\n\n[X-GNOME-Metatheme]\nGtkTheme={name}\n'.encode()
     for license in ('LICENSE.GPL','LICENSE.CC','README.md'):
         files[license] = (BASE/license).read_bytes()
     return name,files
@@ -301,21 +301,21 @@ def export(pals,dist):
 
 
 GUIDE = dict(
-    name='XFCE', category='Desktop', mono='XF', tags=['GTK3','Xfwm4','Draft'],
+    name='XFCE', category='Desktop', mono='XF', tags=['GTK3','Xfwm4'],
     aliases='xfce desktop gtk thunar window manager greybird',
-    status='Draft · native checks and user desktop testing passed',
+    status='Native checks and user desktop testing passed',
     tagline='Teal-ink widgets, magenta selection and matching window decorations for your existing XFCE desktop.',
-    files=[(f'xfce/Miami-Cruise-{v}.tar.gz',f'Miami-Cruise-{v}.tar.gz',f'GTK3 + Xfwm4 · {v.lower()} draft') for v in ('Dark','Light')] + [('xfce/miami-cruise-xfce-source.tar.gz','miami-cruise-xfce-source.tar.gz','Corresponding source · GPL-2.0-or-later')],
-    shots=[(f'xfce/{kind}-{v}.png', f'Native {label} · {v} draft · synthetic content') for kind,label in [('desktop','XFCE desktop and panel'),('controls','GTK3 controls and window decorations')] for v in ('dark','light')],
+    files=[(f'xfce/Miami-Cruise-{v}.tar.gz',f'Miami-Cruise-{v}.tar.gz',f'GTK3 + Xfwm4 · {v.lower()}') for v in ('Dark','Light')] + [('xfce/miami-cruise-xfce-source.tar.gz','miami-cruise-xfce-source.tar.gz','Corresponding source · GPL-2.0-or-later')],
+    shots=[(f'xfce/{kind}-{v}.png', f'Native {label} · {v} · synthetic content') for kind,label in [('desktop','XFCE desktop and panel'),('controls','GTK3 controls and window decorations')] for v in ('dark','light')],
     file_note='Each variant archive is a complete fixed-variant theme based on Greybird. The source archive is optional for rebuilding; do not extract it into your theme directory. No separate base theme installation required. Desktop theme files are GPL-2.0-or-later, not the collection’s MIT licence; attribution and licence texts are included.',
-    tested='Draft: GTK 3.24.52, Xfwm4 4.20.0, xfdesktop 4.20.2, xfce4-panel 4.20.8 and Thunar 4.20.10 in private Xvnc sessions: both variants and native desktop/panel/menu/widget states inspected; 162 measured control contrast checks passed. User desktop testing confirmed readability; HiDPI testing remains pending. No GTK2, GTK4/libadwaita or Qt coverage promised',
+    tested='GTK 3.24.52, Xfwm4 4.20.0, xfdesktop 4.20.2, xfce4-panel 4.20.8 and Thunar 4.20.10 in private Xvnc sessions: both variants and native desktop/panel/menu/widget states inspected; 162 measured control contrast checks passed. User desktop testing confirmed readability; HiDPI testing remains pending. No GTK2, GTK4/libadwaita or Qt coverage promised',
     covers='GTK3 controls, menus, Thunar, GTK-styled panel surfaces and Xfwm4 window decorations. Custom panel backgrounds may override theme colours',
     glow='No; restrained focus outlines and the base theme’s shadows',
     license_label='Desktop theme licence and base attribution',license_path='vendor/greybird/README.md',
     steps=[('Install the theme folders',[
         ('p','Download either variant or both. Before extracting, preserve any existing same-named theme folders. Install locally; no root access is needed.'),
         ('code',[(None,'bash','theme_dir="${XDG_DATA_HOME:-$HOME/.local/share}/themes"\nmkdir -p "$theme_dir"\ntar -xzf Miami-Cruise-Dark.tar.gz -C "$theme_dir"\ntar -xzf Miami-Cruise-Light.tar.gz -C "$theme_dir"')]),
-        ('note','If you downloaded only one variant, run only its extraction command. This draft targets GTK3 on XFCE; existing icons, cursors, fonts, wallpaper and panel layout stay unchanged.'),
+        ('note','If you downloaded only one variant, run only its extraction command. This theme targets GTK3 on XFCE; existing icons, cursors, fonts, wallpaper and panel layout stay unchanged.'),
     ]),('Select the theme',[
         ('p','First note your current choices in Settings → Appearance → Style and Settings → Window Manager → Style. Choose Miami-Cruise-Dark or Miami-Cruise-Light in both places. These are two independent settings; no automatic dark/light switching is configured.'),
         ('note','If the theme is not listed immediately, reopen the settings window. When updating an installed theme, select a different style in Appearance, then select Miami Cruise again. Copying updated files alone does not refresh running XFCE apps. Reopen any application that still retains the old styling; if needed, log out and back in. Reselect a different Window Manager style and back when updating decorations. GTK4/libadwaita, Qt and independently styled apps may not follow it. Do not copy theme CSS into global GTK configuration.'),

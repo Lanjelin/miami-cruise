@@ -1,4 +1,4 @@
-# Greybird base for the Miami Cruise desktop draft
+# Greybird base for the Miami Cruise desktop theme
 
 Upstream: https://github.com/shimmerproject/Greybird
 Pinned revision: 7e4507d7713b2aaf41f8cfef2a1a9e214a4d8b6f

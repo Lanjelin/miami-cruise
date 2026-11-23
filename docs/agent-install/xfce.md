@@ -1,7 +1,7 @@
-# Agent playbook: XFCE desktop draft
+# Agent playbook: XFCE desktop
 
 Follow [INSTALL.md](../../INSTALL.md), the [human guide](../../dist/xfce/README.md)
-and [metadata](../../themes/xfce.py). This is a first draft, not a universal GTK theme.
+and [metadata](../../themes/xfce.py). This theme targets GTK3 and Xfwm4 on XFCE.
 
 ## Inspect without writes
 
@@ -16,7 +16,7 @@ sources. Inspect GTK_THEME environment overrides and user gtk.css files without
 rewriting them. Check custom panel backgrounds and explicit desktop icon-label colour overrides
 that can override theme colours. Do not reset these without approval.
 Do not inventory or expose personal applications, accounts or unrelated settings.
-GTK2, GTK4/libadwaita and Qt are outside this draft's support. No icon pack, cursor,
+GTK2, GTK4/libadwaita and Qt are outside this theme's support. No icon pack, cursor,
 font, layout, wallpaper, compositor or login-screen changes are required.
 
 ## Propose, back up, then apply

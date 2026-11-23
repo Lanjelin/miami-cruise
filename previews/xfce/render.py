@@ -64,7 +64,7 @@ def widget(mode, destination):
         tasks.pack_start(button,True,True,0)
         button.set_state_flags(state,True)
         panel_tests.append((button,state))
-    window=Gtk.Window(title=f'Miami Cruise — {mode.title()} · GTK3 + Xfwm4 draft')
+    window=Gtk.Window(title=f'Miami Cruise — {mode.title()} · GTK3 + Xfwm4')
     window.set_default_size(900,570)
     window.set_position(Gtk.WindowPosition.CENTER)
     outer=Gtk.Box(orientation=Gtk.Orientation.VERTICAL,spacing=16)
@@ -75,7 +75,7 @@ def widget(mode, destination):
     title.set_xalign(0)
     outer.pack_start(title,False,False,0)
     outer.pack_start(panel,False,False,0)
-    desc=Gtk.Label(label='Desktop theme draft · native GTK3 controls and Xfwm4 decorations',xalign=0)
+    desc=Gtk.Label(label='Desktop theme · native GTK3 controls and Xfwm4 decorations',xalign=0)
     outer.pack_start(desc,False,False,0)
     row=Gtk.Box(spacing=12)
     for label,style in [('Default',None),('Continue','suggested-action'),('Remove','destructive-action'),('Unavailable',None)]:

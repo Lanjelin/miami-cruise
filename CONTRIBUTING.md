@@ -56,7 +56,7 @@ Commit messages should say what changed and why in a short imperative sentence, 
 
 The version lives in `palette.py` (`VERSION`) and follows [Semantic Versioning](https://semver.org/): a palette or behaviour change that alters how existing users' setups look is a minor or major bump, a fix is a patch. After changing the version, run the full build; it refreshes the README version badge, specification, website and versioned packages. Pushing a tag such as `v0.2.0` that matches `VERSION` builds a GitHub release with the theme files attached.
 
-- XFCE draft previews: `/usr/bin/python3 previews/xfce/render.py` needs GTK3 Python GI, Xvnc, Xfwm4, XFConf and dbus-run-session. It creates a private display, bus, configuration and theme directory, and captures only synthetic widgets. It never selects a theme on the user’s desktop.
+- XFCE previews: `/usr/bin/python3 previews/xfce/render.py` needs GTK3 Python GI, Xvnc, Xfwm4, XFConf and dbus-run-session. It creates a private display, bus, configuration and theme directory, and captures only synthetic widgets. It never selects a theme on the user’s desktop.
 
 - Window-button artwork: `/usr/bin/python3 tests/xfce-buttons.py` decodes every native state and writes an ignored enlarged review atlas. No live settings are changed.
 

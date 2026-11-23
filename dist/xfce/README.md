@@ -2,17 +2,17 @@
 
 Teal-ink widgets, magenta selection and matching window decorations for your existing XFCE desktop.
 
-![Native XFCE desktop and panel · dark draft · synthetic content](../../previews/xfce/desktop-dark.png)
-![Native XFCE desktop and panel · light draft · synthetic content](../../previews/xfce/desktop-light.png)
-![Native GTK3 controls and window decorations · dark draft · synthetic content](../../previews/xfce/controls-dark.png)
-![Native GTK3 controls and window decorations · light draft · synthetic content](../../previews/xfce/controls-light.png)
+![Native XFCE desktop and panel · dark · synthetic content](../../previews/xfce/desktop-dark.png)
+![Native XFCE desktop and panel · light · synthetic content](../../previews/xfce/desktop-light.png)
+![Native GTK3 controls and window decorations · dark · synthetic content](../../previews/xfce/controls-dark.png)
+![Native GTK3 controls and window decorations · light · synthetic content](../../previews/xfce/controls-light.png)
 
 ## Install
 
 The theme files:
 
-- [`Miami-Cruise-Dark.tar.gz`](Miami-Cruise-Dark.tar.gz): GTK3 + Xfwm4 · dark draft
-- [`Miami-Cruise-Light.tar.gz`](Miami-Cruise-Light.tar.gz): GTK3 + Xfwm4 · light draft
+- [`Miami-Cruise-Dark.tar.gz`](Miami-Cruise-Dark.tar.gz): GTK3 + Xfwm4 · dark
+- [`Miami-Cruise-Light.tar.gz`](Miami-Cruise-Light.tar.gz): GTK3 + Xfwm4 · light
 - [`miami-cruise-xfce-source.tar.gz`](miami-cruise-xfce-source.tar.gz): Corresponding source · GPL-2.0-or-later
 
 Each variant archive is a complete fixed-variant theme based on Greybird. The source archive is optional for rebuilding; do not extract it into your theme directory. No separate base theme installation required. Desktop theme files are GPL-2.0-or-later, not the collection’s MIT licence; attribution and licence texts are included.
@@ -31,7 +31,7 @@ tar -xzf Miami-Cruise-Light.tar.gz -C "$theme_dir"
 ```
 
 > [!NOTE]
-> If you downloaded only one variant, run only its extraction command. This draft targets GTK3 on XFCE; existing icons, cursors, fonts, wallpaper and panel layout stay unchanged.
+> If you downloaded only one variant, run only its extraction command. This theme targets GTK3 on XFCE; existing icons, cursors, fonts, wallpaper and panel layout stay unchanged.
 
 ### 2. Select the theme
 
@@ -52,7 +52,7 @@ Select your recorded previous styles in both settings windows. After switching a
 - **Variants:** dark and light
 - **Covers:** GTK3 controls, menus, Thunar, GTK-styled panel surfaces and Xfwm4 window decorations. Custom panel backgrounds may override theme colours
 - **Glow:** No; restrained focus outlines and the base theme’s shadows
-- **Tested:** Draft: GTK 3.24.52, Xfwm4 4.20.0, xfdesktop 4.20.2, xfce4-panel 4.20.8 and Thunar 4.20.10 in private Xvnc sessions: both variants and native desktop/panel/menu/widget states inspected; 162 measured control contrast checks passed. User desktop testing confirmed readability; HiDPI testing remains pending. No GTK2, GTK4/libadwaita or Qt coverage promised
+- **Tested:** GTK 3.24.52, Xfwm4 4.20.0, xfdesktop 4.20.2, xfce4-panel 4.20.8 and Thunar 4.20.10 in private Xvnc sessions: both variants and native desktop/panel/menu/widget states inspected; 162 measured control contrast checks passed. User desktop testing confirmed readability; HiDPI testing remains pending. No GTK2, GTK4/libadwaita or Qt coverage promised
 
 ## More
 
