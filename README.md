@@ -71,6 +71,7 @@ For agent-assisted setup, give your agent the [no-clone prompt in INSTALL.md](IN
 | Reading & monitoring | bat | [`dist/bat`](dist/bat) | Beta. Tested with bat 0.26.1 on Linux; macOS and Windows not tested |
 | Reading & monitoring | btop | [`dist/btop`](dist/btop) | Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested |
 | Reading & monitoring | Glow | [`dist/glow`](dist/glow) | Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed |
+| Desktop | XFCE | [`dist/xfce`](dist/xfce) | Draft · native checks and user desktop testing passed |
 | Browser & web | Brave | [`dist/brave`](dist/brave) | Local loading verified in Brave 156 on Linux; visible chrome not yet checked |
 | Browser & web | OpenClaw | [`dist/openclaw`](dist/openclaw) | User import verified; illustrative previews |
 | Browser & web | Web / CSS | [`dist/web`](dist/web) | Stable. The project's own website is built on it |
@@ -100,3 +101,5 @@ Contributions are welcome: bug reports, ports to new apps, and fixes. Read [CONT
 ## Licence
 
 [MIT](LICENSE). Free to use, change and share.
+
+The Greybird-derived XFCE desktop draft uses GPL-2.0-or-later; see [base attribution and licensing](vendor/greybird/README.md). Other original themes use MIT.

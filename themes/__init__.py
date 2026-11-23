@@ -16,6 +16,7 @@ GROUPS = {
     "Files & finding": "info",
     "Git & diffs": "orchid",
     "Reading & monitoring": "info",
+    "Desktop": "info",
     "Browser & web": "accent",
     "Design resources": "orchid",
 }

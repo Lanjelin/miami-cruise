@@ -13,3 +13,6 @@ Thumbs.db
 *~
 .idea/
 .vscode/
+
+# Isolated desktop diagnostic frames and measured-state reports
+previews/xfce/review/

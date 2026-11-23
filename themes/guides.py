@@ -66,7 +66,7 @@ def render_readme(app_id, g):
         f"- [Website page for {g['name']}]({SITE_URL}/apps/{app_id}.html)",
         "- [Palette and specification](../../docs/SPEC.md)",
         f"- [Report a problem]({REPO_URL}/issues/new/choose)",
-        "- [MIT licence](../../LICENSE)",
+        f"- [{g.get('license_label', 'MIT licence')}](../../{g.get('license_path', 'LICENSE')})",
         "",
     ]
     return "\n".join(out)

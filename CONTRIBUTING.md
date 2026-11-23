@@ -56,6 +56,16 @@ Commit messages should say what changed and why in a short imperative sentence, 
 
 The version lives in `palette.py` (`VERSION`) and follows [Semantic Versioning](https://semver.org/): a palette or behaviour change that alters how existing users' setups look is a minor or major bump, a fix is a patch. After changing the version, run the full build; it refreshes the README version badge, specification, website and versioned packages. Pushing a tag such as `v0.2.0` that matches `VERSION` builds a GitHub release with the theme files attached.
 
+- XFCE draft previews: `/usr/bin/python3 previews/xfce/render.py` needs GTK3 Python GI, Xvnc, Xfwm4, XFConf and dbus-run-session. It creates a private display, bus, configuration and theme directory, and captures only synthetic widgets. It never selects a theme on the user’s desktop.
+
+- Window-button artwork: `/usr/bin/python3 tests/xfce-buttons.py` decodes every native state and writes an ignored enlarged review atlas. No live settings are changed.
+
+- Focus and scrollbar checks: `/usr/bin/python3 tests/xfce-affordances.py` uses process-local GTK styles, checks keyboard focus and overlay scrollbar contrast, and does not change desktop settings.
+
+- Full native XFCE checks: `/usr/bin/python3 previews/xfce/desktop.py` also needs xfsettingsd, xfdesktop, xfce4-panel, Thunar, gdbus, xprop and libXtst. It uses private theme/settings/session state, synthetic files and a synthetic applications menu. It asserts measured control contrast and saves selected desktop/control gallery frames. Diagnostics stay in ignored `previews/xfce/review/`. `MIAMI_STALE_TEST=1` additionally demonstrates same-name CSS caching and the Appearance reload path; it never writes to the real desktop.
+
 ## Licence
 
-By contributing you agree that your work is released under the [MIT licence](LICENSE).
+The Greybird-derived XFCE desktop themes and vendored base retain GPL-2.0-or-later licensing; see [base attribution](vendor/greybird/README.md). Other original collection files use MIT.
+
+Original contributions use the [MIT licence](LICENSE); changes to vendored or derived material must retain its applicable upstream licence.

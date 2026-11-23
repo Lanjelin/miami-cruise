@@ -121,7 +121,7 @@ def page(title, desc, body, up="", current=""):
 {body}
 </main>
 <footer><div class="wrap">
-  <span>Miami Cruise v{VERSION} · MIT licence</span>
+  <span>Miami Cruise v{VERSION} · MIT; XFCE derivative GPL-2.0-or-later</span>
   <span><a href="{up}credits.html">App icon credits &amp; licences</a> · {('<a href="' + esc(REPO_URL) + '">Source</a>') if REPO_URL else ''}</span>
 </div></footer>
 <script src="{up}assets/app.js" defer></script>

@@ -4,7 +4,17 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Fixed
+- Clean antialiased XFCE window-button artwork, consistent active/inactive/hover/pressed states and an explicit restore-from-maximized symbol.
+- Translucent XFCE desktop drag-selection overlays in both variants, without changing icon-selection fills.
+- XFCE dark raised surfaces reuse existing palette tokens; clearer keyboard-focus outlines, entry borders and unfocused scrollbars in both variants.
+- XFCE draft readability pass with real isolated desktop/panel/Thunar coverage: readable tooltips, tabs, unfocused filenames, disabled controls and wallpaper-independent desktop labels; documented live CSS reload after same-name theme updates.
+- XFCE panel/taskbar buttons and labels now use explicit readable normal, hover, active, selected and disabled colours in both variants instead of inherited dark-panel styling.
+- XFCE draft desktop icon labels now have explicit readable foregrounds, wallpaper-preserving transparency, and selected/backdrop states instead of inheriting black text.
+
 ### Added
+- Native XFCE panel polish in both themes: flat resting plugin buttons, softened spacing and corners, neutral active buttons with magenta indicators. No automatic layout changes or extra dock dependency.
+- First-draft XFCE dark/light GTK3 and Xfwm4 packages based on pinned Greybird, with website downloads and consent-based install/restore guidance. Native dark/light desktop testing performed; icons, fonts and layout unchanged.
 - Reproducible illustrative OpenClaw dark/light UI previews using native theme colours and synthetic content, linked from the site and install guide.
 - Native OpenClaw Control UI personal-theme JSON with dark/light palettes, direct website download, and manual/agent import and restoration guides. User reported successful agent import; live rendering coverage not recorded.
 - Standardized shell screenshot identities to `miami@cruise`, with a shared preview-only fixture and identity checks.
