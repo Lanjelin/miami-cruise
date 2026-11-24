@@ -14,6 +14,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - XFCE desktop icon labels now have explicit readable foregrounds, wallpaper-preserving transparency, and selected/backdrop states instead of inheriting black text.
 
 ### Added
+- Optional Miami Coast Dark/Light wallpapers: approved AI-generated, super-resolution-upscaled 4K PNGs, website previews and downloads, MIT licensing, provenance and independent install/restore guidance. Builds copy fixed assets without image-generation dependencies.
 - Complete Candy-derived dark/light icon packs: all 3,860 upstream names and aliases, Miami Cruise paint and gradients, native galleries, website downloads, install/restore guidance and reproducible GPL-3.0 source. Embedded bitmap artwork is retained unchanged.
 - Native XFCE panel polish in both themes: flat resting plugin buttons, softened spacing and corners, neutral active buttons with magenta indicators. No automatic layout changes or extra dock dependency.
 - XFCE dark/light GTK3 and Xfwm4 packages based on pinned Greybird, with website downloads and consent-based install/restore guidance. Native dark/light desktop testing performed; icons, fonts and layout unchanged.

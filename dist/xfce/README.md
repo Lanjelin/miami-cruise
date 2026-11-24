@@ -33,6 +33,9 @@ tar -xzf Miami-Cruise-Light.tar.gz -C "$theme_dir"
 > [!NOTE]
 > If you downloaded only one variant, run only its extraction command. This theme targets GTK3 on XFCE; existing icons, cursors, fonts, wallpaper and panel layout stay unchanged.
 
+> [!NOTE]
+> For a matching background, see the <a href="https://lanjelin.github.io/miami-cruise/apps/wallpapers.html">optional Miami Coast wallpapers</a>. Wallpaper selection is separate and is never changed by installing this theme.
+
 ### 2. Select the theme
 
 First note your current choices in Settings → Appearance → Style and Settings → Window Manager → Style. Choose Miami-Cruise-Dark or Miami-Cruise-Light in both places. These are two independent settings; no automatic dark/light switching is configured.

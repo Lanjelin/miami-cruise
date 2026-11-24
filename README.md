@@ -72,6 +72,7 @@ For agent-assisted setup, give your agent the [no-clone prompt in INSTALL.md](IN
 | Reading & monitoring | btop | [`dist/btop`](dist/btop) | Beta. Tested with btop 1.4.8 on Linux; macOS and GPU monitoring not tested |
 | Reading & monitoring | Glow | [`dist/glow`](dist/glow) | Markdown verified with Glow 3.0.0 on Linux; browser/pager chrome is not themed |
 | Desktop | Candy icons | [`dist/icons`](dist/icons) | Native rendering and isolated XFCE desktop checks passed; user testing pending |
+| Desktop | Wallpapers | [`dist/wallpapers`](dist/wallpapers) | Dark and light 4K companions; user visually approved |
 | Desktop | XFCE | [`dist/xfce`](dist/xfce) | Native checks and user desktop testing passed |
 | Browser & web | Brave | [`dist/brave`](dist/brave) | Local loading verified in Brave 156 on Linux; visible chrome not yet checked |
 | Browser & web | OpenClaw | [`dist/openclaw`](dist/openclaw) | User import verified; illustrative previews |

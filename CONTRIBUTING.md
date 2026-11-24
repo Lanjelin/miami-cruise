@@ -68,6 +68,8 @@ The version lives in `palette.py` (`VERSION`) and follows [Semantic Versioning](
 
 - Real icon desktop review: `/usr/bin/python3 previews/icons/desktop.py` uses the same isolated XFCE tools as the desktop-theme fixtures. It checks both icon variants in xfdesktop, panel menus and Thunar; `--mode light` or `--mode dark` limits a rerun. Diagnostics stay ignored under `previews/icons/review/`. See [Arch/XFCE review](docs/testing/2026-11-24-candy-icons.md).
 
+- Wallpapers are fixed PNG assets under `wallpapers/`, copied byte-for-byte into `dist/` by `themes/wallpapers.py`. Builds must never regenerate them or download models. Refresh thumbnails with `sh previews/wallpapers/render.sh` (ImageMagick), then run the full build and `python3 tests/wallpapers.py`.
+
 ## Licence
 
 The Greybird-derived XFCE desktop themes and vendored base retain GPL-2.0-or-later licensing; see [base attribution](vendor/greybird/README.md). Candy-derived icons retain GPL-3.0; see [icon attribution](vendor/candy/README.md). Other original collection files use MIT.

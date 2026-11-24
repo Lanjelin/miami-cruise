@@ -1,0 +1,55 @@
+{
+  "name": "Miami Coast",
+  "license": "MIT",
+  "license_file": "../LICENSE",
+  "created": "2026-11-24",
+  "generation": "Built-in image generation tool; Dark referenced for Light composition",
+  "native_source_size": [
+    1672,
+    941
+  ],
+  "upscaler": {
+    "name": "Real-ESRGAN realesr-animevideov3",
+    "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-animevideov3.pth",
+    "sha256": "b8a8376811077954d82ca3fcf476f1ac3da3e8a68a4f4d71363008000a18b75d"
+  },
+  "processing": "Learned 4\u00d7 super-resolution, then Lanczos downsample to 3840 \u00d7 2160. No extra sharpening or colour grade.",
+  "assets": {
+    "miami-coast-dark-4k.png": {
+      "sha256": "337dffc40f306eb383677ddaa9eba40b07ac3a7c5ea60f69c3f143aabb592731",
+      "size": [
+        3840,
+        2160
+      ],
+      "source_sha256": "11be63f1ae67ec45dff7d07e1224e1c6dd04bf4fffe2785592e11342c61a73e6",
+      "tested_seam_max_pixel_difference": [
+        0,
+        0,
+        0
+      ],
+      "mean_rgb_shift_8bit": [
+        2.6328567467206767,
+        1.3779419849537007,
+        0.3861559606481535
+      ]
+    },
+    "miami-coast-light-4k.png": {
+      "sha256": "a5525a7561fa8179f62fb4e25f9670122f223f675368d21917dcf494b29cdd32",
+      "size": [
+        3840,
+        2160
+      ],
+      "source_sha256": "8143d17a73e9a9d40feff84cb4b10395123f92c23cbdbdaa7267f77d70c107e9",
+      "tested_seam_max_pixel_difference": [
+        0,
+        0,
+        0
+      ],
+      "mean_rgb_shift_8bit": [
+        2.6993736738040184,
+        4.448441840277781,
+        4.265720486111121
+      ]
+    }
+  }
+}
