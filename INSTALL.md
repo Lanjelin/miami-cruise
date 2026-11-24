@@ -81,6 +81,7 @@ version has been tested. Keep each human guide's compatibility limits visible.
 | btop | Native theme files and saved selection | [btop](docs/agent-install/btop.md) | [btop guide](dist/btop/README.md) |
 | Glow | Markdown stylesheet and existing style selection | [Glow](docs/agent-install/glow.md) | [Glow guide](dist/glow/README.md) |
 | XFCE | GTK3 theme folders and two independently restorable XFConf selections | [XFCE](docs/agent-install/xfce.md) | [XFCE guide](dist/xfce/README.md) |
+| Candy icons | Complete icon packs and independently approved selection | [Icons](docs/agent-install/icons.md) | [Icons guide](dist/icons/README.md) |
 | OpenClaw | Native personal-theme import and profile selection | [OpenClaw](docs/agent-install/openclaw.md) | [OpenClaw guide](dist/openclaw/README.md) |
 | Brave | File preparation, then manual browser-profile handoff | [Brave handoff](docs/agent-install/brave.md) | [Brave guide](dist/brave/README.md) |
 

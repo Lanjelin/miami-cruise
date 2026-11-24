@@ -64,8 +64,12 @@ The version lives in `palette.py` (`VERSION`) and follows [Semantic Versioning](
 
 - Full native XFCE checks: `/usr/bin/python3 previews/xfce/desktop.py` also needs xfsettingsd, xfdesktop, xfce4-panel, Thunar, gdbus, xprop and libXtst. It uses private theme/settings/session state, synthetic files and a synthetic applications menu. It asserts measured control contrast and saves selected desktop/control gallery frames. Diagnostics stay in ignored `previews/xfce/review/`. `MIAMI_STALE_TEST=1` additionally demonstrates same-name CSS caching and the Appearance reload path; it never writes to the real desktop.
 
+- Candy icon previews: `sh previews/icons/render.sh` needs GTK3 Python GI, GdkPixbuf SVG loading and Xvnc. It uses a private display and temporary config; no live desktop changes. `python3 tests/icons.py` checks full upstream coverage, geometry preservation, provenance and offline source rebuild. `/usr/bin/python3 tests/icons-native.py` decodes all generated artwork and checks representative GTK lookup at 16–128px.
+
+- Real icon desktop review: `/usr/bin/python3 previews/icons/desktop.py` uses the same isolated XFCE tools as the desktop-theme fixtures. It checks both icon variants in xfdesktop, panel menus and Thunar; `--mode light` or `--mode dark` limits a rerun. Diagnostics stay ignored under `previews/icons/review/`. See [Arch/XFCE review](docs/testing/2026-11-24-candy-icons.md).
+
 ## Licence
 
-The Greybird-derived XFCE desktop themes and vendored base retain GPL-2.0-or-later licensing; see [base attribution](vendor/greybird/README.md). Other original collection files use MIT.
+The Greybird-derived XFCE desktop themes and vendored base retain GPL-2.0-or-later licensing; see [base attribution](vendor/greybird/README.md). Candy-derived icons retain GPL-3.0; see [icon attribution](vendor/candy/README.md). Other original collection files use MIT.
 
 Original contributions use the [MIT licence](LICENSE); changes to vendored or derived material must retain its applicable upstream licence.

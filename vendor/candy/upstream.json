@@ -1,0 +1,12 @@
+{
+  "project": "Candy icons",
+  "creator": "EliverLara and contributors",
+  "license": "GPL-3.0",
+  "license_file": "LICENSE",
+  "license_url": "https://github.com/EliverLara/candy-icons/blob/750fe2ca7909a721179ec34336042b15808d8ab9/LICENSE",
+  "commit": "750fe2ca7909a721179ec34336042b15808d8ab9",
+  "source": "https://codeload.github.com/EliverLara/candy-icons/tar.gz/750fe2ca7909a721179ec34336042b15808d8ab9",
+  "sha256": "3d938b9ed524ca33ecb6448bb57c07db8c1ec99239c61eae228252b74a3e5e03",
+  "changes": "Original upstream archive preserved; generator recolours SVG paint only",
+  "checked": "2026-11-24"
+}

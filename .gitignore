@@ -16,3 +16,6 @@ Thumbs.db
 
 # Isolated desktop diagnostic frames and measured-state reports
 previews/xfce/review/
+
+# Private native icon desktop review frames
+previews/icons/review/

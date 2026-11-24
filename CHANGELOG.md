@@ -5,6 +5,7 @@ All notable changes to this project are documented here. The format follows [Kee
 ## [Unreleased]
 
 ### Fixed
+- Candy Light small-folder outlines use darker palette-derived paint for readability, verified in native Thunar alongside desktop, panel/menu and selected-state checks in both styles.
 - Clean antialiased XFCE window-button artwork, consistent active/inactive/hover/pressed states and an explicit restore-from-maximized symbol.
 - Translucent XFCE desktop drag-selection overlays in both variants, without changing icon-selection fills.
 - XFCE dark raised surfaces reuse existing palette tokens; clearer keyboard-focus outlines, entry borders and unfocused scrollbars in both variants.
@@ -13,6 +14,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - XFCE desktop icon labels now have explicit readable foregrounds, wallpaper-preserving transparency, and selected/backdrop states instead of inheriting black text.
 
 ### Added
+- Complete Candy-derived dark/light icon packs: all 3,860 upstream names and aliases, Miami Cruise paint and gradients, native galleries, website downloads, install/restore guidance and reproducible GPL-3.0 source. Embedded bitmap artwork is retained unchanged.
 - Native XFCE panel polish in both themes: flat resting plugin buttons, softened spacing and corners, neutral active buttons with magenta indicators. No automatic layout changes or extra dock dependency.
 - XFCE dark/light GTK3 and Xfwm4 packages based on pinned Greybird, with website downloads and consent-based install/restore guidance. Native dark/light desktop testing performed; icons, fonts and layout unchanged.
 - Reproducible illustrative OpenClaw dark/light UI previews using native theme colours and synthetic content, linked from the site and install guide.
